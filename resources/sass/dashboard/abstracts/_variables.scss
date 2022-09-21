@@ -1,0 +1,56 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+/// Regular font family
+/// @type List
+$text-font-stack: "Open Sans", "Helvetica Neue Light", "Helvetica Neue",
+    "Helvetica", "Arial", sans-serif !default;
+
+/// Code (monospace) font family
+/// @type List
+$code-font-stack: "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+    "Monaco", monospace !default;
+
+$brand-color: rgb(143, 64, 64);
+
+$white: #fff !default;
+$gray-100: #f8f9fc !default;
+$gray-200: #eaecf4 !default;
+$gray-300: #dddfeb !default;
+$gray-400: #d1d3e2 !default;
+$gray-500: #b7b9cc !default;
+$gray-600: #858796 !default;
+$gray-700: #6e707e !default;
+$gray-800: #5a5c69 !default;
+$gray-900: #3a3b45 !default;
+$black: #000 !default;
+
+$white-50: rgba($white, 0.5);
+
+/// Container's maximum width
+/// @type Length
+$max-width: 1180px !default;
+
+//font-size
+$c-font-xs: 0.7rem;
+$c-font-sm: 0.85rem;
+$c-font-nm: 1rem;
+$c-font-lg: 1.2rem;
+$c-font-xl: 31.25px;
+
+// custom color
+$white-50: rgba(255, 255, 255, 0.5);
+$bg-color: $gray-100;
+$text-color: $black;
+
+// Spacing Variables
+// Change below variable if the height of the navbar changes
+$topbar-base-height: 4.375rem !default;
+// Change below variable to change the width of the sidenav
+$sidebar-base-width: 14rem !default;
+// Change below variable to change the width of the sidenav when collapsed
+$sidebar-collapsed-width: 6.5rem !default;
+
+// shadow
+$shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);

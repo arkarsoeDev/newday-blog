@@ -1,0 +1,172 @@
+.sidebar {
+    width: $sidebar-base-width;
+    background-color: $dark;
+    min-height: 100vh;
+    z-index: 1041;
+
+    a {
+        @include on-event {
+            text-decoration: none;
+        }
+    }
+
+    .db-title {
+        color: $white;
+        .name {
+            display: none;
+
+            @include breakpoint(medium) {
+                display: inline-block;
+            }
+        }
+    }
+
+    .nav-item {
+        position: relative;
+
+        @include breakpoint(medium) {
+            position: static;
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            font-size: $c-font-nm;
+            text-align: left;
+
+            &.active {
+                color: $white;
+            }
+
+            & {
+                color: $white-50;
+
+                @include on-event {
+                    color: $white;
+                }
+            }
+
+            i {
+                margin-bottom: 0.5rem;
+                margin-right: 0.5rem;
+            }
+
+            &[data-bs-toggle="collapse"]::after {
+                content: "\f107";
+                width: 1rem;
+                text-align: center;
+                float: right;
+                vertical-align: 0;
+                border: 0;
+                font-weight: 900;
+                font-family: "Font Awesome 5 Free";
+                transition: transform 0.3s ease-in-out;
+            }
+
+            &[data-bs-toggle="collapse"][aria-expanded="true"] {
+                &::after {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+
+        .collapse-inner {
+            margin: 0 1rem 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .collapse-item {
+            display: block;
+            padding: 0.5rem 2.1rem;
+            color: $white-50;
+            transition: color 0.1s ease-in-out;
+            transition: background 0.1s ease-in-out;
+
+            @include on-event {
+                color: $white;
+            }
+        }
+    }
+
+    .sidebar-heading {
+        font-weight: bold;
+        font-size: $c-font-xs;
+        padding: 0 1rem;
+        margin: 0 0 1rem 0;
+        text-transform: uppercase;
+        text-align: left;
+    }
+
+    &.toggled {
+        width: 0;
+        display: none;
+
+        @include breakpoint(medium) {
+            width: $sidebar-collapsed-width;
+            display: block;
+        }
+
+        .db-title {
+            .name {
+                @include breakpoint(medium) {
+                    display: none;
+                }
+            }
+        }
+
+        .nav-item {
+            @include breakpoint(medium) {
+                position: relative;
+            }
+
+            .nav-link {
+                span {
+                    display: none;
+                }
+                @include breakpoint(medium) {
+                    text-align: center;
+                }
+
+                &[data-bs-toggle="collapse"] {
+                    &::after {
+                        @include breakpoint(medium) {
+                            content: none;
+                        }
+                    }
+                }
+            }
+
+            .collapse-inner {
+                @include breakpoint(medium) {
+                    position: absolute;
+                    top: 0;
+                    right: -9.4rem;
+                    box-shadow: $shadow;
+                    background-color: $white;
+                }
+            }
+
+            .collapse-item {
+                @include breakpoint(medium) {
+                    color: $black;
+
+                    @include on-event {
+                        background-color: $primary;
+                        color: $white;
+                    }
+                }
+            }
+
+            .collapsing {
+                transition: none;
+            }
+        }
+
+        .sidebar-heading {
+            @include breakpoint(medium) {
+                text-align: center;
+                padding: 0;
+            }
+        }
+    }
+}

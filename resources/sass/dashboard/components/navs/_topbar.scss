@@ -1,0 +1,181 @@
+.c-topbar {
+    min-height: $topbar-base-height;
+
+    i {
+        color: $gray-300;
+    }
+
+    input {
+        border: none;
+        background-color: $gray-100;
+        font-size: $c-font-sm;
+    }
+
+    &.navbar {
+        flex-wrap: nowrap;
+    }
+
+    .sidebar-toggler {
+        font-size: $c-font-sm;
+        padding: 0.5rem 0.75rem;
+        border-radius: 50%;
+
+        i {
+            color: $primary;
+        }
+
+        @include on-event {
+            outline: 2px solid $primary;
+        }
+    }
+
+    .navbar-search {
+        width: 25rem;
+    }
+
+    .nav-item {
+        position: static;
+        margin: 0 0.25rem;
+        @include breakpoint(small) {
+            position: relative;
+        }
+
+        .nav-link {
+            padding: 0 0.5rem;
+            height: $topbar-base-height;
+            display: flex;
+            align-items: center;
+
+            @include on-event {
+                cursor: pointer;
+                text-decoration: none;
+            }
+
+            @include breakpoint(small) {
+                padding: 0 1rem;
+            }
+        }
+    }
+
+    .navbar-nav {
+        .dropdown-menu {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            padding: 1rem;
+            border: none;
+            overflow: hidden;
+            float: none;
+
+            a {
+                @include on-event {
+                    text-decoration: none;
+                }
+            }
+
+            @include breakpoint(small) {
+                width: 20rem;
+                left: auto;
+                right: 0;
+                top: 100%;
+            }
+
+            &[data-bs-popper] {
+                @include breakpoint(small) {
+                    left: auto;
+                }
+            }
+
+            .dropdown-item {
+                padding: 0.5rem 1.5rem;
+                font-size: $c-font-sm;
+            }
+
+            &.avator-menu {
+                padding: 0.5rem 0;
+
+                @include breakpoint(small) {
+                    width: auto;
+                }
+
+                .dropdown-item {
+                    padding: 0.2rem 1.5rem;
+                    border-bottom: none;
+                }
+            }
+
+            &.dropdown-menu-list {
+                padding: 0;
+
+                .dropdown-header {
+                    text-transform: uppercase;
+                    font-size: $c-font-sm;
+                    font-weight: bold;
+                    padding: 1rem 2rem;
+                    border-bottom: 1px dashed $gray-200;
+                }
+
+                .dropdown-item {
+                    clear: both;
+                    white-space: normal;
+
+                    &:not(:last-child) {
+                        border-bottom: 1px solid $gray-400;
+                    }
+
+                    .icon {
+                        display: inline-block;
+                        text-align: center;
+                        line-height: 40px;
+                        color: $white;
+                        min-width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                    }
+
+                    .c-secondary-text {
+                        font-size: $c-font-xs;
+                        display: block;
+                        color: $gray-500;
+                    }
+
+                    .c-main-text {
+                        display: block;
+                        font-weight: bold;
+                    }
+
+                    .text-truncate {
+                        max-width: 10rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .avator-nav {
+        background-color: rgba($gray-200, 0.5);
+        border-left: 1px solid $gray-500;
+        border-right: 1px solid $gray-500;
+    }
+
+    .c-avator {
+        width: 30px;
+        height: 30px;
+        background-color: black;
+        border-radius: 50%;
+    }
+
+    .dropdown-divider {
+        height: 0;
+        margin: 0.5rem 0;
+        overflow: hidden;
+        border-top: 1px solid $gray-200;
+    }
+
+    .topbar-divider {
+        width: 0;
+        border-right: 1px solid $gray-300;
+        height: calc($topbar-base-height - 2rem);
+        margin: auto 1rem;
+    }
+}

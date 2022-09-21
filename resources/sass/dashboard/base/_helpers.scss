@@ -1,0 +1,163 @@
+// -----------------------------------------------------------------------------
+// This file contains CSS helper classes.
+// -----------------------------------------------------------------------------
+
+/**
+ * Clear inner floats
+ */
+.clearfix::after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+/**
+ * Main content containers
+ * 1. Make the container full-width with a maximum width
+ * 2. Center it in the viewport
+ * 3. Leave some space on the edges, especially valuable on small screens
+ */
+.container {
+    max-width: $max-width; /* 1 */
+    margin-left: auto; /* 2 */
+    margin-right: auto; /* 2 */
+    padding-left: 20px; /* 3 */
+    padding-right: 20px; /* 3 */
+    width: 100%; /* 1 */
+}
+
+/**
+ * Hide text while making it readable for screen readers
+ * 1. Needed in WebKit-based browsers because of an implementation bug;
+ *    See: https://code.google.com/p/chromium/issues/detail?id=457146
+ */
+.hide-text {
+    overflow: hidden;
+    padding: 0; /* 1 */
+    text-indent: 101%;
+    white-space: nowrap;
+}
+
+/**
+ * Hide element while making it readable for screen readers
+ * Shamelessly borrowed from HTML5Boilerplate:
+ * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
+ */
+.visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.rotate-n-15 {
+    transform: rotate(-15deg);
+}
+
+.sidebar-divider {
+    border-top: 1px solid rgba($gray-500, 0.5);
+    margin: 0 1rem 1rem;
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5;
+    background-color: #313a46;
+
+    @include breakpoint(medium) {
+        display: none;
+    }
+
+    &.hide {
+        display: none;
+    }
+}
+
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+//text
+
+.text-xs {
+    font-size: $c-font-xs;
+}
+
+.text-sm {
+    font-size: $c-font-sm;
+}
+
+.text-lg {
+    font-size: $c-font-lg;
+}
+
+.text-gray-100 {
+    color: $gray-100 !important;
+}
+
+.text-gray-200 {
+    color: $gray-200 !important;
+}
+
+.text-gray-300 {
+    color: $gray-300 !important;
+}
+
+.text-gray-400 {
+    color: $gray-400 !important;
+}
+
+.text-gray-500 {
+    color: $gray-500 !important;
+}
+
+.text-gray-600 {
+    color: $gray-600 !important;
+}
+
+.text-gray-700 {
+    color: $gray-700 !important;
+}
+
+.text-gray-800 {
+    color: $gray-800 !important;
+}
+
+.text-gray-900 {
+    color: $gray-900 !important;
+}
+
+.icon-circle {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// borders
+@each $color, $value in $theme-colors {
+    @each $position in [ "left", "bottom" ] {
+        .border-#{$position}-#{$color} {
+            border-#{$position}: 0.25rem solid $value !important;
+        }
+    }
+}
+
+// width
+
+.c-mw-2 {
+    min-width: 200px;
+}

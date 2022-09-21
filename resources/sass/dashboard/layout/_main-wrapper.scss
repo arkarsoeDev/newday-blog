@@ -1,0 +1,19 @@
+.main-wrapper {
+    min-height: 100vh;
+    &.toggled {
+        .content-wrapper {
+            @include breakpoint(medium) {
+                margin-left: $sidebar-collapsed-width;
+            }
+        }
+    }
+    .content-wrapper {
+        background-color: $gray-100;
+        overflow-x: hidden;
+        min-height: 100vh;
+
+        @include breakpoint(medium) {
+            margin-left: $sidebar-base-width;
+        }
+    }
+}
