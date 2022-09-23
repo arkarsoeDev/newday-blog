@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +17,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+
+Route::middleware('auth')->prefix('dashboard')->group(function () {
+    Route::get('/', [PageController::class, 'dashboard'])->name('page.dashboard');
+
+    Route::resource('/post', PostController::class, ['as' => 'dashboard'])->parameter('post', 'post:slug');
+    Route::resource('/category', CategoryController::class, ['as' => 'dashboard']);
+    Route::resource('/user', UserController::class, ['as' => 'dashboard']);
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/', [PageController::class, 'index'])->name('page.index');
+Route::post('/posts', [PageController::class, 'posts'])->name('page.posts');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -49,6 +49,16 @@
             @include on-event {
                 cursor: pointer;
                 text-decoration: none;
+
+                i {
+                    color: $primary;
+                }
+            }
+
+            &[aria-expanded="true"] {
+                i {
+                    color: $primary;
+                }
             }
 
             @include breakpoint(small) {

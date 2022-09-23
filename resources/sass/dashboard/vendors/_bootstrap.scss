@@ -5,7 +5,10 @@
 
 // 2. Include any default variable overrides here
 $primary: rgba(114,124,245);
-$input-bg: $gray-100;
+
+// form specific
+$input-bg: $gray-200;   
+$input-group-addon-bg: $gray-400;
 
 // 3. Include remainder of required Bootstrap stylesheets
 @import "bootstrap/scss/_variables.scss";

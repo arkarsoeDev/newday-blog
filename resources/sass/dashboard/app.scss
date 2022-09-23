@@ -31,12 +31,13 @@
 @import
   'components/navs/sidebar',
   'components/navs/topbar',
-  'components/card',
-  // 'components/c-collapse',
+  'components/table',
+  'components/c-card',
   'components/button';
 
 // 6. Page-specific styles
 @import
+  'pages/post/edit.scss',
   'pages/home';
 
 // 7. Themes

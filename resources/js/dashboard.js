@@ -1,8 +1,8 @@
-// sidebar toggler
-import './bootstrap';
+import * as bootstrap from 'bootstrap';
 
 ("use strict");
 
+// sidebar toggler
 let sidebarToggleTop = document.querySelector("#sidebarToggleTop");
 let wrapper = document.querySelector(".main-wrapper");
 let sidebar = document.querySelector(".sidebar");
