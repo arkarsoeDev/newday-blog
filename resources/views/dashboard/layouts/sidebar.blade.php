@@ -29,4 +29,11 @@
         <a class="collapse-item" href="{{ route('dashboard.post.create') }}">Add Post</a>
 
     </x-dashboard.sidebar.collapse-link>
+
+    <x-dashboard.sidebar.collapse-link title="Category" icon="bi bi-list" target="#CategoryCollapse"
+        id="CategoryCollapse" active="{{ Str::contains(request()->path(), 'dashboard/category') }}">
+        <a class="collapse-item" href="{{ route('dashboard.category.index') }}">Categorys</a>
+        <a class="collapse-item" href="{{ route('dashboard.category.create') }}">Add Category</a>
+
+    </x-dashboard.sidebar.collapse-link>
 </ul>

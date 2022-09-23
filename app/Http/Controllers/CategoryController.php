@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+
 
 class CategoryController extends Controller
 {
@@ -15,7 +18,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::with(['user'])->get();
+        return view('dashboard.categories.index', compact('categories'));
     }
 
     /**
@@ -25,7 +29,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view("dashboard.categories.create");
     }
 
     /**
@@ -36,7 +40,13 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $category = new Category();
+        $category->title = $request->title;
+        $category->slug = Str::slug($request->title);
+        $category->user_id = Auth::id();
+        $category->save();
+
+        return redirect()->route('dashboard.category.index')->with("status", $category->title . " is added successfully.");
     }
 
     /**
@@ -58,7 +68,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('dashboard.categories.edit', compact('category'));
     }
 
     /**
@@ -70,7 +80,11 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $category->title = $request->title;
+        $category->slug = Str::slug($request->title);
+        $category->update();
+
+        return redirect()->route('dashboard.category.index')->with("status", $category->title . " is  updated successfully.");
     }
 
     /**
@@ -81,6 +95,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $title = $category->title;
+        $category->delete();
+
+        return redirect()->route('dashboard.category.index')->with("status", $title . " is  deleted successfully.");
     }
 }
