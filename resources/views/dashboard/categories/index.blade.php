@@ -10,10 +10,12 @@
                             Category List
                         </h2>
                         <div class="flex-fill"></div>
-                        <div class="d-none d-sm-block">
-                            <a href="{{ route('dashboard.category.create') }}" class="btn btn-outline-primary"><i
-                                    class="bi bi-plus-circle"></i></a>
-                        </div>
+                        @can('create', App\Models\Category::class)
+                            <div class="d-none d-sm-block">
+                                <a href="{{ route('dashboard.category.create') }}" class="btn btn-outline-primary"><i
+                                        class="bi bi-plus-circle"></i></a>
+                            </div>
+                        @endcan
                     </div>
                     <div class="table-responsive mt-3">
                         <table class="table table-bordered table-hover align-middle">
@@ -39,16 +41,20 @@
                                             {{ $category->user->name }}
                                         </td>
                                         <td class="text-nowrap">
-                                            <a href="{{ route('dashboard.category.edit', $category->id) }}"
-                                                class="btn btn-sm btn-outline-success"><i
-                                                    class="bi bi-pencil-square"></i></a>
-                                            <form action="{{ route('dashboard.category.destroy', $category->id) }}"
-                                                class="d-inline-block" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-sm btn-outline-danger"><i
-                                                        class="bi bi-trash"></i></button>
-                                            </form>
+                                            @canany(['update', 'delete'], $category)
+                                                <a href="{{ route('dashboard.category.edit', $category->id) }}"
+                                                    class="btn btn-sm btn-outline-success"><i
+                                                        class="bi bi-pencil-square"></i></a>
+                                                <form action="{{ route('dashboard.category.destroy', $category->id) }}"
+                                                    class="d-inline-block" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger"><i
+                                                            class="bi bi-trash"></i></button>
+                                                </form>
+                                            @else
+                                            <span class="text-warning">Not authorize</span>
+                                            @endcanany
                                         </td>
                                         <td class="text-nowrap">
                                             <p class="small mb-1 text-black-50">
