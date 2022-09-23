@@ -140,9 +140,11 @@
                 @include breakpoint(medium) {
                     position: absolute;
                     top: 0;
-                    right: -9rem;
+                    left: $sidebar-collapsed-width - 1rem;
                     box-shadow: $shadow;
                     background-color: $white;
+                    width: max-content;
+                    border: 1px solid $gray-200;
                 }
             }
 

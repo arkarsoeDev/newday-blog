@@ -105,13 +105,13 @@
                 </a>
             </div>
         </li>
-        <li class="nav-item dropdown avator-nav">
-            <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item dropdown avatar-nav">
+            <a class="nav-link justify-content-center" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="text-sm d-none d-lg-inline-block me-2">{{ Auth::user()->name }}</span>
-                <div class="c-avator"></div>
+                <div class="c-avatar"></div>
             </a>
-            <div class="dropdown-menu avator-menu shadow">
-                <a href="" class="dropdown-item d-flex align-items-center">
+            <div class="dropdown-menu avatar-menu shadow">
+                {{-- <a href="" class="dropdown-item d-flex align-items-center">
                     <i class="bi bi-person me-3"></i>
                     <span class="">Profile</span>
                 </a>
@@ -123,7 +123,7 @@
                     <i class="bi bi-list me-3"></i>
                     <span class="">Acitivity log</span>
                 </a>
-                <div class="dropdown-divider"></div>
+                <div class="dropdown-divider"></div> --}}
 
                 <form class="dropdown-item d-flex align-items-center" action="{{ route('logout') }}" method="post">
                     @csrf

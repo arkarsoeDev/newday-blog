@@ -101,11 +101,11 @@
                 font-size: $c-font-sm;
             }
 
-            &.avator-menu {
+            &.avatar-menu {
                 padding: 0.5rem 0;
 
                 @include breakpoint(small) {
-                    width: auto;
+                    width: inherit;
                 }
 
                 .dropdown-item {
@@ -162,13 +162,14 @@
         }
     }
 
-    .avator-nav {
+    .avatar-nav {
+        width: rem(160);
         background-color: rgba($gray-200, 0.5);
         border-left: 1px solid $gray-500;
         border-right: 1px solid $gray-500;
     }
 
-    .c-avator {
+    .c-avatar {
         width: 30px;
         height: 30px;
         background-color: black;

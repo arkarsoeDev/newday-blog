@@ -32,7 +32,7 @@ sidebarToggleTop.addEventListener("click", function () {
     document.querySelector(".backdrop").classList.toggle("hide");
 });
 
-document.addEventListener("click", function () {
+document.addEventListener("click", function (event) {
     if (event.target.classList.contains("backdrop")) {
         sidebar.classList.toggle("toggled");
         wrapper.classList.toggle("toggled");
