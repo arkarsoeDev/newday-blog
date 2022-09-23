@@ -10,15 +10,15 @@
                             Users List
                         </h2>
                         <div class="flex-fill"></div>
-                        {{-- <form class="d-sm-inline-block me-sm-3 mb-3 mb-sm-0">
+                        <form action="{{ route('dashboard.user.index') }}" class="d-sm-inline-block me-sm-3 mb-3 mb-sm-0">
                             <div class="input-group w-auto">
-                                <input type="text" class="form-control" placeholder="notification"
-                                    aria-label="Recipient's username" aria-describedby="button-addon2" />
-                                <button class="btn btn-primary" type="button" id="button-addon2">
+                                <input type="text" class="form-control" name="keyword" placeholder="Search keyword"
+                                    aria-label="search keyword" aria-describedby="userSearchBtn" />
+                                <button class="btn btn-primary" type="submit" id="userSearchBtn">
                                     <i class="bi bi-search text-gray-300"></i>
                                 </button>
                             </div>
-                        </form> --}}
+                        </form>
                         <div class="d-none d-sm-block">
                             <a href="{{ route('dashboard.user.create') }}" class="btn btn-outline-primary"><i
                                     class="bi bi-plus-circle"></i></a>

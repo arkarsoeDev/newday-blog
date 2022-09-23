@@ -18,7 +18,12 @@ class UserController extends Controller
     public function index()
     {
         $roles = ['admin', 'editor', 'author'];
-        $users = User::paginate(10);
+
+        $users = User::when(request('keyword'), function ($q) {
+            $keyword = request('keyword');
+            $q->orWhere("name", "like", "%$keyword%")->orWhere("email", "like", "%$keyword%");
+        })->paginate(10)->withQueryString();
+
         return view('dashboard.users.index', compact('users', 'roles'));
     }
 

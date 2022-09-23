@@ -18,7 +18,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest('id')->with(['category', 'user'])->paginate(15);
+        $posts = Post::when(request('keyword'), function ($q) {
+            $keyword = request('keyword');
+            $q->orwhere('title', "like", "%$keyword%")->orWhere("description", "like", "%$keyword%");
+        })->latest('id')->with(['category', 'user'])->paginate(15)->withQueryString();
+
         return view('dashboard.posts.index', compact('posts'));
     }
 
