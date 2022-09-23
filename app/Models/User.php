@@ -45,6 +45,11 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
+        return Auth::user()->role === "0";
+    }
+
+    public function isEditor()
+    {
         return Auth::user()->role === "1";
     }
 

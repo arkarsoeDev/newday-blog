@@ -10,6 +10,13 @@ class PostPolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user)
+    {
+        if ($user->isAdmin() || $user->isEditor()) {
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view any models.
      *
@@ -18,7 +25,7 @@ class PostPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->isAuthor();
     }
 
     /**
@@ -41,7 +48,7 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isAuthor();
     }
 
     /**
@@ -53,7 +60,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        //
+        return $user->id === $post->user_id;
     }
 
     /**
@@ -65,7 +72,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        //
+        return $user->id === $post->user_id;
     }
 
     /**

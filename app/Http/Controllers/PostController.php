@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Post::class, 'post');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +23,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::when(request('keyword'), function ($q) {
-            $keyword = request('keyword');
-            $q->orwhere('title', "like", "%$keyword%")->orWhere("description", "like", "%$keyword%");
+        $posts = Post::when(request()->user()->isAuthor(), function ($q) {
+            $q->where("user_id", request()->user()->id);
+        })->when(request('keyword'), function ($q) {
+            $q->where(function ($query) {
+                $keyword = request('keyword');
+                $query->orwhere('title', "like", "%$keyword%")->orWhere("description", "like", "%$keyword%");
+            });
         })->latest('id')->with(['category', 'user'])->paginate(15)->withQueryString();
 
         return view('dashboard.posts.index', compact('posts'));
