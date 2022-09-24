@@ -33,7 +33,9 @@
     <x-dashboard.sidebar.collapse-link title="Category" icon="bi bi-list" target="#CategoryCollapse"
         id="CategoryCollapse" active="{{ Str::contains(request()->path(), 'dashboard/category') }}">
         <a class="collapse-item" href="{{ route('dashboard.category.index') }}">Categories</a>
+        @can('create', App\Models\Category::class)
         <a class="collapse-item" href="{{ route('dashboard.category.create') }}">Add Category</a>
+        @endcan
 
-    </x-dashboard.sidebar.collapse-link>
-</ul>
+        </x-dashboard.sidebar.collapse-link>
+    </ul>

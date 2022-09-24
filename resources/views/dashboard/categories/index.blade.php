@@ -53,7 +53,7 @@
                                                             class="bi bi-trash"></i></button>
                                                 </form>
                                             @else
-                                            <span class="text-warning">Not authorize</span>
+                                                <span class="text-bg-warning">Not authorize</span>
                                             @endcanany
                                         </td>
                                         <td class="text-nowrap">

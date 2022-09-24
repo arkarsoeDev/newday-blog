@@ -12,7 +12,7 @@ class CategoryPolicy
 
     public function before(User $user)
     {
-        if ($user->role < 2) {
+        if ($user->isAdmin() || $user->isEditor()) {
             return true;
         }
     }
@@ -48,7 +48,7 @@ class CategoryPolicy
      */
     public function create(User $user)
     {
-        return $user->isAuthor();
+        //
     }
 
     /**
@@ -60,7 +60,7 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category)
     {
-        return $user->id == $category->user_id;
+        //
     }
 
     /**
@@ -72,7 +72,7 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category)
     {
-        return $user->id == $category->user_id;
+        //
     }
 
     /**
