@@ -57,4 +57,11 @@ class User extends Authenticatable
     {
         return Auth::user()->role === "2";
     }
+
+    public function postComments()
+    {
+        return $this->hasManyThrough(Comment::class, Post::class);
+    }
+
+    
 }

@@ -16,12 +16,13 @@
 
     <div class="sidebar-heading text-white-50">Manage</div>
 
-    <x-dashboard.sidebar.collapse-link title="User" icon="bi bi-people-fill" target="#UserCollapse" id="UserCollapse"
-        active="{{ Str::contains(request()->path(), 'dashboard/user') }}">
-        <a class="collapse-item" href="{{ route('dashboard.user.index') }}">Users</a>
-        <a class="collapse-item" href="{{ route('dashboard.user.create') }}">Add User</a>
-
-    </x-dashboard.sidebar.collapse-link>
+    @admin
+        <x-dashboard.sidebar.collapse-link title="User" icon="bi bi-people-fill" target="#UserCollapse" id="UserCollapse"
+            active="{{ Str::contains(request()->path(), 'dashboard/user') }}">
+            <a class="collapse-item" href="{{ route('dashboard.user.index') }}">Users</a>
+            <a class="collapse-item" href="{{ route('dashboard.user.create') }}">Add User</a>
+        </x-dashboard.sidebar.collapse-link>
+    @endadmin
 
     <x-dashboard.sidebar.collapse-link title="Post" icon="bi bi-newspaper" target="#PostCollapse" id="PostCollapse"
         active="{{ Str::contains(request()->path(), 'dashboard/post') }}">
@@ -34,8 +35,15 @@
         id="CategoryCollapse" active="{{ Str::contains(request()->path(), 'dashboard/category') }}">
         <a class="collapse-item" href="{{ route('dashboard.category.index') }}">Categories</a>
         @can('create', App\Models\Category::class)
-        <a class="collapse-item" href="{{ route('dashboard.category.create') }}">Add Category</a>
+            <a class="collapse-item" href="{{ route('dashboard.category.create') }}">Add Category</a>
         @endcan
 
-        </x-dashboard.sidebar.collapse-link>
-    </ul>
+    </x-dashboard.sidebar.collapse-link>
+
+    <li class="nav-item mb-2">
+        <a class="nav-link" aria-current="page" href="{{ route('dashboard.comment.index') }}"><i
+                class="bi bi-chat"></i>
+            <span>Comments</span></a>
+    </li>
+
+</ul>

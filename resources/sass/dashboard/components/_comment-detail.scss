@@ -1,0 +1,10 @@
+.comment-detail {
+   &__info {
+      color: $primary;
+      font-weight: bold;
+   }
+
+   &__comment-container {
+      background-color: $gray-200;
+   }
+}

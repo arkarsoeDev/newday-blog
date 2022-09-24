@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -26,8 +27,13 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 
     Route::resource('/post', PostController::class, ['as' => 'dashboard'])->parameter('post', 'post:slug');
     Route::resource('/category', CategoryController::class, ['as' => 'dashboard']);
-    Route::resource('/user', UserController::class, ['as' => 'dashboard']);
+    Route::resource('/user', UserController::class, ['as' => 'dashboard'])->middleware('admin');
+    Route::resource('/comment', CommentController::class, ['as' => 'dashboard']);
 });
+
+// Route::delete('/comment', [CommentController::class, 'delete']);
+// Route::post('/comment', [CommentController::class, 'create']);
+// Route::get('/comment', [CommentController::class, 'index']);
 
 Route::get('/', [PageController::class, 'index'])->name('page.index');
 Route::post('/posts', [PageController::class, 'posts'])->name('page.posts');

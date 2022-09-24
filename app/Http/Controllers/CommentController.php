@@ -15,7 +15,13 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::when(request()->user()->isAuthor(), function () {
+            return request()->user()->postComments();
+        })->when(request('keyword'), function ($q) {
+            $keyword = request('keyword');
+            $q->where("body", "like", "%$keyword%");
+        })->latest('id')->with(['user'])->paginate(10)->withQueryString();
+        return view('dashboard.comments.index', compact('comments'));
     }
 
     /**
@@ -47,7 +53,7 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        return view('dashboard.comments.comment',compact('comment'));
     }
 
     /**
