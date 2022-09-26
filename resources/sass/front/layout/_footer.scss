@@ -1,0 +1,10 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the footer of the site/application.
+// -----------------------------------------------------------------------------
+.footer {
+   font-size: $c-font-sm;
+
+   @include breakpoint(large) {
+      font-size: $c-font-lg;
+   }
+}

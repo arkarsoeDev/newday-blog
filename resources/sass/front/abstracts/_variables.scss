@@ -1,0 +1,61 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+/// Regular font family
+/// @type List
+$text-font-stack: "Nunito", "Open Sans", "Helvetica Neue Light",
+    "Helvetica Neue", "Helvetica", "Arial", sans-serif !default;
+
+/// Code (monospace) font family
+/// @type List
+$code-font-stack: "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+    "Monaco", monospace !default;
+
+/// Copy text color
+/// @type Color
+$text-color: rgb(34, 34, 34) !default;
+
+/// Main brand color
+/// @type Color
+$brand-color: rgb(229, 0, 80) !default;
+
+/// extra Light grey
+/// @type Color
+$xlight-grey: rgb(246, 246, 246) !default;
+
+/// Light grey
+/// @type Color
+$light-grey: rgb(237, 237, 237) !default;
+
+/// normal grey
+/// @type Color
+$normal-grey: rgb(200, 200, 200) !default;
+
+/// Medium grey
+/// @type Color
+$mid-grey: rgb(153, 153, 153) !default;
+
+/// Dark grey
+/// @type Color
+$dark-grey: rgb(68, 68, 68) !default;
+
+/// Container's maximum width
+/// @type Length
+$max-width: 1180px !default;
+
+//font-size
+$c-font-xxs: 12px;
+$c-font-xs: 14px;
+$c-font-sm: 16px;
+$c-font-nm: 18px;
+$c-font-lg: 22px;
+$c-font-xl: 25px;
+$c-font-xxl: 31.25px;
+
+//custom color
+$white: hsl(0, 0%, 100%);
+$dark: hsl(0, 0%, 0%);
+
+$support-color: rgba(255, 255, 0, 0.534);
+$bg-color: $white;

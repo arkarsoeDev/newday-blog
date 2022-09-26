@@ -36,6 +36,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 // Route::get('/comment', [CommentController::class, 'index']);
 
 Route::get('/', [PageController::class, 'index'])->name('page.index');
-Route::post('/posts', [PageController::class, 'posts'])->name('page.posts');
+Route::get('/posts', [PageController::class, 'posts'])->name('page.posts');
+Route::get('/posts/{post:slug}', [PageController::class, 'post'])->name('page.post');
 
 require __DIR__ . '/auth.php';

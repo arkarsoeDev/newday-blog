@@ -1,0 +1,66 @@
+$fontf-post-title: "Barlow", sans-serif;
+
+.post {
+    min-width: 280px;
+    height: auto;
+
+    &__info-container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+        font-size: $c-font-sm;
+
+        @include breakpoint(small) {
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+        }
+    }
+
+    &__title {
+        font-family: $fontf-post-title;
+        margin-bottom: 0.5rem;
+    }
+
+    &__para {
+        text-indent: 30%;
+        white-space: pre-wrap;
+        overflow: hidden;
+        line-height: 1.8rem;    
+        text-align: justify;
+        @include breakpoint(medium) {
+            font-size: $c-font-nm;
+        }
+    }
+
+    &__img {
+        min-width: 280px;
+        width: 530px;
+        min-height: 160px;
+        height: 200px;
+        border-radius: $border-radius;
+
+        @include breakpoint(small) {
+            min-width: 540px;
+            width: 951px;
+            min-height: 160px;
+            height: 350px;
+        }
+    }
+
+    &__info {
+        display: flex-end;
+        align-items: center;
+        color: $primary;
+
+        span:not(:last-child) {
+            margin-right: 8px;
+        }
+    }
+
+    &__category {
+        font-size: $c-font-sm;
+    }
+
+    
+}

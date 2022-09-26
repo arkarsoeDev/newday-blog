@@ -1,0 +1,15 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+.c-btn-link {
+    font-size: $c-font-lg;
+    text-transform: capitalize;
+    text-decoration: underline;
+    font-weight: bold;
+    color: $dark;
+
+    @include on-event {
+        cursor: pointer;
+        color: $primary;
+    }
+}

@@ -1,0 +1,11 @@
+.navbar {
+   font-size: $c-font-nm;
+    .navbar-brand {
+        font-family: Mogen;
+        font-size: $c-font-lg;
+
+        @include breakpoint(medium) {
+            font-size: $c-font-xxl;
+        }
+    }
+}

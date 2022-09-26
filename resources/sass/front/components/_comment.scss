@@ -1,0 +1,28 @@
+.comment {
+    background-color: $light-grey;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: $border-radius;
+
+    &__date {
+        font-size: $c-font-sm;
+        font-weight: bold;
+        text-align: right;
+    }
+
+    &__content {
+        margin-left: 40px;
+    }
+
+    &__avatar {
+        min-width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        border-radius: $border-radius-pill;
+        background-color: black;
+    }
+
+    &__text {
+        font-size: $c-font-sm;
+    }
+}

@@ -1,0 +1,277 @@
+// if u want to use specific, these are the variables that need to be set.
+// $border-radius
+// for color -- $secondary, $mid-grey
+// for font-size -- $c-font-lg, $c-font-sm, $c-font-nm, $c-font-xl
+$fontf-card-title: "Roboto", sans-serif;
+
+.c-card {
+    min-width: 280px;
+    min-height: 330px;
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 1.75rem;
+    border-radius: $border-radius;
+    border: 1px solid transparent;
+    padding: 0.5rem;
+
+    & * {
+        color: $black;
+        font-size: $c-font-xxs;
+
+        @include breakpoint(medium) {
+            font-size: $c-font-xs;
+        }
+
+        @include breakpoint(xlarge) {
+            font-size: $c-font-nm;
+        }
+    }
+
+    @include breakpoint(small) {
+        min-width: 250px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    @include on-event {
+        background-color: $light-grey;
+        border: 1px solid $normal-grey;
+    }
+
+    &__img {
+        min-width: 260px;
+        width: 100%;
+        height: 150px;
+        border-radius: $border-radius;
+        margin-bottom: 4px;
+
+        @include breakpoint(small) {
+            min-width: 200px;
+        }
+
+        @include breakpoint(large) {
+            height: 200px;
+        }
+    }
+
+    &__category {
+        color: white;
+        margin-bottom: 0;
+        span:not(:last-child) {
+            margin-right: 10px;
+        }
+
+        @include breakpoint(medium) {
+            font-size: $c-font-xs;
+        }
+    }
+
+    &__title {
+        font-size: $c-font-nm;
+        font-family: $fontf-card-title;
+        font-weight: 500;
+        color: $primary;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        line-height: 1.8rem;
+        height: 3.6rem;
+        overflow: hidden;
+
+        @include breakpoint(medium) {
+            font-size: $c-font-lg;
+        }
+
+        @include breakpoint(xlarge) {
+            font-size: $c-font-xl;
+        }
+    }
+
+    &__excerpt {
+        margin-bottom: 1rem;
+        line-height: 1.2rem;
+        height: 3.6rem;
+        overflow: hidden;
+        word-wrap: break-word;
+
+        @include breakpoint(large) {
+            line-height: 1.5rem;
+            height: 4.5rem;
+        }
+    }
+
+    &__info {
+        font-size: $c-font-sm;
+    }
+
+    &__figure {
+        margin-bottom: 0.5rem;
+    }
+
+    &__figure-caption {
+        font-size: $c-font-xxs;
+        color: $dark-grey;
+    }
+
+    &--small {
+        min-height: 120px;
+        min-width: 280px;
+
+        @include breakpoint(small) {
+            min-width: 340px;
+            display: flex;
+            gap: 10px;
+            min-height: auto;
+        }
+
+        @include breakpoint(large) {
+            min-width: 280px;
+            display: inline-block;
+            gap: 0;
+        }
+
+        &.c-card {
+            padding: 0;
+
+            @include on-event {
+                cursor: default;
+                background-color: $white;
+                border: 1px solid transparent;
+
+                .c-card__title {
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .c-card {
+
+            &__category {
+                margin-top: 0.5rem;
+
+                @include breakpoint(small) {
+                    margin-top: 0;
+                }
+
+                @include breakpoint(large) {
+                    margin-top: 0.5rem;
+                }
+            }
+
+            &__title {
+                font-size: $c-font-nm;
+                margin-bottom: 0.5rem;
+                height: auto;
+
+                @include on-event {
+                    cursor: pointer;
+                    text-decoration: underline !important;
+                }
+            }
+
+            &__excert {
+                font-size: $c-font-xs;
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &--large {
+        &.c-card {
+            @include breakpoint(large) {
+                width: 100%;
+                min-height: 300px;
+                display: flex;
+                flex-flow: row-reverse;
+                justify-content: space-between;
+            }
+        }
+
+        .c-card {
+            &__img {
+                @include breakpoint(large) {
+                    min-width: 400px;
+                    min-height: 300px;
+                }
+            }
+
+            &__body {
+                @include breakpoint(large) {
+                    width: 50%;
+                    padding-right: 10%;
+                    display: flex;
+                    flex-flow: column;
+                }
+            }
+
+            &__category {
+                @include breakpoint(large) {
+                    margin-top: 0;
+                }
+            }
+
+            &__title {
+                @include breakpoint(large) {
+                    line-height: 2.5rem;
+                    height: 5rem;
+                    font-size: $c-font-xxl;
+                }
+            }
+        }
+    }
+
+    &--horizontal {
+        &.c-card {
+            @include breakpoint(large) {
+                width: 100%;
+                min-height: 200px;
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .c-card {
+            &__img {
+                @include breakpoint(large) {
+                    min-width: 200px;
+                    max-width: 200px;
+                    height: 200px;
+                    margin-right: 1rem;
+                    margin-bottom: 0;
+                }
+            }
+
+            &__figure {
+                @include breakpoint(large) {
+                    margin-top: auto;
+                    margin-bottom: auto;
+                }
+            }
+
+            &__title {
+                @include breakpoint(large) {
+                    margin-top: 0;
+                    font-size: $c-font-lg;
+                }
+            }
+
+            &__body {
+                @include breakpoint(large) {
+                    width: calc(100% - 216px);
+                }
+
+                @include breakpoint(small) {
+                    display: flex;
+                    flex-flow: column;
+                }
+            }
+
+            &__excerpt {
+                margin-bottom: 1rem;
+                @include breakpoint(large) {
+                    line-height: 1.5rem;
+                    height: 3rem;
+                }
+            }
+        }
+    }
+}

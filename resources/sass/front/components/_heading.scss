@@ -1,0 +1,8 @@
+$fontf-heading: "Barlow", serif;
+
+.c-heading {
+    font-family: $fontf-heading;
+    color: $primary;
+    font-size: $c-font-lg;
+    border: 1px solid $primary;
+}

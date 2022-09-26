@@ -1,0 +1,9 @@
+.c-dropdown {
+   .dropdown-menu {
+      width: max-content;
+      @include breakpoint(large) {
+         left: auto;
+         right: 0;
+      }
+   }
+}
