@@ -1,8 +1,9 @@
 .comment {
     background-color: $light-grey;
     padding: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     border-radius: $border-radius;
+    position: relative;
 
     &__date {
         font-size: $c-font-sm;
@@ -24,5 +25,21 @@
 
     &__text {
         font-size: $c-font-sm;
+    }
+
+    &__delete {
+        position: absolute;
+        background-color: $danger;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        right: -10px;
+        top: -10px;
+        padding: 0;
+        transition: all 0.3s;
+        i {
+            font-weight: bold;
+            color: white;
+        }
     }
 }

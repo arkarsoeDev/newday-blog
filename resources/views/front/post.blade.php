@@ -52,13 +52,15 @@
                                     href="{{ route('register') }}">Register</a></span></div>
                     @endguest
                     @auth
-                        <form action="">
+                        <form action="{{ route('dashboard.comment.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="post_id" value="{{ $post->id }}">
                             <div class="mb-3">
                                 <label for="comment" class="form-label">Write Comment</label>
-                                <textarea class="form-control" id="comment" rows="3" name="comment"></textarea>
+                                <textarea class="form-control" id="comment" rows="3" name="body"></textarea>
                             </div>
                             <div class="w-100 text-end">
-                                <button class="btn btn-primary text-white">
+                                <button type="submit" class="btn btn-primary text-white">
                                     Submit
                                 </button>
                             </div>
@@ -74,6 +76,13 @@
                     <div class="comments">
                         @forelse ($post->comments as $key=>$comment)
                             <div class="comment">
+                                @can('delete', $comment)
+                                <form action="{{ route('dashboard.comment.destroy',$comment->id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="comment__delete rounded-circle shadow border border-1"><i class="bi bi-x fs-4"></i></button>
+                                </form>
+                                @endcan
                                 <a href="profile">
                                     <div class="d-inline-flex justify-content-start align-items-center mb-2">
                                         <div class="bg-dark rounded-circle p-3 me-2 c-card__profile"></div>

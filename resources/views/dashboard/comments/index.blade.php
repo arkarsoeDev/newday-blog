@@ -10,8 +10,7 @@
                             Comments List
                         </h2>
                         <div class="flex-fill"></div>
-                        <form action="{{ route('dashboard.comment.index') }}"
-                            class="d-sm-inline-block mb-3 mb-sm-0">
+                        <form action="{{ route('dashboard.comment.index') }}" class="d-sm-inline-block mb-3 mb-sm-0">
                             <div class="input-group w-auto">
                                 <input type="text" class="form-control" name="keyword" placeholder="Search keyword"
                                     aria-label="search keyword" aria-describedby="commentSearchBtn" />
@@ -56,13 +55,15 @@
                                             <a href="{{ route('dashboard.comment.show', $comment->id) }}"
                                                 class="btn btn-sm btn-outline-info"><i
                                                     class="bi bi-info-circle"></i></a>
-                                            <form action="{{ route('dashboard.comment.destroy', $comment->id) }}"
-                                                class="d-inline-block" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-sm btn-outline-danger"><i
-                                                        class="bi bi-trash"></i></button>
-                                            </form>
+                                            @can('delete', $comment)
+                                                <form action="{{ route('dashboard.comment.destroy', $comment->id) }}"
+                                                    class="d-inline-block" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger"><i
+                                                            class="bi bi-trash"></i></button>
+                                                </form>
+                                            @endcan
                                         </td>
                                         <td class="text-nowrap">
                                             <p class="small mb-1 text-black-50">
