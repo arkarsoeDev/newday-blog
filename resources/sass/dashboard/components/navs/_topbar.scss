@@ -163,10 +163,14 @@
     }
 
     .avatar-nav {
-        width: rem(160);
+        width: rem(80);
         background-color: rgba($gray-200, 0.5);
         border-left: 1px solid $gray-500;
         border-right: 1px solid $gray-500;
+
+        @include breakpoint(medium) {
+            width: rem(160);
+        }
     }
 
     .c-avatar {

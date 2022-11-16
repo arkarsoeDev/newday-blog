@@ -22,7 +22,7 @@
             {{ $posts->onEachSide(1)->links() }}
         </div>
         <div class="col-12 col-lg-4">
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-body">
                     <div class="d-sm-inline-block me-sm-3 mb-3 mb-sm-0 w-100">
                         <form action="{{ route('page.posts') }}">

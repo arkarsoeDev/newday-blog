@@ -1,0 +1,15 @@
+.breadcrumb{
+   &-item{
+      font-size: $c-font-sm;
+      &.active {
+         text-overflow: ellipsis;
+         width: 140px;
+         height: 1.8rem;
+         overflow: hidden;
+      }
+
+      @include breakpoint(medium) {
+            width: auto;
+        }
+   }
+}

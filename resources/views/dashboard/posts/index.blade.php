@@ -60,6 +60,9 @@
                                         </td>
                                         <td class="text-nowrap">
                                             @canany(['update', 'delete'], $post)
+                                            <a href="{{ route('dashboard.post.show', $post->slug) }}"
+                                                    class="btn btn-sm btn-outline-info"><i
+                                                        class="bi bi-info-circle"></i></a>
                                                 <a href="{{ route('dashboard.post.edit', $post->slug) }}"
                                                     class="btn btn-sm btn-outline-success"><i
                                                         class="bi bi-pencil-square"></i></a>

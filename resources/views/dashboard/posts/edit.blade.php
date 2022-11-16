@@ -2,7 +2,8 @@
 
     <x-dashboard.heading>Post Management</x-dashboard.heading>
     <x-dashboard.layouts.form-create-edit title="Post" control="Edit">
-        <form action="{{ route('dashboard.post.update', $post->slug) }}" method="post"
+        <div class="post-edit">
+            <form action="{{ route('dashboard.post.update', $post->slug) }}" method="post"
             enctype="multipart/form-data">
             @csrf
             @method('put')
@@ -35,7 +36,7 @@
                 @isset($post->featured_image)
                     @if($post->featured_image !== 'image-not-available.png')
                     <img src="{{ asset('storage/' . $post->featured_image) }}" height="200"
-                        class="rounded me-3" alt="">
+                        class="featured-img rounded" alt="">
                     @endif
                 @endisset
             </div>
@@ -46,6 +47,7 @@
                 </button>
             </div>
         </form>
+        </div>
     </x-dashboard.layouts.form-create-edit>
                 
 

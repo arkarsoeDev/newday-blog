@@ -6,7 +6,7 @@
     </button>
 
     <ul class="navbar-nav flex-row align-items-center ms-auto">
-        <li class="nav-item dropdown d-sm-none d-inline-block">
+        {{-- <li class="nav-item dropdown d-sm-none d-inline-block">
             <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-search"></i></a>
             <div class="dropdown-menu shadow">
                 <form action="">
@@ -19,7 +19,7 @@
                     </div>
                 </form>
             </div>
-        </li>
+        </li> --}}
         {{-- <li class="nav-item dropdown">
             <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-bell-fill"></i></a>
             <div class="dropdown-menu dropdown-menu-list shadow">
