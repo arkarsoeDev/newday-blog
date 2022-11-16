@@ -63,11 +63,12 @@
                                                 <a href="{{ route('dashboard.post.edit', $post->slug) }}"
                                                     class="btn btn-sm btn-outline-success"><i
                                                         class="bi bi-pencil-square"></i></a>
-                                                <form action="{{ route('dashboard.post.destroy', $post->slug) }}"
+                                                <form id="deleteForm{{ $post->id }}" action="{{ route('dashboard.post.destroy', $post->slug) }}"
                                                     class="d-inline-block" method="post">
                                                     @csrf
                                                     @method('delete')
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger"><i
+                                                    <button data-form="deleteForm{{ $post->id }}" type="button"
+                                                        data-post-id="{{ $post->id }}"  class="deleteSubmit btn btn-sm btn-outline-danger"><i
                                                             class="bi bi-trash"></i></button>
                                                 </form>
                                             @else
@@ -100,5 +101,32 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            let deleteSubmits = document.querySelectorAll(".deleteSubmit");
+            if(deleteSubmits) {
+                [...deleteSubmits].map(submit => {
+                submit.addEventListener("click", function(event) {
+                    event.preventDefault()
+                    let form = document.querySelector(`#${this.dataset.form}`)
+                    Swal.fire({
+                        title: `Are you sure to delete this post id(${this.dataset.postId})?`,
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();                               
+                        }
+                    })
+                });
+            })
+            }
+        </script>
+    @endpush
 
 </x-dashboard-layout>

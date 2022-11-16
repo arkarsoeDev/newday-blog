@@ -33,8 +33,10 @@
 
             <div>
                 @isset($post->featured_image)
+                    @if($post->featured_image !== 'image-not-available.png')
                     <img src="{{ asset('storage/' . $post->featured_image) }}" height="200"
                         class="rounded me-3" alt="">
+                    @endif
                 @endisset
             </div>
 

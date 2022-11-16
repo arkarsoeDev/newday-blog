@@ -10,7 +10,7 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-
+    
     <!-- Scripts -->
     @vite(['resources/sass/dashboard/app.scss', 'resources/js/dashboard.js'])
 </head>
@@ -33,6 +33,30 @@
         </div>
         <div class="backdrop hide"></div>
     </div>
+    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const Toast = window.Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        @if(session()->has('message'))
+            Toast.fire({
+            icon: "{{ session()->get('status') }}",
+            title: "{{ session()->get('message') }}"
+            })
+            {{ session()->forget('message') }}
+        @endif
+    </script>
+    @stack('scripts')
 </body>
 
 </html>

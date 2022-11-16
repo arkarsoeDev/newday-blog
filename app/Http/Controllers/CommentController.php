@@ -57,7 +57,10 @@ class CommentController extends Controller
         $comment->excerpt = Str::words($request->body, 50, ' ...');
         $comment->save();
 
-        return redirect()->back();
+        return redirect()->back()->with([
+            "message" => 'Comment is added Successfully',
+            "status" => "success"
+        ]);;
     }
 
     /**
@@ -103,6 +106,10 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         $comment->delete();
-        return redirect()->back();
+
+        return redirect()->back()->with([
+            "message" => 'Comment is deleted Successfully',
+            "status" => "success"
+        ]);
     }
 }

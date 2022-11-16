@@ -1,6 +1,4 @@
-import * as bootstrap from 'bootstrap';
-
-("use strict");
+import * as bootstrap from "bootstrap";
 
 // sidebar toggler
 let sidebarToggleTop = document.querySelector("#sidebarToggleTop");

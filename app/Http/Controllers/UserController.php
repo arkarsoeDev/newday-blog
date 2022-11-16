@@ -54,7 +54,10 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->save();
 
-        return redirect()->route('dashboard.user.index')->with('status', $user->name . " is successfully added.");
+        return redirect()->route('dashboard.user.index')->with([
+            'message' => $user->name . " is successfully added.",
+            'status' => 'success'
+        ]);
     }
 
     /**
@@ -93,7 +96,10 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->update();
 
-        return redirect()->route('dashboard.user.index')->with('status', $user->name . " is updated successfully");
+        return redirect()->route('dashboard.user.index')->with([
+            'message' => $user->name . " is updated successfully",
+            'status' => 'success'
+        ]);
     }
 
     /**
@@ -106,6 +112,9 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return redirect()->route('dashboard.user.index')->with('status', $user->name . " is deleted successfully");
+        return redirect()->route('dashboard.user.index')->with([
+            'message' => $user->name . " is deleted successfully",
+            'status' => 'success'
+        ]);
     }
 }

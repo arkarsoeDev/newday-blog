@@ -2,9 +2,9 @@
 
     <div class="db-title px-2 px-md-4 py-3 d-flex align-items-center justify-content-center">
         <div class="d-inline-block icon">
-            News
+            ND
         </div>
-        <div class="text-lg fw-bold mx-1 name">News ad</div>
+        <div class="text-lg fw-bold mx-1 name">New day</div>
     </div>
 
     <div class="sidebar-divider"></div>
@@ -28,7 +28,7 @@
         active="{{ Str::contains(request()->path(), 'dashboard/post') }}">
         <a class="collapse-item" href="{{ route('dashboard.post.index') }}">Posts</a>
         <a class="collapse-item" href="{{ route('dashboard.post.create') }}">Add Post</a>
-
+        
     </x-dashboard.sidebar.collapse-link>
 
     <x-dashboard.sidebar.collapse-link title="Category" icon="bi bi-list" target="#CategoryCollapse"
@@ -41,7 +41,7 @@
     </x-dashboard.sidebar.collapse-link>
 
     <li class="nav-item mb-2">
-        <a class="nav-link" aria-current="page" href="{{ route('dashboard.comment.index') }}"><i
+        <a class="nav-link {{ request()->routeIs('dashboard.comment.index') ? 'active': '' }}" aria-current="page" href="{{ route('dashboard.comment.index') }}"><i
                 class="bi bi-chat"></i>
             <span>Comments</span></a>
     </li>

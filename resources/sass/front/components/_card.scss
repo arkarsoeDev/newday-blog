@@ -111,6 +111,11 @@ $fontf-card-title: "Roboto", sans-serif;
         color: $dark-grey;
     }
 
+    &__btn {
+        margin-left: 10px;
+        width: 140px;
+    }
+
     &--small {
         min-height: 120px;
         min-width: 280px;

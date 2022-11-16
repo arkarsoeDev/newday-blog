@@ -10,10 +10,12 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ route('page.index') }}">Home</a>
+                        <a class="nav-link {{ request()->routeIs('page.index') ? 'active' : '' }}" aria-current="page"
+                            href="{{ route('page.index') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('page.posts') }}">Posts</a>
+                        <a class="nav-link {{ request()->routeIs('page.posts') ? 'active' : '' }}"
+                            href="{{ route('page.posts') }}">Posts</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0 align-items-lg-center">

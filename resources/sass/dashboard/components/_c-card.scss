@@ -1,4 +1,16 @@
-.c-card {
+.card {
    border: 0;
    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+}
+
+.count-card {
+   border: 0;
+   box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+   transition: all .2s ease-in-out;
+   color: $black;
+
+   &:hover {
+      cursor: pointer;
+      transform: translateY(-10px);
+   }
 }

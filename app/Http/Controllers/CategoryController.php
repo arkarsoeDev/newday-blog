@@ -52,7 +52,10 @@ class CategoryController extends Controller
         $category->user_id = Auth::id();
         $category->save();
 
-        return redirect()->route('dashboard.category.index')->with("status", $category->title . " is added successfully.");
+        return redirect()->route('dashboard.category.index')->with([
+            "message" => $category->title . " is added successfully.",
+            "status" => "success"
+        ]);
     }
 
     /**
@@ -90,7 +93,10 @@ class CategoryController extends Controller
         $category->slug = Str::slug($request->title);
         $category->update();
 
-        return redirect()->route('dashboard.category.index')->with("status", $category->title . " is  updated successfully.");
+        return redirect()->route('dashboard.category.index')->with([
+            "message" => $category->title . " is  updated successfully.",
+            "status" => "success"
+        ]);
     }
 
     /**
@@ -104,6 +110,9 @@ class CategoryController extends Controller
         $title = $category->title;
         $category->delete();
 
-        return redirect()->route('dashboard.category.index')->with("status", $title . " is  deleted successfully.");
+        return redirect()->route('dashboard.category.index')->with([
+            "message"=> $title . " is  deleted successfully.",
+            "status" => "success"
+        ]);
     }
 }

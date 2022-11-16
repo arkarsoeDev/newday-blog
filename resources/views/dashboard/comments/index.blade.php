@@ -56,11 +56,15 @@
                                                 class="btn btn-sm btn-outline-info"><i
                                                     class="bi bi-info-circle"></i></a>
                                             @can('delete', $comment)
-                                                <form action="{{ route('dashboard.comment.destroy', $comment->id) }}"
+                                                <form id="deleteForm{{ $comment->id }}"
+                                                    action="{{ route('dashboard.comment.destroy', $comment->id) }}"
                                                     class="d-inline-block" method="post">
                                                     @csrf
                                                     @method('delete')
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger"><i
+                                                    <button id="deleteSubmit{{ $comment->id }}"
+                                                        data-form="deleteForm{{ $comment->id }}" type="button"
+                                                        data-comment-id="{{ $comment->id }}"
+                                                        class="deleteSubmit btn btn-sm btn-outline-danger"><i
                                                             class="bi bi-trash"></i></button>
                                                 </form>
                                             @endcan
@@ -87,4 +91,31 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            let deleteSubmits = document.querySelectorAll(".deleteSubmit");
+            if(deleteSubmits) {
+                [...deleteSubmits].map(submit => {
+                submit.addEventListener("click", function(event) {
+                    event.preventDefault()
+                    let form = document.querySelector(`#${this.dataset.form}`)
+                    Swal.fire({
+                        title: `Are you sure to delete this comment id(${this.dataset.commentId})?`,
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();                               
+                        }
+                    })
+                });
+            })
+            }
+        </script>
+    @endpush
 </x-dashboard-layout>

@@ -69,7 +69,10 @@ class PostController extends Controller
 
         $post->save();
 
-        return redirect()->route('dashboard.post.index')->with("status", $post->title . " is added successfully.");
+        return redirect()->route('dashboard.post.index')->with([
+            "message" => $post->title . " is added successfully.",
+            "status" => "success"
+        ]);
     }
 
     /**
@@ -115,7 +118,6 @@ class PostController extends Controller
             // delete photo from storage
             Storage::delete('public/' . $post->featured_image);
 
-
             // add photo
             $newName = uniqid() . "_featured_image." . $request->file('featured_image')->extension();
             $request->file('featured_image')->storeAs('public', $newName);
@@ -124,7 +126,10 @@ class PostController extends Controller
 
         $post->update();
 
-        return redirect()->route('dashboard.post.index')->with("status", $post->title . " is updated successfully.");
+        return redirect()->route('dashboard.post.index')->with([
+            "message" => $post->title . " is updated successfully.",
+            "status" => "success"
+        ]);
     }
 
     /**
@@ -140,6 +145,9 @@ class PostController extends Controller
             Storage::delete('public/' . $post->featured_image);
         }
         $post->delete();
-        return redirect()->route('dashboard.post.index')->with("status", $title . ' is deleted Successfully');
+        return redirect()->route('dashboard.post.index')->with([
+            "message" => $title . ' is deleted Successfully',
+            "status" => "success"
+    ]);
     }
 }

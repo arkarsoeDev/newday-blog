@@ -20,7 +20,7 @@
                 </form>
             </div>
         </li>
-        <li class="nav-item dropdown">
+        {{-- <li class="nav-item dropdown">
             <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-bell-fill"></i></a>
             <div class="dropdown-menu dropdown-menu-list shadow">
                 <h6 class="dropdown-header">
@@ -60,8 +60,8 @@
                     <span class="text-xs text-gray-600">Show all noti</span>
                 </a>
             </div>
-        </li>
-        <li class="nav-item dropdown">
+        </li> --}}
+        {{-- <li class="nav-item dropdown">
             <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-envelope"></i></a>
             <div class="dropdown-menu dropdown-menu-list shadow">
                 <h6 class="dropdown-header">
@@ -104,7 +104,7 @@
                     <span class="text-xs text-gray-600">Show all noti</span>
                 </a>
             </div>
-        </li>
+        </li> --}}
         <li class="nav-item dropdown avatar-nav">
             <a class="nav-link justify-content-center" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="text-sm d-none d-lg-inline-block me-2">{{ Auth::user()->name }}</span>
@@ -124,7 +124,10 @@
                     <span class="">Acitivity log</span>
                 </a>
                 <div class="dropdown-divider"></div> --}}
-
+                <a href="{{ route('page.index') }}" class="dropdown-item d-flex align-items-center">
+                    <i class="bi bi-list me-3"></i>
+                    <span class="">Front Panel</span>
+                </a>
                 <form class="dropdown-item d-flex align-items-center" action="{{ route('logout') }}" method="post">
                     @csrf
                     <a href="{{ route('logout') }}"

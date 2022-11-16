@@ -18,32 +18,25 @@ class UserSeeder extends Seeder
         \App\Models\User::factory(10)->create();
 
         \App\Models\User::factory()->create([
-            'name' => 'Arkar Soe',
-            'email' => 'arkar@example.com',
-            'role' => '0',
-            'password' => Hash::make('11111111'),
-        ]);
-
-        \App\Models\User::factory()->create([
             'name' => 'Test admin',
-            'email' => 'admin@example.com',
+            'email' => 'admin@admin.com',
             'role' => '0',
-            'password' => Hash::make('11111111'),
+            'password' => Hash::make('password'),
         ]);
 
 
         \App\Models\User::factory()->create([
             'name' => 'Test Editor',
-            'email' => 'editor@example.com',
+            'email' => 'editor@editor.com',
             'role' => '1',
-            'password' => Hash::make('11111111'),
+            'password' => Hash::make('password'),
         ]);
 
         \App\Models\User::factory()->create([
             'name' => 'Test Author',
-            'email' => 'author@example.com',
+            'email' => 'author@author.com',
             'role' => '2',
-            'password' => Hash::make('11111111'),
+            'password' => Hash::make('password'),
         ]);
     }
 }

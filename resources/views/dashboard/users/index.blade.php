@@ -59,11 +59,13 @@
                                             <a href="{{ route('dashboard.user.edit', $user->id) }}"
                                                 class="btn btn-sm btn-outline-success"><i
                                                     class="bi bi-pencil-square"></i></a>
-                                            <form action="{{ route('dashboard.user.destroy', $user->id) }}"
-                                                class="d-inline-block" method="post">
+                                            <form id="deleteForm{{ $user->id }}"  action="{{ route('dashboard.user.destroy', $user->id) }}"
+                                                class="d-inline-block" method="POST">
                                                 @csrf
                                                 @method('delete')
-                                                <button type="submit" class="btn btn-sm btn-outline-danger"><i
+                                                <button data-form="deleteForm{{ $user->id }}" type="button"
+                                                        data-user-id="{{ $user->id }}"   
+                                                        data-user-name="{{ $user->name }}"   class="deleteSubmit btn btn-sm btn-outline-danger"><i
                                                         class="bi bi-trash"></i></button>
                                             </form>
                                         </td>
@@ -90,4 +92,32 @@
             </div>
         </div>
     </div>
+
+     @push('scripts')
+        <script>
+            let deleteSubmits = document.querySelectorAll(".deleteSubmit");
+            if(deleteSubmits) {
+                [...deleteSubmits].map(submit => {
+                submit.addEventListener("click", function(event) {
+                    event.preventDefault()
+                    let form = document.querySelector(`#${this.dataset.form}`)
+                    console.log(form)
+                    Swal.fire({
+                        title: `Are you sure to delete ${this.dataset.userName}?`,
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();                               
+                        }
+                    })
+                });
+            })
+            }
+        </script>
+    @endpush
 </x-dashboard-layout>
