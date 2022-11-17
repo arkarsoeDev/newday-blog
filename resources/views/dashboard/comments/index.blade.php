@@ -81,7 +81,9 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <p>There is no user yet.</p>
+                                    <tr class="text-center">
+                                        <td colspan="6">There is no comment yet.</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
