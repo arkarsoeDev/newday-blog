@@ -42,12 +42,16 @@
                             <span class="fw-bold post-detail__label">User Name</span> <span
                                 class="post-detail__info">{{ $post->user->name }}</span>
                         </div>
-                        <div class="mb-3 d-flex align-items-start flex-column flex-md-row  ">
+                        <div class="mb-3 d-flex align-items-start flex-column flex-md-row">
                             <span class="fw-bold post-detail__label">Featured Image</span>
                             @isset($post->featured_image)
                                 @if ($post->featured_image !== 'image-not-available.png')
                                     <img src="{{ asset('storage/' . $post->featured_image) }}" height="200"
                                         class="post-detail__featured-img rounded" alt="">
+                                        @else
+                                        <div class="post-detail__info">
+                                            No image is uploaded yet.
+                                        </div>
                                 @endif
                             @endisset
                         </div>
