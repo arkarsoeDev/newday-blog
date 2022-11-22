@@ -6,10 +6,25 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
-// let deleteForm = document.querySelector("#deleteForm");
-// if (deleteForm) {
-//    deleteForm.addEventListener('submit', function (event) {
-//       event.preventDefault();
-//       console.log('submit')
-//     });
-// }
+let testModalToggle = document.querySelector('#testModalToggle');
+let testModal = document.querySelector('#testModal');
+let testModalBackdrop = document.querySelector("#testModalBackdrop");
+let testModalClose = document.querySelector('#testModalClose');
+
+if (testModalToggle) {
+   testModalToggle.addEventListener('click', function () {
+      testModal.classList.toggle('hidden')
+   })
+}
+
+if (testModalBackdrop) {
+   testModalBackdrop.addEventListener("click", function () {
+        testModal.classList.toggle('hidden')
+    });
+}
+
+if (testModalClose) {
+   testModalClose.addEventListener('click', function () {
+      testModal.classList.toggle('hidden')      
+   })
+}

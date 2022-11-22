@@ -1,5 +1,60 @@
 <x-guest-layout>
 
+    <div id="testModal" class="fixed h-screen z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div id="testModalBackdrop" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-10"></div>
+
+        <div class="relative h-screen w-screen">
+            <div class="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div
+                        class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="mb-3 p-3 bg-gray-200 rounded">
+                                <span class="mb-2 inline-block">Admin Account</span>
+                                <div class="flex flex-col bg-white p-3 mb-3">
+                                    <div class="flex">
+                                        <span class="mr-3 font-bold">Email</span>
+                                        <span>admin@admin.com</span>
+                                    </div>
+                                    <div class="flex">
+                                        <span class="mr-3 font-bold">Password</span>
+                                        <span>password</span>
+                                    </div>
+                                </div>
+                                <span class="mb-2 inline-block">Editor Account</span>
+                                <div class="flex flex-col bg-white p-3 mb-3">
+                                    <div class="flex">
+                                        <span class="mr-3 font-bold">Email</span>
+                                        <span>editor@editor.com</span>
+                                    </div>
+                                    <div class="flex">
+                                        <span class="mr-3 font-bold">Password</span>
+                                        <span>password</span>
+                                    </div>
+                                </div>
+                                <span class="mb-2 inline-block">Author Account</span>
+                                <div class="flex flex-col bg-white p-3 mb-3">
+                                    <div class="flex">
+                                        <span class="mr-3 font-bold">Email</span>
+                                        <span>author@author.com</span>
+                                    </div>
+                                    <div class="flex">
+                                        <span class="mr-3 font-bold">Password</span>
+                                        <span>password</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                            <button id="testModalClose" type="button"
+                                class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <x-auth-card>
 
         <x-slot name="logo">
@@ -56,5 +111,9 @@
                 </x-primary-button>
             </div>
         </form>
+        <x-slot name="testModalToggle">
+            <button id="testModalToggle" class="bg-white border p-3 hover:bg-gray-50 rounded-sm">Test Accounts</button>
+        </x-slot>
     </x-auth-card>
+
 </x-guest-layout>
