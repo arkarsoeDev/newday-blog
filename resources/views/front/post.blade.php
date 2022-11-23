@@ -57,7 +57,7 @@
                         <input type="hidden" name="post_id" value="{{ $post->id }}">
                         <div class="mb-3">
                             <label for="comment" class="form-label">Write Comment</label>
-                            <textarea class="form-control" id="comment" rows="3" name="body"></textarea>
+                            <textarea class="form-control" id="comment" rows="6" name="body"></textarea>
                         </div>
                         <div class="w-100 text-end">
                             <button type="submit" class="btn btn-primary text-white">

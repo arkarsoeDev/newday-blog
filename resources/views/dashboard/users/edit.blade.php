@@ -19,7 +19,7 @@
                     aria-label="Default select example">
                     @foreach ($roles as $key => $role)
                         <option value="{{ $key }}"
-                            {{ $key === old('role', $user->role) ? 'selected' : '' }}>
+                            {{ $key == old('role', $user->role) ? 'selected' : '' }}>
                             {{ $role }}</option>
                     @endforeach
                 </select>

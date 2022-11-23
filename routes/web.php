@@ -36,11 +36,4 @@ Route::get('/', [PageController::class, 'index'])->name('page.index');
 Route::get('/posts', [PageController::class, 'posts'])->name('page.posts');
 Route::get('/posts/{post:slug}', [PageController::class, 'post'])->name('page.post');
 
-// Route::get('/test', function() {
-//     $img = Image::make('storage/image-not-available.png')->resize(200,200);
-//     return $img->response('png');
-//     return asset('storage/image-not-available.png');
-//     return storage_path('image-not-available.png');
-// });
-
 require __DIR__ . '/auth.php';

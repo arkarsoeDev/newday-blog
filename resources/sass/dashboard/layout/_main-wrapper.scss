@@ -3,7 +3,7 @@
     &.toggled {
         .content-wrapper {
             @include breakpoint(medium) {
-                margin-left: $sidebar-collapsed-width;
+                margin-left: $sidebar-base-width;
             }
         }
     }
@@ -13,7 +13,7 @@
         min-height: 100vh;
 
         @include breakpoint(medium) {
-            margin-left: $sidebar-base-width;
+            margin-left: $sidebar-collapsed-width;
         }
     }
 }

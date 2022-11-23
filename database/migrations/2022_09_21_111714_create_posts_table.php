@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("slug");
             $table->longText("description");
             $table->text("excerpt");
+            $table->unsignedBigInteger('views')->default(0);
             $table->foreignId("category_id")->constrained()->cascadeOnDelete();
             $table->foreignId("user_id")->constrained()->cascadeOnDelete();
             $table->string("featured_image")->default('image-not-available.png');

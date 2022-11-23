@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\PostView;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,10 @@ class PageController extends Controller
 
     public function post(Post $post)
     {
+        if (!($post->showPost())) {
+            $post->increment('views');
+            PostView::createViewLog($post);
+        }
         $relatedPosts = Post::where('category_id', $post->category_id)->whereNot('id', $post->id)->take(3)->get();
         return view('front.post', compact('post', 'relatedPosts'));
     }

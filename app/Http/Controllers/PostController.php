@@ -65,7 +65,7 @@ class PostController extends Controller
 
         if ($request->hasFile('featured_image')) {
             $newName = uniqid() . "_featured_image." . $request->file('featured_image')->extension();
-            
+
             $thumbName = 'small_' . $newName;
             $img = $request->file('featured_image');
             $imgFile = Image::make($img->getRealPath());
@@ -157,6 +157,6 @@ class PostController extends Controller
         return redirect()->route('dashboard.post.index')->with([
             "message" => $title . ' is deleted Successfully',
             "status" => "success"
-    ]);
+        ]);
     }
 }

@@ -1,11 +1,11 @@
-<ul class="navbar-nav mb-2 mb-lg-0 position-fixed sidebar toggled" id="accordionSidebar">
+<ul class="navbar-nav mb-2 mb-lg-0 position-fixed sidebar" id="accordionSidebar">
 
-    <div class="db-title px-2 px-md-4 py-3 d-flex align-items-center justify-content-center">
+    <a href="{{ route('page.dashboard') }}" class="db-title px-2 px-md-4 py-3 d-flex align-items-center justify-content-center">
         <div class="d-inline-block icon">
             ND
         </div>
         <div class="text-lg fw-bold mx-1 name">New day</div>
-    </div>
+    </a>
 
     <div class="sidebar-divider"></div>
 
