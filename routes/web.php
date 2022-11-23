@@ -6,6 +6,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('/', [PageController::class, 'dashboard'])->name('page.dashboard');
@@ -38,5 +35,12 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
 Route::get('/', [PageController::class, 'index'])->name('page.index');
 Route::get('/posts', [PageController::class, 'posts'])->name('page.posts');
 Route::get('/posts/{post:slug}', [PageController::class, 'post'])->name('page.post');
+
+// Route::get('/test', function() {
+//     $img = Image::make('storage/image-not-available.png')->resize(200,200);
+//     return $img->response('png');
+//     return asset('storage/image-not-available.png');
+//     return storage_path('image-not-available.png');
+// });
 
 require __DIR__ . '/auth.php';

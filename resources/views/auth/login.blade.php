@@ -1,6 +1,6 @@
 <x-guest-layout>
 
-    <div id="testModal" class="fixed h-screen z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div id="testModal" class="hidden fixed h-screen z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div id="testModalBackdrop" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-10"></div>
 
         <div class="relative h-screen w-screen">

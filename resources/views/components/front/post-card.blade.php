@@ -2,7 +2,7 @@
 
 <div {{ $attributes->merge(['class' => 'c-card']) }}>
     <figure class="c-card__figure">
-        <img src="{{ asset('storage/' . $post->featured_image) }}" class="c-card__img" alt="..." />
+        <img src="{{ asset('storage/thumbnails/small_' . $post->featured_image) }}" class="c-card__img" alt="..." />
     </figure>
     <div class="c-card__body">
         <div class="d-flex justify-content-between align-items-center mb-lg-2">

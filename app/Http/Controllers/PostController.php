@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
@@ -53,6 +54,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+
         $post = new Post();
         $post->title = $request->title;
         $post->slug = Str::slug($request->title);
@@ -63,6 +65,13 @@ class PostController extends Controller
 
         if ($request->hasFile('featured_image')) {
             $newName = uniqid() . "_featured_image." . $request->file('featured_image')->extension();
+            
+            $thumbName = 'small_' . $newName;
+            $img = $request->file('featured_image');
+            $imgFile = Image::make($img->getRealPath());
+            $destinationPath = public_path('storage/thumbnails/' . $thumbName);
+            $imgFile->resize(480, 300)->save($destinationPath);
+
             $request->file('featured_image')->storeAs('public', $newName);
             $post->featured_image = $newName;
         }
