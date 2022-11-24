@@ -1,40 +1,67 @@
 .post-show {
    .post-detail {
-   &__info {
-      display: inline-block;
-      background-color: $gray-200;
-      padding: 0.5rem;
-      border-radius: 5px;
+      &__info {
+         display: block;
+         background-color: $gray-200;
+         padding: 0.5rem;
+         border-radius: 5px;
+      }
+
+      &__label {
+         margin-bottom:6px;
+         display: block;
+      }
+
+      &__description {
+         display: block;
+         background-color: $gray-200;
+         padding: 1rem;
+         border-radius: 5px;
+         height: 20rem;
+         width: 100%;
+         overflow-y: scroll;
+      }
+
    }
 
-   &__label {
-      margin-bottom:6px;
-      display: block;
-      @include breakpoint(medium) {
-         width: 100px;
-         margin-bottom: 0;
-         margin-right: 6px;
-      }
-   }
-
-   &__description {
-      display: inline-block;
+   &__img-container {
+      height: 200px;
       background-color: $gray-200;
-      padding: 0.5rem;
-      border-radius: 5px;
-      height: 10rem;
-      width: 100%;
-      overflow-y: scroll;
+
+      @include breakpoint(small) {
+         height: 400px;
+      }
 
       @include breakpoint(medium) {
-         width: 80%;
+         height: 200px;
       }
+
    }
 
    &__featured-img {
-      width: 230px;
-      object-fit: cover;
+      width: 100%;
+      object-fit: contain;
       height: 200px;
+
+      @include breakpoint(small) {
+         height: 400px;
+      }
+
+      @include breakpoint(medium) {
+         height: 200px;
+      }
    }
-}
+
+   &__partial-item {
+      .label {
+         display: inline-block;
+         font-weight: bold;
+         width: 100px;
+      }
+
+      display: block;
+      background-color: $gray-200;
+      padding: 0.5rem;
+      border-radius: 5px;
+   }
 }

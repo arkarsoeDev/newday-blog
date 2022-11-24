@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Comment;
+use App\Models\PostView;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -92,7 +94,17 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('dashboard.posts.show', compact('post'));
+        $postViewers = PostView::with(['user'])->where('post_id',$post->id)->paginate(2, ['*'],'views')->withQueryString();
+        $comments = Comment::where('post_id', $post->id)
+            ->when(
+                request('commentKeyword'),
+                function ($q) {
+                    $keyword = request('commentKeyword');
+                    $q->where("body", "like", "%$keyword%");
+                }
+            )
+            ->paginate(2, ['*'], 'comments')->withQueryString();
+        return view('dashboard.posts.show', compact('post', 'comments','postViewers'));
     }
 
     /**

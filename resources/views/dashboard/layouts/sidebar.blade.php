@@ -10,7 +10,7 @@
     <div class="sidebar-divider"></div>
 
     <li class="nav-item mb-2">
-        <a class="nav-link" aria-current="page" href="{{ route('page.dashboard') }}"><i class="bi bi-speedometer"></i>
+        <a class="nav-link {{ request()->routeIs('page.dashboard') ? 'active' : '' }}" aria-current="page" href="{{ route('page.dashboard') }}"><i class="bi bi-speedometer"></i>
             <span>Dashboard</span></a>
     </li>
 

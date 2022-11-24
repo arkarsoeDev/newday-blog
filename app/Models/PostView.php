@@ -14,6 +14,11 @@ class PostView extends Model
         return $this->belongsTo(Post::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public static function createViewLog($post)
     {
         $postViews = new PostView();

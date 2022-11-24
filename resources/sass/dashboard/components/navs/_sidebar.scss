@@ -1,8 +1,14 @@
 .sidebar {
-    width: $sidebar-base-width;
+    width: 0;
+    display: none;
     background-color: $dark;
     min-height: 100vh;
     z-index: 1041;
+
+    @include breakpoint(medium) {
+        width: $sidebar-base-width;
+        display: block;
+    }
 
     a {
         @include on-event {
@@ -13,8 +19,6 @@
     .db-title {
         color: $white;
         .name {
-            display: none;
-
             @include breakpoint(medium) {
                 display: inline-block;
             }
@@ -32,17 +36,14 @@
             padding: 0.5rem 1rem;
             font-size: $c-font-nm;
             text-align: left;
+            color: $white-50;
 
-            &.active {
+            @include on-event {
                 color: $white;
             }
 
-            & {
-                color: $white-50;
-
-                @include on-event {
-                    color: $white;
-                }
+            &.active {
+                color: $white;
             }
 
             i {
@@ -70,7 +71,7 @@
         }
 
         .collapse-inner {
-            margin: 0 1rem 1rem;
+            margin: 0 1rem;
             border-radius: 8px;
             overflow: hidden;
         }
@@ -86,6 +87,14 @@
                 color: $white;
             }
         }
+
+        .collapsing {
+            transition: none;
+
+            @include breakpoint(medium) {
+                transition: 0.3s ease-in-out;
+            }
+        }
     }
 
     .sidebar-heading {
@@ -98,19 +107,16 @@
     }
 
     &.toggled {
-        width: 0;
-        display: none;
+        width: $sidebar-base-width;
+        display: block;
 
         @include breakpoint(medium) {
             width: $sidebar-collapsed-width;
-            display: block;
         }
 
         .db-title {
             .name {
-                @include breakpoint(medium) {
-                    display: none;
-                }
+                display: none;
             }
         }
 
@@ -121,7 +127,11 @@
 
             .nav-link {
                 span {
-                    display: none;
+                    display: inline-block;
+
+                    @include breakpoint(medium) {
+                        display: none;
+                    }
                 }
                 @include breakpoint(medium) {
                     text-align: center;
@@ -160,7 +170,11 @@
             }
 
             .collapsing {
-                transition: none;
+                transition: 0.3s ease-in-out;
+
+                @include breakpoint(medium) {
+                    transition: none;
+                }
             }
         }
 

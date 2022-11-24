@@ -37,24 +37,30 @@ class PageController extends Controller
 
     public function dashboard(Request $request)
     {
+        $recentPosts = Post::latest('id')->with(['user'])->take(5)->get();
+        $recentComments = Comment::latest('id')->take(5)->get();
+        $recentUsers = User::latest('id')->take(5)->get();
+
         $postCount = Post::when($request->user()->isAdmin(), function ($q) {
-                $q;
-            })
+            $q;
+        })
             ->when($request->user()->isAuthor(), function ($q) {
                 $q->where('user_id', request()->user()->id);
             })
-            ->get()->count();
+            ->count();
 
-        $userCount = User::all()->count();
-        
-        if($request->user()->isAuthor()) {
+        $userCount = User::count();
+
+        if ($request->user()->isAuthor()) {
             $personalCommentCount = $request->user()->comments()->count();
         }
-        
-        $commentCount = Comment::all()->count();
+
+        $commentCount = Comment::count();
+
+        $postViewCount = PostView::count();
 
         if ($request->user()->isAdmin()) {
-            return view('dashboard.index', compact('postCount', 'userCount', 'commentCount'));
+            return view('dashboard.index', compact('postCount', 'userCount', 'commentCount', 'postViewCount', 'recentPosts', 'recentComments', 'recentUsers'));
         }
 
         return view('dashboard.index', compact('postCount', 'personalCommentCount'));
