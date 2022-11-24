@@ -233,10 +233,10 @@
                                         <tr>
                                             <th scope="row">{{ $viewer->id }}</th>
                                             <td class="text-nowrap">
-                                                {{ $viewer->user_id }}
+                                                {{ $viewer->user_id ?? 'Guest' }}
                                             </td>
                                             <td class="text-nowrap">
-                                                {{ $viewer->user->name }}
+                                                {{ $viewer->user->name ?? 'Guest' }}
                                             </td>
                                             <td class="text-nowrap">
                                                 {{ $viewer->ip }}
@@ -244,11 +244,11 @@
                                             <td class="text-nowrap">
                                                 <p class="small mb-1 text-black-50">
                                                     <i class="bi bi-calendar"></i>
-                                                    {{ $comment->created_at->format('d M Y') }}
+                                                    {{ $viewer->created_at->format('d M Y') }}
                                                 </p>
                                                 <p class="small mb-0 text-black-50">
                                                     <i class="bi bi-clock"></i>
-                                                    {{ $comment->created_at->format('h : m A') }}
+                                                    {{ $viewer->created_at->format('h : m A') }}
                                                 </p>
                                             </td>
                                         </tr>

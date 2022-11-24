@@ -94,7 +94,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $postViewers = PostView::with(['user'])->where('post_id',$post->id)->paginate(2, ['*'],'views')->withQueryString();
+        $postViewers = PostView::with(['user'])->where('post_id',$post->id)->paginate(8, ['*'],'views')->withQueryString();
         $comments = Comment::where('post_id', $post->id)
             ->when(
                 request('commentKeyword'),
@@ -103,7 +103,7 @@ class PostController extends Controller
                     $q->where("body", "like", "%$keyword%");
                 }
             )
-            ->paginate(2, ['*'], 'comments')->withQueryString();
+            ->paginate(8, ['*'], 'comments')->withQueryString();
         return view('dashboard.posts.show', compact('post', 'comments','postViewers'));
     }
 
