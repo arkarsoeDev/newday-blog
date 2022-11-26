@@ -114,7 +114,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Post $post)
-    {
+    {   
         return  view('dashboard.posts.edit', compact("post"));
     }
 

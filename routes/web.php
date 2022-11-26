@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,10 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::resource('/category', CategoryController::class, ['as' => 'dashboard']);
     Route::resource('/user', UserController::class, ['as' => 'dashboard'])->middleware('admin');
     Route::resource('/comment', CommentController::class, ['as' => 'dashboard']);
+    Route::resource('/profile', ProfileController::class, ['as' => 'dashboard'])->only(['index','update'])->parameter('profile','user');
+
+    Route::put('/profile/update-password/{user}',[ProfileController::class,'updatePassword'])->name('dashboard.profile.updatePassword');
+    Route::put('/profile/update-email/{user}', [ProfileController::class, 'updateEmail'])->name('dashboard.profile.updateEmail');
 });
 
 // Route::delete('/comment', [CommentController::class, 'delete']);

@@ -1,4 +1,4 @@
-<div class="mb-3">
+<div {{ $attributes->merge(['class' => 'mb-3']) }}>
     <label for="{{ $id }}" class="form-label">{{ $title }}</label>
     {{ $slot }}
     @error("$name")

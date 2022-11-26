@@ -1,0 +1,46 @@
+.profile {
+   &__inner-container {
+      margin-top: calc((150px/2) + 16px);
+   }
+
+    &__img-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 150px;
+        height: 150px;
+        border: 1px solid rgb(0, 0, 0);
+        border-radius: 100%;
+        background-color: $gray-200;
+        transform: translateY(-50%);
+        margin: 0 auto;;
+        overflow: hidden;
+    }
+
+    &__img-icon {
+      width: 75px;
+      height: 75px;
+    }
+
+    &__img {
+      object-fit: contain;
+    }
+
+    &__info-container {
+      margin-top: calc((-150px/2) + 16px);
+    }
+
+    &__title {
+      font-size: $c-font-xl;
+    }
+
+    &__submit-btn {
+
+    }
+
+    .dropdown-toggle {
+      &::after {
+        display: none;
+      }
+    }
+}
