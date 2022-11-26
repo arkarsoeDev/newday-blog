@@ -80,7 +80,10 @@
                                     <div class="d-flex flex-column recent-list__list">
                                         <span class="recent-list__list-title mb-3 mb-md-2">{{ $comment->excerpt }}</span>
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <span class="recent-list__list-owner">{{ $comment->user->name }}</span>
+                                            <div class="d-flex align-items-center">
+                                                <img src="{{ asset('storage/thumbnails/small_'.$comment->user->profile_image) }}" class="recent-list__list-owner-img me-3" alt="">
+                                                <span class="recent-list__list-owner">{{ $comment->user->name }} gfdgfgdgdf </span>
+                                            </div>
                                             <span
                                                 class="recent-list__list-date">{{ $comment->created_at->format('d M Y') }}</span>
                                         </div>
