@@ -33,6 +33,21 @@ $fontf-post-title: "Barlow", sans-serif;
         }
     }
 
+    &__body {
+        img {
+            display: block;
+            margin: 16px auto;
+            width: 280px !important;
+            height: auto !important;
+            max-height: 500px !important;
+            
+            @include breakpoint(medium) {
+                width: 680px !important;
+                max-width: 100% !important;
+            }
+        }
+    }
+
     &__img {
         min-width: 280px;
         width: 530px;

@@ -43,6 +43,14 @@
                 <p class="post__para">
                     {!! $post->description !!}
                 </p>
+                <div class="post__body">
+                    {!! json_decode($post->body) !!}
+                </div>
+                <p id="testinner">
+                    this iss upper
+                    <img style="width:200px" src="{{ asset('storage/image-not-available.png') }}" alt="">
+                    this is inner
+                </p>
             </div>
             <div class="spacer"></div>
             <div class="comment-form my-3 my-lg-4">
@@ -133,5 +141,10 @@
         </div>
     </div>
     <div class="spacer d-none d-lg-block"></div>
-
-</x-front-layout>
+    @push('scripts')
+        <script>
+            let inner = document.querySelector('#testinner');
+            console.log(inner.innerText);
+        </script>
+    @endpush
+</x-front-layout>   

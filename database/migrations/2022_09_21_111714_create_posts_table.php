@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string("title");
             $table->string("slug");
-            $table->longText("description");
+            $table->text("description");
+            $table->json("body");
             $table->text("excerpt");
             $table->unsignedBigInteger('views')->default(0);
             $table->foreignId("category_id")->constrained()->cascadeOnDelete();

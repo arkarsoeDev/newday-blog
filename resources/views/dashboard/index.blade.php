@@ -41,16 +41,18 @@
                         </i></h4>
                     <ul class="list-group rounded-0 mb-3">
                         @foreach ($recentPosts as $post)
-                            <a href="{{ route('dashboard.post.show', $post->slug) }}" class="list-group-item list-group-item-action fw-bold ">
-                                <div class="d-flex justify-content-between align-items-center recent-list__list-container">
-                                    <div
-                                        class="d-flex align-items-center justify-content-start recent-list__list">
+                            <a href="{{ route('dashboard.post.show', $post->slug) }}"
+                                class="list-group-item list-group-item-action fw-bold ">
+                                <div
+                                    class="d-flex justify-content-between align-items-center recent-list__list-container">
+                                    <div class="d-flex align-items-center justify-content-start recent-list__list">
                                         <img src="{{ asset('storage/thumbnails/' . $post->featured_image) }}"
                                             class="recent-list__list-img me-3" alt="">
                                         <div class="d-flex flex-column recent-list__list-right-container">
-                                            <span class="recent-list__list-title mb-3 mb-md-2">{{ $post->title }}</span>
+                                            <span
+                                                class="recent-list__list-title mb-3 mb-md-2">{{ $post->title }}</span>
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <span class="recent-list__list-owner">{{ $post->user->name }}</span>
+                                                <span class="list-owner__name">{{ $post->user->name }}</span>
                                                 <span
                                                     class="recent-list__list-date">{{ $post->created_at->format('d M Y') }}</span>
                                             </div>
@@ -75,14 +77,26 @@
                         </i></h4>
                     <ul class="list-group rounded-0 mb-3 recent-list">
                         @foreach ($recentComments as $comment)
-                            <a href="{{ route('dashboard.comment.show', $comment->id) }}" class="list-group-item list-group-item-action fw-bold ">
-                                <div class="d-flex justify-content-between align-items-center recent-list__list-container">
+                            <a href="{{ route('dashboard.comment.show', $comment->id) }}"
+                                class="list-group-item list-group-item-action fw-bold ">
+                                <div
+                                    class="d-flex justify-content-between align-items-center recent-list__list-container">
                                     <div class="d-flex flex-column recent-list__list">
-                                        <span class="recent-list__list-title mb-3 mb-md-2">{{ $comment->excerpt }}</span>
+                                        <span
+                                            class="recent-list__list-title mb-3 mb-md-2">{{ $comment->excerpt }}</span>
                                         <div class="d-flex align-items-center justify-content-between">
                                             <div class="d-flex align-items-center">
-                                                <img src="{{ asset('storage/thumbnails/small_'.$comment->user->profile_image) }}" class="recent-list__list-owner-img me-3" alt="">
-                                                <span class="recent-list__list-owner">{{ $comment->user->name }} gfdgfgdgdf </span>
+                                                <div class="d-flex align-items-center justify-content-center list-owner__img-container me-3">
+                                                    @if ($comment->user->profile_image)
+                                                        <img src="{{ asset('storage/thumbnails/small_' . $comment->user->profile_image) }}"
+                                                            class="list-owner__img me-3" alt="">
+                                                    @else
+                                                        <div class="list-owner__img-icon">
+                                                            <x-dashboard.icons.user></x-dashboard.icons.user>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <span class="list-owner__name">{{ $comment->user->name }} </span>
                                             </div>
                                             <span
                                                 class="recent-list__list-date">{{ $comment->created_at->format('d M Y') }}</span>

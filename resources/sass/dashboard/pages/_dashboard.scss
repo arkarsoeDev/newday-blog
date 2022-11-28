@@ -32,23 +32,39 @@
         text-overflow: ellipsis;
         margin: 0;
     }
+        
+    .list-owner {
+        &__name {
+            width: 50%;
+            white-space: nowrap;
+            overflow: hidden;
+            height: rem(16);
+            text-overflow: ellipsis;
+            line-height: rem(16);
+            color: $primary;
+        }
 
-    &__list-owner {
-        width: 50%;
-        white-space: nowrap;
-        overflow: hidden;
-        height: rem(16);
-        text-overflow: ellipsis;
-        line-height: rem(16);
-        color: $primary;
-    }
+        &__img-container{
+            width: 30px;
+            height: 30px;
+            border-radius: 100%;
+            overflow: hidden;
+            background-color: $gray-200;
+        }
 
-    &__list-owner-img {
-        width: 30px;
-        height: 30px;
-        border-radius: 100%;
-        overflow: hidden;
+        &__img {
+            width: 30px;
+            height: 30px;
+        }
+
+        &__img-icon {
+            width: 20px;
+            height: 20px;
+        }
     }
+        
+
+    
 
     &__list-date {
         display: none;
