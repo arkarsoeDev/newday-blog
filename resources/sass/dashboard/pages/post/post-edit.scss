@@ -4,4 +4,12 @@
         object-fit: cover;
         height: 200px;
     }
+
+    .ck-editor__editable_inline {
+        min-height: 400px !important;
+    }
+
+    .ck-editor__editable {
+        background-color: $gray-200 !important;
+    }
 }

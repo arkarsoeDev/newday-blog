@@ -2,7 +2,8 @@
     <x-dashboard.heading>Post Management</x-dashboard.heading>
 
     <x-dashboard.layouts.form-create-edit title="Post">
-        <form action="{{ route('dashboard.post.store') }}" method="post" enctype="multipart/form-data">
+        <div class="post-create">
+            <form action="{{ route('dashboard.post.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <x-dashboard.form.input-layout id="title" name="title" title="Title">
                 <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
@@ -18,7 +19,7 @@
                 <label for="editor" class="mb-3">
                     Body
                 </label>
-                <textarea id="editor" name="body">{!! old('body') !!}</textarea>
+                <textarea id="editor" name="body" rows="12">{!! old('body') !!}</textarea>
             </div>
 
             <x-dashboard.form.input-layout id="category" name="category" title="Category">
@@ -44,6 +45,7 @@
                 </button>
             </div>
         </form>
+        </div>
     </x-dashboard.layouts.form-create-edit>
 
     @push('scripts')
@@ -54,7 +56,6 @@
             ClassicEditor
                 .create(document.querySelector('#editor'), {
                     extraPlugins: [SimpleUploadAdapterPlugin],
-
                     // ...
                 })
                 .catch(error => {
