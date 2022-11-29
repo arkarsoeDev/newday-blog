@@ -9,10 +9,12 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Photo;
 use App\Models\PostView;
+use Faker\Provider\Uuid;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class PostController extends Controller
 {
@@ -46,7 +48,10 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   
+        if(!session()->has('tempModelId')) {
+            session()->put('tempModelId', Uuid::uuid());
+        }
         $categories = Category::all();
         return view('dashboard.posts.create', compact('categories'));
     }
@@ -59,35 +64,55 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+        // get medias which are connected with temp premade model id
+        if(session()->has('tempModelId')) {
+            $medias = Media::where('temp_model_id', session()->get('tempModelId'))->get();
+        } else {
+            // fix this to return redirect
+            return response()->json([
+                'error' => 'true'
+            ]);
+        }
+
+        $existedUrlArr = [];
+        $bodyUrlArr = [];
+        $toDeleteMediaIdArr = [];
+        $toUpdateMediaIdArr = [];
+
+        // collect existed url in db
+        foreach($medias as $image) {
+            $existedUrlArr[] = $image->id.'/'.$image->file_name;
+        }
+
+        //collect body url arr
         $dom = new \DomDocument();
         @$dom->loadHtml($request->body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         $imageFile = $dom->getElementsByTagName('img');
 
-        $imageNames = [];
         foreach ($imageFile as $item => $image) {
             $data = $image->getAttribute('src');
-            list($type, $data) = explode(';', $data);
-            list(, $data)      = explode(',', $data);
-            $imageData = base64_decode($data);
-            $imageExtension = explode('/', $type)[1];
-            $image_name = uniqid() . "_photos." . "$imageExtension";
-            $image_name_with_storage = "/storage/" .$image_name;
-            $imageNames[] = $image_name;
-            $path = public_path() . "/storage/" . $image_name;
-            file_put_contents($path, $imageData);
-
-            $image->removeAttribute('src');
-            $image->setAttribute('src', $image_name_with_storage);
+            $data = explode('storage/',$data)[1];
+            $bodyUrlArr[] = $data;
         }
 
-        $body = $dom->saveHTML();
+        //check media should be delete or update
+        foreach($existedUrlArr as $url) {
+            [$id,$name] = explode('/',$url);
+            if(!in_array($url,$bodyUrlArr)) {
+                $toDeleteMediaIdArr[] = $id;
+            } else {
+                $toUpdateMediaIdArr[] = $id;
+            }
+        }
+
+        Media::destroy($toDeleteMediaIdArr);
 
         $post = new Post();
         $post->title = $request->title;
         $post->slug = Str::slug($request->title);
         $post->description = $request->description;
         $post->excerpt = Str::words($request->description, 50, ' ...');
-        $post->body = json_encode($body);
+        $post->body = clean($request->body);
         $post->user_id = Auth::id();
         $post->category_id = $request->category;
 
@@ -106,12 +131,7 @@ class PostController extends Controller
 
         $post->save();
 
-        foreach ($imageNames as $name) {
-            Photo::create([
-                "post_id" => $post->id,
-                "name" => $name
-            ]);
-        }
+        Media::whereIn('id', $toUpdateMediaIdArr)->update(['model_id' => $post->id, 'temp_model_id' => null]);
 
         return redirect()->route('dashboard.post.index')->with([
             "message" => $post->title . " is added successfully.",
@@ -148,6 +168,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        if (!session()->has('tempModelId')) {
+            session()->put('tempModelId', Uuid::uuid());
+        }
         return  view('dashboard.posts.edit', compact("post"));
     }
 
@@ -160,65 +183,60 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        $photos = Photo::select('name')->where('post_id', $post->id)->get();
-        $existedPhotos = collect($photos)->map(function ($photo) {
-            return '/storage/'.$photo->name;
-        });
-
-        $request->body = $this->teaser($request->body);
-
-        $dom = new \DomDocument();
-        @$dom->loadHtml($request->body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        $imageFile = $dom->getElementsByTagName('img');
-        $imageNames = [];
-        $imageNotToDelete = [];
-        foreach ($imageFile as $item => $image) {
-            $data = $image->getAttribute('src');
-            if (!in_array($data, $existedPhotos->toArray())) {
-                list($type, $data) = explode(';', $data);
-                list(, $data)      = explode(',', $data);
-                $imageData = base64_decode($data);
-                $imageExtension = explode('/', $type)[1];
-                $image_name = uniqid() . "_photos." . "$imageExtension";
-                $image_name_with_storage = "/storage/" . $image_name;
-                $imageNames[] = $image_name;
-                $path = public_path() . "/storage/" . $image_name;
-                file_put_contents($path, $imageData);
-
-                $image->removeAttribute('src');
-                $image->setAttribute('src', $image_name_with_storage);
-            } else {
-                $imageNotToDelete[] = $data;
-            }
-        }
-
-        $body = $dom->saveHTML();
-
-        // add new image to db
-        foreach ($imageNames as $name) {
-            Photo::create([
-                "post_id" => $post->id,
-                "name" => $name
+        // get old medias
+        $medias = $post->getMedia('images');
+        
+        // get new medias which are connected with temp premade model id
+        if (session()->has('tempModelId')) {
+            $newMedias = Media::where('temp_model_id', session()->get('tempModelId'))->get();
+        } else {
+            // fix this to return redirect
+            return response()->json([
+                'error' => 'true'
             ]);
         }
 
-        // delete if photo doesn't exist
-        foreach($existedPhotos as $photo){
-            if(!in_array($photo,$imageNotToDelete)) {
-                $photo = explode('/storage/',$photo)[1];
-                // delete photo from storage
-                Storage::delete('public/' . $photo);
-                //delte from table
-                $photo = Photo::where('name',$photo)->first();
-                $photo->delete();
+        $medias = [...$medias,...$newMedias];
+
+        $existedUrlArr = [];
+        $bodyUrlArr = [];
+        $toDeleteMediaIdArr = [];
+        $toUpdateMediaIdArr = [];
+
+        // collect existed url in db
+        foreach ($medias as $image) {
+            $existedUrlArr[] = $image->id . '/' . $image->file_name;
+        }
+
+        //collect body url arr
+        $dom = new \DomDocument();
+        @$dom->loadHtml($request->body, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $imageFile = $dom->getElementsByTagName('img');
+
+        foreach ($imageFile as $item => $image) {
+            $data = $image->getAttribute('src');
+            $data = explode('storage/', $data)[1];
+            $bodyUrlArr[] = $data;
+        }
+
+        //check media should be delete or update
+        foreach ($existedUrlArr as $url) {
+            [$id, $name] = explode('/', $url);
+            if (!in_array($url, $bodyUrlArr)) {
+                $toDeleteMediaIdArr[] = $id;
+            } else {
+                $toUpdateMediaIdArr[] = $id;
             }
         }
+
+        Media::destroy($toDeleteMediaIdArr);
+        Media::whereIn('id', $toUpdateMediaIdArr)->update(['model_id' => $post->id, 'temp_model_id' => null]);
 
         $post->title = $request->title;
         $post->slug = Str::slug($request->title);
         $post->description = $request->description;
         $post->excerpt = Str::words($request->description, 50, ' ...');
-        $post->body = json_encode($body);
+        $post->body = clean($request->body);
         $post->user_id = Auth::id();
         $post->category_id = $request->category;
 
@@ -249,16 +267,6 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $photos = Photo::where('post_id',$post->id)->get();
-
-        $existedPhotos = collect($photos)->map(function ($photo) {
-            return '/public/'.$photo->name;
-        });
-
-        if($existedPhotos) {
-            Storage::delete($existedPhotos->toArray());
-        }
-        
         $title = $post->title;
 
         if (isset($post->featured_image)) {
@@ -269,20 +277,5 @@ class PostController extends Controller
             "message" => $title . ' is deleted Successfully',
             "status" => "success"
         ]);
-    }
-
-    private function teaser($html)
-    {
-        $html = str_replace('&nbsp;', ' ', $html);
-        do {
-            $tmp = $html;
-            $html = preg_replace(
-                '#<([^ >]+)[^>]*>[[:space:]]*</\1>#',
-                '',
-                $html
-            );
-        } while ($html !== $tmp);
-
-        return $html;
     }
 }

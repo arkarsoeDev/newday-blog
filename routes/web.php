@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -27,6 +29,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::resource('/user', UserController::class, ['as' => 'dashboard'])->middleware('admin');
     Route::resource('/comment', CommentController::class, ['as' => 'dashboard']);
     Route::resource('/profile', ProfileController::class, ['as' => 'dashboard'])->only(['index','update'])->parameter('profile','user');
+    Route::resource('/image', ImageController::class, ['as' => 'dashboard'])->only(['store']);
 
     Route::put('/profile/update-password/{user}',[ProfileController::class,'updatePassword'])->name('dashboard.profile.updatePassword');
     Route::put('/profile/update-email/{user}', [ProfileController::class, 'updateEmail'])->name('dashboard.profile.updateEmail');

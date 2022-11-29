@@ -11,6 +11,8 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "mews/purifier": "^3.3",
+        "spatie/laravel-medialibrary": "^10.0.0",
         "stevebauman/location": "^6.5"
     },
     "require-dev": {

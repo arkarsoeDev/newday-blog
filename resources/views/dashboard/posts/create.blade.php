@@ -15,10 +15,10 @@
             </x-dashboard.form.input-layout>
 
             <div class="mb-3">
-                <label for="summernote" class="mb-3">
+                <label for="editor" class="mb-3">
                     Body
                 </label>
-                <textarea id="summernote" name="body"></textarea>
+                <textarea id="editor" name="body">{!! old('body') !!}</textarea>
             </div>
 
             <x-dashboard.form.input-layout id="category" name="category" title="Category">
@@ -47,28 +47,19 @@
     </x-dashboard.layouts.form-create-edit>
 
     @push('scripts')
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-        </script>
-        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
+
+        @include('dashboard.ckeditor')
         <script>
-            $.summernote.dom.emptyPara = "<div><br/></div>";
-            $('#summernote').summernote({
-                placeholder: 'Hello stand alone ui',
-                tabsize: 2,
-                height: 120,
-                toolbar: [
-                    ['style', ['style']],
-                    ['font', ['bold', 'underline', 'clear']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['table', ['table']],
-                    ['insert', ['link', 'picture', 'video']],
-                    ['view', ['fullscreen', 'codeview', 'help']]
-                ]
-            });
-            
+            ClassicEditor
+                .create(document.querySelector('#editor'), {
+                    extraPlugins: [SimpleUploadAdapterPlugin],
+
+                    // ...
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         </script>
     @endpush
 </x-dashboard-layout>
