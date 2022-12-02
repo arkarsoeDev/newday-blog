@@ -15,7 +15,8 @@
                         </div>
                         <hr>
                         <div class="mb-3 ">
-                            <span class="fw-bold post-detail__label">Front panel post link</span> <a href="{{ route('page.post',$post->slug) }}"
+                            <span class="fw-bold post-detail__label">Front panel post link</span> <a
+                                href="{{ route('page.post', $post->slug) }}"
                                 class="post-detail__info">{{ $post->slug }}</a>
                         </div>
                         <div class="mb-3 ">
@@ -29,6 +30,10 @@
                         <div class="mb-3">
                             <span class="fw-bold post-detail__label">Description</span> <span
                                 class="post-detail__description">{{ $post->description }}</span>
+                        </div>
+                        <div class="mb-3">
+                            <span class="fw-bold post-detail__label">Body</span> <span
+                                class="post-detail__body">{!! $post->body !!}</span>
                         </div>
                         <div class="mb-3 ">
                             <span class="fw-bold post-detail__label">Created At</span> <span>
@@ -51,7 +56,7 @@
                                 <div class="post-show__img-container d-flex align-items-center justify-content-center">
                                     @isset($post->featured_image)
                                         @if ($post->featured_image !== 'image-not-available.png')
-                                            <img src="{{ asset('storage/' . $post->featured_image) }}" height="200"
+                                            <img src="{{ asset('storage/uploads/' . $post->featured_image) }}"
                                                 class="post-show__featured-img rounded" alt="">
                                         @else
                                             <div>
@@ -111,14 +116,16 @@
                         <div class="d-flex justify-content-between align-items-center flex-wrap">
                             <div class="d-flex align-items-center mb-3 mb-sm-0">
                                 <h2 class="h4 text-dark me-3 mb-0">
-                                Comments List
+                                    Comments List
                                 </h2>
                                 <span class="fw-bold px-2 p-1 bg-info rounded">{{ $comments->count() }}</span>
                             </div>
                             <div class="flex-fill"></div>
-                            <form action="{{ route('dashboard.post.show',$post->slug) }}" class="d-sm-inline-block mb-3 mb-sm-0">
+                            <form action="{{ route('dashboard.post.show', $post->slug) }}"
+                                class="d-sm-inline-block mb-3 mb-sm-0">
                                 <div class="input-group w-auto">
-                                    <input type="text" class="form-control" name="commentKeyword" placeholder="Search keyword" value="{{ request('commentKeyword') }}"
+                                    <input type="text" class="form-control" name="commentKeyword"
+                                        placeholder="Search keyword" value="{{ request('commentKeyword') }}"
                                         aria-label="search keyword" aria-describedby="commentSearchBtn" />
                                     <button class="btn btn-primary" type="submit" id="commentSearchBtn">
                                         <i class="bi bi-search text-gray-300"></i>
@@ -200,7 +207,7 @@
                         <div class="d-flex justify-content-between align-items-center flex-wrap">
                             <div class="d-flex align-items-center mb-3 mb-sm-0">
                                 <h2 class="h4 text-dark me-3 mb-0">
-                                Views List
+                                    Views List
                                 </h2>
                                 <span class="fw-bold px-2 p-1 bg-info rounded">{{ $postViewers->count() }}</span>
                             </div>
@@ -224,7 +231,6 @@
                                             User id
                                         </th>
                                         <th>User name</th>
-                                        <th>IP address</th>
                                         <th>Created At</th>
                                     </tr>
                                 </thead>
@@ -237,9 +243,6 @@
                                             </td>
                                             <td class="text-nowrap">
                                                 {{ $viewer->user->name ?? 'Guest' }}
-                                            </td>
-                                            <td class="text-nowrap">
-                                                {{ $viewer->ip }}
                                             </td>
                                             <td class="text-nowrap">
                                                 <p class="small mb-1 text-black-50">

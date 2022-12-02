@@ -7,7 +7,6 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Comment;
-use App\Models\Photo;
 use App\Models\PostView;
 use Faker\Provider\Uuid;
 use Illuminate\Support\Facades\Auth;
@@ -49,9 +48,12 @@ class PostController extends Controller
      */
     public function create()
     {   
-        if(!session()->has('tempModelId')) {
-            session()->put('tempModelId', Uuid::uuid());
+        // I'll find another way to delete the image
+        $medias = Media::where('temp_model_id', request()->user()->id)->get();
+        if(count($medias) >= 1) {
+            Media::destroy($medias);
         }
+
         $categories = Category::all();
         return view('dashboard.posts.create', compact('categories'));
     }
@@ -65,14 +67,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         // get medias which are connected with temp premade model id
-        if(session()->has('tempModelId')) {
-            $medias = Media::where('temp_model_id', session()->get('tempModelId'))->get();
-        } else {
-            // fix this to return redirect
-            return response()->json([
-                'error' => 'true'
-            ]);
-        }
+        $medias = Media::where('temp_model_id', $request->user()->id)->get();
 
         $existedUrlArr = [];
         $bodyUrlArr = [];
@@ -122,10 +117,16 @@ class PostController extends Controller
             $thumbName = 'small_' . $newName;
             $img = $request->file('featured_image');
             $imgFile = Image::make($img->getRealPath());
+
+            $thumbName = 'small_' . $newName;
+            $destinationPath = public_path('storage/thumbnails/' . $thumbName);
+            $imgFile->resize(100, 100)->save($destinationPath);
+
+            $thumbName = 'medium_' . $newName;
             $destinationPath = public_path('storage/thumbnails/' . $thumbName);
             $imgFile->resize(480, 300)->save($destinationPath);
 
-            $request->file('featured_image')->storeAs('public', $newName);
+            $request->file('featured_image')->storeAs('public/uploads', $newName);
             $post->featured_image = $newName;
         }
 
@@ -168,10 +169,15 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        if (!session()->has('tempModelId')) {
-            session()->put('tempModelId', Uuid::uuid());
+        // I'll find another way to delete the images
+        $medias = Media::where('temp_model_id', request()->user()->id)->get();
+        if (count($medias) >= 1) {
+            Media::destroy($medias);
         }
-        return  view('dashboard.posts.edit', compact("post"));
+        
+        $categories = Category::all();
+
+        return  view('dashboard.posts.edit', compact("post","categories"));
     }
 
     /**
@@ -187,14 +193,7 @@ class PostController extends Controller
         $medias = $post->getMedia('images');
         
         // get new medias which are connected with temp premade model id
-        if (session()->has('tempModelId')) {
-            $newMedias = Media::where('temp_model_id', session()->get('tempModelId'))->get();
-        } else {
-            // fix this to return redirect
-            return response()->json([
-                'error' => 'true'
-            ]);
-        }
+        $newMedias = Media::where('temp_model_id', request()->user()->id)->get();
 
         $medias = [...$medias,...$newMedias];
 
@@ -242,12 +241,29 @@ class PostController extends Controller
 
         if ($request->hasFile('featured_image')) {
 
+            $photos = [
+                'public/uploads/'.$post->featured_image,
+                'public/thumbnails/medium_'.$post->featured_image,
+                'public/thumbnails/small_' . $post->featured_image,
+            ];
             // delete photo from storage
-            Storage::delete('public/' . $post->featured_image);
+            Storage::delete($photos);
 
             // add photo
             $newName = uniqid() . "_featured_image." . $request->file('featured_image')->extension();
-            $request->file('featured_image')->storeAs('public', $newName);
+
+            $img = $request->file('featured_image');
+            $imgFile = Image::make($img->getRealPath());
+
+            $thumbName = 'small_' . $newName;
+            $destinationPath = public_path('storage/thumbnails/' . $thumbName);
+            $imgFile->resize(100, 100)->save($destinationPath);
+
+            $thumbName = 'medium_' . $newName;
+            $destinationPath = public_path('storage/thumbnails/' . $thumbName);
+            $imgFile->resize(480, 300)->save($destinationPath);
+
+            $request->file('featured_image')->storeAs('public/uploads', $newName);
             $post->featured_image = $newName;
         }
 
@@ -270,8 +286,14 @@ class PostController extends Controller
         $title = $post->title;
 
         if (isset($post->featured_image)) {
-            Storage::delete('public/' . $post->featured_image);
+            $photos = [
+                'public/uploads/' . $post->featured_image,
+                'public/thumbnails/medium_' . $post->featured_image,
+                'public/thumbnails/small_' . $post->featured_image,
+            ];
+            Storage::delete($photos);
         }
+        
         $post->delete();
         return redirect()->route('dashboard.post.index')->with([
             "message" => $title . ' is deleted Successfully',

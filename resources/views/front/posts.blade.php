@@ -9,10 +9,11 @@
 
     <div class="row my-3 my-lg-5 gx-lg-5 flex-column-reverse flex-lg-row">
         <div class="col-12 col-lg-8">
-            <div class="row px-0 mb-5">
+            <div class="row px-0 mb-5 justify-content-center">
                 @forelse($posts as $post)
                     <div class="col-12 col-sm-6 col-lg-12">
                         <x-front.post-card :post="$post" class="c-card--horizontal">
+                            <x-slot name="imgSrc">{{ asset('storage/uploads/' . $post->featured_image) }}</x-slot>
                         </x-front.post-card>
                     </div>
                 @empty

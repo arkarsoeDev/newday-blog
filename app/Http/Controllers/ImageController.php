@@ -40,7 +40,7 @@ class ImageController extends Controller
         $post->exists = true;
         $image = $post->addMediaFromRequest('upload')->toMediaCollection('images');
 
-        $image->temp_model_id = session()->get('tempModelId');
+        $image->temp_model_id = $request->user()->id;
         $image->save();
 
         $url = str_replace("localhost", "127.0.0.1:8000", $image->getUrl());

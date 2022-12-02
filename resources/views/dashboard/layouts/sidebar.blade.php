@@ -25,7 +25,7 @@
     @endadmin
 
     <x-dashboard.sidebar.collapse-link title="Post" icon="bi bi-newspaper" target="#PostCollapse" id="PostCollapse"
-        active="{{ Str::contains(request()->path(), 'dashboard/post') }}">
+        active="{{ Str::contains(request()->path(), 'dashboard/post') && !Str::contains(request()->path(), 'dashboard/post-') }}">
         <a class="collapse-item" href="{{ route('dashboard.post.index') }}">Posts</a>
         <a class="collapse-item" href="{{ route('dashboard.post.create') }}">Add Post</a>
         
@@ -40,10 +40,20 @@
 
     </x-dashboard.sidebar.collapse-link>
 
-    <li class="nav-item mb-2">
+    <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('dashboard.comment.index') ? 'active': '' }}" aria-current="page" href="{{ route('dashboard.comment.index') }}"><i
                 class="bi bi-chat"></i>
             <span>Comments</span></a>
     </li>
+
+    <x-dashboard.sidebar.collapse-link title="Post View" icon="bi bi-list" target="#PostViewCollapse"
+        id="PostViewCollapse" active="{{ Str::contains(request()->path(), 'dashboard/post-view') }}">
+        <a class="collapse-item" href="{{ route('dashboard.post-view.index') }}">Post Views</a>
+        <a class="collapse-item" href="{{ route('dashboard.post-view.by-country') }}">By Country</a>
+        <a class="collapse-item" href="{{ route('dashboard.post-view.by-date') }}">By Date</a>
+        {{-- @can('create', App\Models\Category::class)
+            <a class="collapse-item" href="{{ route('dashboard.category.create') }}">Add Category</a>
+        @endcan --}}
+    </x-dashboard.sidebar.collapse-link>
 
 </ul>

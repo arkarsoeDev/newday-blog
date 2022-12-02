@@ -60,7 +60,7 @@ class Post extends Model implements HasMedia
         return $this->hasMany(Comment::class);
     }
 
-    public function postView()
+    public function postViews()
     {
         return $this->hasMany(PostView::class);
     }
@@ -68,11 +68,11 @@ class Post extends Model implements HasMedia
     public function showPost()
     {
         if (auth()->id() == null) {
-            return $this->postView()
+            return $this->postViews()
                 ->where('ip', '=',  request()->ip())->exists();
         }
 
-        return $this->postView()
+        return $this->postViews()
         ->where(function ($postViewsQuery) {
             $postViewsQuery
                 ->where('session_id', '=', request()->getSession()->getId())

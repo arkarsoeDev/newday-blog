@@ -22,10 +22,16 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::when(request()->user()->isAuthor(), function () {
-            return request()->user()->comments();
+        if(request('list') && request('list') == 'personal') {
+            $comments = request()->user()->comments()->with(['user'])->paginate(10)->withQueryString();
+            return view('dashboard.comments.index', compact('comments'));
+        }
+        $comments = Comment::when(request()->user()->isAuthor(), function ($q) {
+            $q->whereHas('post', function($q) {
+                $q->where('user_id',request()->user()->id);
+            });
         })->when(request('keyword'), function ($q) {
-            $keyword = request('keyword');
+            $keyword = request('keyword');  
             $q->where("body", "like", "%$keyword%");
         })->latest('id')->with(['user'])->paginate(10)->withQueryString();
 

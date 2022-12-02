@@ -8,6 +8,7 @@ use App\Http\Requests\Profile\UpdatePasswordRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
@@ -79,6 +80,16 @@ class ProfileController extends Controller
         $user->name = $request->username;
 
         if ($request->hasFile('profile_image')) {
+
+            if(isset($user->profile_image)) {
+                $photos = [
+                    'public/uploads/' . $user->profile_image,
+                    'public/thumbnails/small_' . $user->profile_image,
+                ];
+                // delete photo from storage
+                Storage::delete($photos);
+            }
+
             $newName = uniqid() . "_profile_image." . $request->file('profile_image')->extension();
 
             $thumbName = 'small_' . $newName;
@@ -87,7 +98,7 @@ class ProfileController extends Controller
             $destinationPath = public_path('storage/thumbnails/' . $thumbName);
             $imgFile->resize(150, 150)->save($destinationPath);
 
-            $request->file('profile_image')->storeAs('public', $newName);
+            $request->file('profile_image')->storeAs('public/uploads', $newName);
             $user->profile_image = $newName;
         }
 

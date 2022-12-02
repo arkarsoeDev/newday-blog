@@ -1,0 +1,19 @@
+.comment {
+   &__dropdown {
+      button {
+         background-color: $gray-200;
+      }
+      @include on-event() {
+         background-color: $gray-200;
+         border-radius: 5px;
+      }
+   }
+
+   &__filter {
+      overflow-x: scroll;
+      
+      @include breakpoint(large) {
+         overflow-x: auto;
+      }
+   }
+}

@@ -1,0 +1,9 @@
+.post-view {
+   &__filter {
+      overflow-x: scroll;
+      
+      @include breakpoint(large) {
+         overflow-x: auto;
+      }
+   }
+}

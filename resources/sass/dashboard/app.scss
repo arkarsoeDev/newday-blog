@@ -33,6 +33,7 @@
   'components/navs/topbar',
   'components/table',
   'components/c-card',
+  'components/value-detail',
   'components/comment-detail';  
 // 6. Page-specific styles
 @import
@@ -40,6 +41,8 @@
   'pages/post/post-edit.scss',
   'pages/post/post-show.scss',
   'pages/profile/index',
+  'pages/comment/index.scss',
+  'pages/post-view/by-date.scss',
   'pages/dashboard';
 
 // 7. Themes

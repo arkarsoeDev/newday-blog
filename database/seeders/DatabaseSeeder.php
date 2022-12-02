@@ -21,7 +21,10 @@ class DatabaseSeeder extends Seeder
             PostSeeder::class,
             CommentSeeder::class,
             CountrySeeder::class,
+            PostViewSeeder::class,
         ]);
+
+        
 
         $photos = Storage::allFiles('public');
         array_shift($photos);

@@ -1,52 +1,87 @@
 <x-dashboard-layout>
     <x-dashboard.heading>Post Management</x-dashboard.heading>
 
-    <x-dashboard.layouts.form-create-edit title="Post">
+        <x-dashboard.layouts.form-create-edit title="Post">
         <div class="post-create">
-            <form action="{{ route('dashboard.post.store') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            <x-dashboard.form.input-layout id="title" name="title" title="Title">
-                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
-                    value="{{ old('title') }}" id="title" placeholder="Title" />
-            </x-dashboard.form.input-layout>
+            <form id="createPost" action="{{ route('dashboard.post.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <x-dashboard.form.input-layout>
+                    <x-slot name="name">title</x-slot>
+                    <x-slot name="id">title</x-slot>
+                    <x-slot name="title">Title</x-slot>
+                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
+                        value="{{ old('title') }}" id="title" placeholder="Title" />
+                </x-dashboard.form.input-layout>
 
-            <x-dashboard.form.input-layout id="description" name="description" title="Description">
-                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
-                    rows="5">{{ old('description') }}</textarea>
-            </x-dashboard.form.input-layout>
+                <x-dashboard.form.input-layout>
+                    <x-slot name="name">description</x-slot>
+                    <x-slot name="id">description</x-slot>
+                    <x-slot name="title">Description</x-slot>
+                    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                        rows="5">{{ old('description') }}</textarea>
+                </x-dashboard.form.input-layout>
 
-            <div class="mb-3">
-                <label for="editor" class="mb-3">
-                    Body
-                </label>
-                <textarea id="editor" name="body" rows="12">{!! old('body') !!}</textarea>
+                <x-dashboard.form.input-layout>
+                    <x-slot name="name">body</x-slot>
+                    <x-slot name="id">editor</x-slot>
+                    <x-slot name="title">Body</x-slot>
+                    <textarea class="form-control @error('body') is-invalid @enderror" id="editor" name="body" rows="5">{!! old('body') !!}</textarea>
+                </x-dashboard.form.input-layout>
+            </form>
+        </div>
+
+        <x-slot name="rightSide">
+            <div class="col-12 col-md-6 col-lg-12">
+                <div class="card c-card mb-3">
+                    <div class="card-body">
+                        <label for="featuredImage" class="form-label h5">Featured Image</label>
+                        <div class="post-create__img-container d-flex align-items-center justify-content-center mb-3">
+                            <div>
+                                No image is uploaded yet.
+                            </div>
+                        </div>
+                        <x-dashboard.form.input-layout>
+                            <x-slot name="name">featured_image</x-slot>
+                            <input form="createPost" type="file"
+                                class="form-control @error('featured_image') is-invalid @enderror" name="featured_image"
+                                id="featuredImage" />
+                        </x-dashboard.form.input-layout>
+                    </div>
+                </div>
             </div>
-
-            <x-dashboard.form.input-layout id="category" name="category" title="Category">
-                <select class="form-select @error('category') is-invalid @enderror" id="category" name="category"
-                    aria-label="Default select example">
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ $category->id === old('category') ? 'selected' : '' }}>
-                            {{ $category->title }}
-                        </option>
-                    @endforeach
-                </select>
-            </x-dashboard.form.input-layout>
-
-            <div class="mb-3">
-                <label for="featuredImage" class="form-label">Featured Image</label>
-                <input type="file" class="form-control @error('featured_image') is-invalid @enderror"
-                    name="featured_image" id="featuredImage" placeholder="Title" />
+            <div class="col-12 col-md-6 col-lg-12">
+                <div class="card c-card mb-3">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="category" class="form-label h5">Category</label>
+                        </div>
+                        <x-dashboard.form.input-layout>
+                            <x-slot name="name">category</x-slot>
+                            <select form="createPost" class="form-select @error('category') is-invalid @enderror"
+                                id="category" name="category" aria-label="Default select example">
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ $category->id === old('category') ? 'selected' : '' }}>
+                                        {{ $category->title }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </x-dashboard.form.input-layout>
+                    </div>
+                </div>
             </div>
+        </x-slot>
+    </x-dashboard.layouts.form-create-edit>
 
+    <div class="row mb-3">
+        <div class="col-12">
             <div class="text-end">
-                <button type="submit" class="btn btn-primary text-white">
+                <button form="createPost" type="submit" class="btn btn-primary px-5 text-white">
                     Submit
                 </button>
             </div>
-        </form>
         </div>
-    </x-dashboard.layouts.form-create-edit>
+    </div>
 
     @push('scripts')
         <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>

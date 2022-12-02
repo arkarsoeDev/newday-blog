@@ -12,15 +12,31 @@
          display: block;
       }
 
-      &__description {
+      &__description,&__body {
          display: block;
          background-color: $gray-200;
          padding: 1rem;
          border-radius: 5px;
-         height: 20rem;
+         height: 10rem;
          width: 100%;
          overflow-y: scroll;
       }
+
+      &__body {
+         height: 30rem;
+        img {
+            display: block;
+            margin: 16px auto;
+            width: 280px !important;
+            height: auto !important;
+            max-height: 500px !important;
+            
+            @include breakpoint(medium) {
+                width: 680px !important;
+                max-width: 100% !important;
+            }
+        }
+    }
 
    }
 
@@ -40,7 +56,7 @@
 
    &__featured-img {
       width: 100%;
-      object-fit: contain;
+      object-fit: cover;
       height: 200px;
 
       @include breakpoint(small) {

@@ -6,6 +6,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostViewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -24,15 +25,21 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->prefix('dashboard')->group(function () {
     Route::get('/', [PageController::class, 'dashboard'])->name('page.dashboard');
 
-    Route::resource('/post', PostController::class, ['as' => 'dashboard'])->parameter('post', 'post:slug');
-    Route::resource('/category', CategoryController::class, ['as' => 'dashboard']);
-    Route::resource('/user', UserController::class, ['as' => 'dashboard'])->middleware('admin');
-    Route::resource('/comment', CommentController::class, ['as' => 'dashboard']);
-    Route::resource('/profile', ProfileController::class, ['as' => 'dashboard'])->only(['index','update'])->parameter('profile','user');
-    Route::resource('/image', ImageController::class, ['as' => 'dashboard'])->only(['store']);
+    Route::name('dashboard.')->group(function () {
+        Route::resource('/post', PostController::class)->parameter('post', 'post:slug');
+        Route::resource('/category', CategoryController::class);
+        Route::resource('/user', UserController::class)->middleware('admin');
+        Route::resource('/comment', CommentController::class);
+        Route::resource('/profile', ProfileController::class)->only(['index', 'update'])->parameter('profile', 'user');
+        Route::resource('/image', ImageController::class)->only(['store']);
 
-    Route::put('/profile/update-password/{user}',[ProfileController::class,'updatePassword'])->name('dashboard.profile.updatePassword');
-    Route::put('/profile/update-email/{user}', [ProfileController::class, 'updateEmail'])->name('dashboard.profile.updateEmail');
+        Route::resource('/post-view', PostViewController::class)->only(['index', 'destroy', 'show']);
+        Route::get('/post-view-by-country',[PostViewController::class,'postViewsByCountry'])->name('post-view.by-country');
+        Route::get('/post-view-by-date', [PostViewController::class, 'postViewsByDate'])->name('post-view.by-date');
+
+        Route::put('/profile/update-password/{user}', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+        Route::put('/profile/update-email/{user}', [ProfileController::class, 'updateEmail'])->name('profile.updateEmail');
+    });
 });
 
 // Route::delete('/comment', [CommentController::class, 'delete']);

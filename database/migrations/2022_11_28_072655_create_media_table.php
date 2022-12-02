@@ -12,7 +12,7 @@ return new class extends Migration
             $table->bigIncrements('id');
 
             $table->morphs('model');
-            $table->uuid('temp_model_id')->nullable();
+            $table->bigInteger('temp_model_id')->nullable();
             $table->uuid('uuid')->nullable()->unique();
             $table->string('collection_name');
             $table->string('name');

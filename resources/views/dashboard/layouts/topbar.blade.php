@@ -114,16 +114,16 @@
                 {{-- <a href="" class="dropdown-item d-flex align-items-center">
                     <i class="bi bi-person me-3"></i>
                     <span class="">Profile</span>
-                </a>
-                <a href="" class="dropdown-item d-flex align-items-center">
+                </a> --}}
+                <a href="{{ route('dashboard.profile.index') }}" class="dropdown-item d-flex align-items-center">
                     <i class="bi bi-wrench me-3"></i>
                     <span class="">Profile</span>
-                </a>
-                <a href="" class="dropdown-item d-flex align-items-center">
+                </a> 
+                {{-- <a href="{{ route('') }}" class="dropdown-item d-flex align-items-center">
                     <i class="bi bi-list me-3"></i>
                     <span class="">Acitivity log</span>
-                </a>
-                <div class="dropdown-divider"></div> --}}
+                </a> --}}
+                <div class="dropdown-divider"></div> 
                 <a href="{{ route('page.index') }}" class="dropdown-item d-flex align-items-center">
                     <i class="bi bi-list me-3"></i>
                     <span class="">Front Panel</span>

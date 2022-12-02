@@ -2,7 +2,8 @@
 
 <div {{ $attributes->merge(['class' => 'c-card']) }}>
     <figure class="c-card__figure">
-        <img src="{{ asset('storage/thumbnails/small_' . $post->featured_image) }}" class="c-card__img" alt="..." />
+        <img src="{{ $imgSrc ?? asset('storage/thumbnails/medium_' . $post->featured_image) }}" class="c-card__img"
+            alt="..." />
     </figure>
     <div class="c-card__body">
         <div class="d-flex justify-content-between align-items-center mb-lg-2">
@@ -26,7 +27,16 @@
         <div class="d-flex justify-content-between align-items-center">
             <a href="{{ route('page.posts', ['user' => $post->user->name]) }}">
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="bg-dark rounded-circle p-3 me-2 c-card__profile"></div>
+                    <div class="c-card__profile-img-container d-flex align-items-center justify-content-center me-1">
+                        @if($post->user->profile_image)
+                        <img src="{{ asset('storage/thumbnails/small_' . $post->featured_image) }}"
+                        class="c-card__profile-img me-3" alt="">
+                        @else
+                        <div class="c-card__profile-img-icon">
+                            <x-icons.user></x-icons.user>
+                        </div>
+                        @endif
+                    </div>
                     <span class="fw-bold c-card__author">{{ $post->user->name }}</span>
                 </div>
             </a>

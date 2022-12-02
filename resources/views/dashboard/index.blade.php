@@ -28,11 +28,12 @@
         @endif
         @if (isset($postViewCount))
             <div class="col-xl-3 col-md-6 mb-4">
-                <x-dashboard.count-card :route="route('dashboard.comment.index')" :payload="$postViewCount" title="Totla View Count" icon="bi-eye">
+                <x-dashboard.count-card :route="route('dashboard.post-view.index')" :payload="$postViewCount" title="Totla View Count" icon="bi-eye">
                 </x-dashboard.count-card>
             </div>
         @endif
-
+        
+        @if (isset($recentPosts))
         <div class="col-xl-6 col-md-12 mb-4">
             <div class="card shadow h-100 py-2 recent-list">
                 <div class="card-body">
@@ -46,7 +47,7 @@
                                 <div
                                     class="d-flex justify-content-between align-items-center recent-list__list-container">
                                     <div class="d-flex align-items-center justify-content-start recent-list__list">
-                                        <img src="{{ asset('storage/thumbnails/' . $post->featured_image) }}"
+                                        <img src="{{ asset('storage/thumbnails/small_' . $post->featured_image) }}"
                                             class="recent-list__list-img me-3" alt="">
                                         <div class="d-flex flex-column recent-list__list-right-container">
                                             <span
@@ -68,7 +69,9 @@
                 </div>
             </div>
         </div>
+        @endif
 
+        @if (isset($recentComments))
         <div class="col-xl-6 col-md-12 mb-4">
             <div class="card shadow h-100 py-2 recent-card">
                 <div class="card-body">
@@ -84,15 +87,16 @@
                                     <div class="d-flex flex-column recent-list__list">
                                         <span
                                             class="recent-list__list-title mb-3 mb-md-2">{{ $comment->excerpt }}</span>
-                                        <div class="d-flex align-items-center justify-content-between">
+                                        <div class="d-flex align-items-center justify-content-between list-owner">
                                             <div class="d-flex align-items-center">
-                                                <div class="d-flex align-items-center justify-content-center list-owner__img-container me-3">
+                                                <div
+                                                    class="d-flex align-items-center justify-content-center list-owner__img-container me-3">
                                                     @if ($comment->user->profile_image)
                                                         <img src="{{ asset('storage/thumbnails/small_' . $comment->user->profile_image) }}"
-                                                            class="list-owner__img me-3" alt="">
+                                                            class="list-owner__img" alt="">
                                                     @else
                                                         <div class="list-owner__img-icon">
-                                                            <x-dashboard.icons.user></x-dashboard.icons.user>
+                                                            <x-icons.user></x-icons.user>
                                                         </div>
                                                     @endif
                                                 </div>
@@ -112,6 +116,50 @@
                 </div>
             </div>
         </div>
+        @endif
+
+        @if (isset($viewsByDate))
+        <div class="col-12 col-lg-8 mb-4">
+            <div class="card shadow h-100 py-2 recent-card">
+                <div class="card-body">
+                    <h4 class="card-title text-danger mb-4"><span class="me-2">Post View by Date</span> <i
+                            class="bi bi-eye">
+                        </i></h4>
+                    <canvas id="viewsByDate"></canvas>
+                </div>
+                <div class="text-center mb-3">
+                    <a class="btn btn-primary d-inline-block" href="{{ route('dashboard.post-view.by-date') }}">View
+                        all</a>
+                </div>
+            </div>
+        </div>
+        @endif
+
+        @if(isset($views))
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="card shadow h-100 py-2 recent-card">
+                <div class="card-body">
+                    <h4 class="card-title text-info mb-4"><span class="me-2">Most View Country</span> <i
+                            class="bi bi-eye">
+                        </i></h4>
+                    <canvas id="mostViewCountry"></canvas>
+                </div>
+                <div class="text-center mb-3">
+                    <a class="btn btn-primary d-inline-block" href="{{ route('dashboard.post-view.by-country') }}">View
+                        all</a>
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
+    @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        @if(isset($views))
+        @include('dashboard.chart.mostViewsCountry')
+        @endif
+        @if(isset($viewsByDate))
+        @include('dashboard.chart.viewsByDate')
+        @endif
+    @endpush
 
 </x-dashboard-layout>

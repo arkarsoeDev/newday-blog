@@ -45,17 +45,17 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return Auth::user()->role === "0";
+        return Auth::user()->role == "0";
     }
 
     public function isEditor()
     {
-        return Auth::user()->role === "1";
+        return Auth::user()->role == "1";
     }
 
     public function isAuthor()
     {
-        return Auth::user()->role === "2";
+        return Auth::user()->role == "2";
     }
 
     public function postComments()

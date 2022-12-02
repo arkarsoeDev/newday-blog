@@ -1,0 +1,41 @@
+.value-detail {
+   &__info {
+      display: block;
+      background-color: $gray-200;
+      padding: 0.5rem;
+      border-radius: 5px;
+   }
+
+   &__label {
+      margin-bottom:6px;
+      display: block;
+   }
+
+   &__description,&__body {
+      display: block;
+      background-color: $gray-200;
+      padding: 1rem;
+      border-radius: 5px;
+      height: 10rem;
+      width: 100%;
+      overflow-y: scroll;
+   }
+
+   &__partial-item {
+      .label {
+         display: block;
+         font-weight: bold;
+         width: 100px !important;
+         margin-bottom: 0.5rem;
+      }
+
+      display: block;
+      background-color: $gray-200;
+      padding: 0.5rem;
+      border-radius: 5px;
+
+      .data {
+         display: block;
+      }
+   }
+}

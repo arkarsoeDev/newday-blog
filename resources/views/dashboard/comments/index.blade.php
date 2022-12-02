@@ -1,22 +1,50 @@
 <x-dashboard-layout>
     <x-dashboard.heading>Comment Management</x-dashboard.heading>
 
-    <div class="row">
+    <div class="row comment">
         <div class="col-12 col-lg-10">
             <div class="card c-card">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
-                        <h2 class="h4 text-dark mb-3 mb-sm-0">
+                    <div class="d-flex justify-content-start justify-content-sm-between align-items-start align-items-sm-center flex-column flex-sm-row flex-wrap">
+                        <h2 class="h4 text-dark mb-3 mb-lg-0">
                             Comments List
                         </h2>
                         <div class="flex-fill"></div>
+
                         <form action="{{ route('dashboard.comment.index') }}" class="d-sm-inline-block mb-3 mb-sm-0">
-                            <div class="input-group w-auto">
-                                <input type="text" class="form-control" name="keyword" placeholder="Search keyword"
-                                    aria-label="search keyword" aria-describedby="commentSearchBtn" />
-                                <button class="btn btn-primary" type="submit" id="commentSearchBtn">
-                                    <i class="bi bi-search text-gray-300"></i>
-                                </button>
+                            <div class="d-flex flex-column flex-sm-row">
+                                <div class="dropdown comment__dropdown mb-3 mb-sm-0 me-3">
+                                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        {{ request('list') ?? 'others' }}
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item"
+                                                href="{{ route('dashboard.comment.index', ['list' => 'others']) }}">
+                                                <i class="bi bi-speedometer me-3">
+                                                </i>
+                                                others
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item"
+                                                href="{{ route('dashboard.comment.index', ['list' => 'personal']) }}">
+                                                <i class="bi bi-speedometer me-3">
+                                                </i>
+                                                personal
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="input-group w-auto">
+                                    <input type="text" class="form-control" name="keyword"
+                                        placeholder="Search keyword" aria-label="search keyword"
+                                        aria-describedby="commentSearchBtn" />
+                                    <button class="btn btn-primary" type="submit" id="commentSearchBtn">
+                                        <i class="bi bi-search text-gray-300"></i>
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -97,26 +125,26 @@
     @push('scripts')
         <script>
             let deleteSubmits = document.querySelectorAll(".deleteSubmit");
-            if(deleteSubmits) {
+            if (deleteSubmits) {
                 [...deleteSubmits].map(submit => {
-                submit.addEventListener("click", function(event) {
-                    event.preventDefault()
-                    let form = document.querySelector(`#${this.dataset.form}`)
-                    Swal.fire({
-                        title: `Are you sure to delete this comment id(${this.dataset.commentId})?`,
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            form.submit();                               
-                        }
-                    })
-                });
-            })
+                    submit.addEventListener("click", function(event) {
+                        event.preventDefault()
+                        let form = document.querySelector(`#${this.dataset.form}`)
+                        Swal.fire({
+                            title: `Are you sure to delete this comment id(${this.dataset.commentId})?`,
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        })
+                    });
+                })
             }
         </script>
     @endpush

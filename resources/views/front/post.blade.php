@@ -14,7 +14,7 @@
         <div class="col-12 col-lg-8">
             <div class="post">
                 <figure class="figure">
-                        <img src="{{ asset('storage/' . $post->featured_image) }}"
+                    <img src="{{ asset('storage/uploads/' . $post->featured_image) }}"
                         class="figure-img img-fluid post__img" alt="..." />
                     <figcaption class="figure-caption">
                         A caption for the above image.
@@ -26,7 +26,17 @@
                     <div class="d-flex justify-content-end justify-content-sm-between align-items-center flex-wrap">
 
                         <div class="d-flex justify-content-between align-items-center me-lg-3 mb-3 mb-sm-0">
-                            <div class="bg-dark rounded-circle p-3 me-2 post__profile"></div>
+                            <div
+                                class="post__profile-img-container d-flex align-items-center justify-content-center me-1">
+                                @if ($post->user->profile_image)
+                                    <img src="{{ asset('storage/thumbnails/small_' . $post->featured_image) }}"
+                                        class="post__profile-img me-3" alt="">
+                                @else
+                                    <div class="post__profile-img-icon">
+                                        <x-icons.user></x-icons.user>
+                                    </div>
+                                @endif
+                            </div>
                             <span class="fw-bold post__author">{{ $post->user->name }}</span>
                         </div>
 
@@ -43,7 +53,7 @@
                 <p class="post__para">
                     {{ $post->description }}
                 </p>
-                <div class="post__body">
+                <div class="post__body mb-3">
                     {!! $post->body !!}
                 </div>
             </div>
@@ -89,18 +99,28 @@
                             @endcan
                             <div href="">
                                 <div class="d-inline-flex justify-content-start align-items-center mb-2">
-                                    <div class="bg-dark rounded-circle p-3 me-2 c-card__profile"></div>
+                                    <div
+                                        class="c-card__profile-img-container d-flex align-items-center justify-content-center me-1">
+                                        @if ($post->user->profile_image)
+                                            <img src="{{ asset('storage/thumbnails/small_' . $post->featured_image) }}"
+                                                class="c-card__profile-img me-3" alt="">
+                                        @else
+                                            <div class="c-card__profile-img-icon">
+                                                <x-icons.user></x-icons.user>
+                                            </div>
+                                        @endif
+                                    </div>
                                     <span class="fw-bold c-card__author">{{ $comment->user->name }}</span>
                                 </div>
-                            </div>
-                            <div class="comment__content">
-                                <p class="comment__text">
-                                    {{ $comment->body }}
-                                </p>
-                            </div>
+                                <div class="comment__content">
+                                    <p class="comment__text">
+                                        {{ $comment->body }}
+                                    </p>
+                                </div>
 
-                            <div class="comment__date">
-                                <span>{{ $comment->created_at->diffForHumans() }}</span>
+                                <div class="comment__date">
+                                    <span>{{ $comment->created_at->diffForHumans() }}</span>
+                                </div>
                             </div>
                         </div>
                     @empty
@@ -136,4 +156,4 @@
         </div>
     </div>
     <div class="spacer d-none d-lg-block"></div>
-</x-front-layout>   
+</x-front-layout>

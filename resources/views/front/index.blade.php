@@ -20,6 +20,7 @@
         @foreach ($latestPosts as $key => $post)
             <div class="col-12 col-sm-6 {{ $key == 0 ? 'col-lg-12' : 'col-lg-4' }}">
                 <x-front.post-card :post="$post" class="{{ $key == 0 ? 'c-card--large' : '' }}">
+                    <x-slot name="imgSrc">{{ asset('storage/uploads/' . $post->featured_image) }}</x-slot>
                 </x-front.post-card>
             </div>
             @if($key == 0)

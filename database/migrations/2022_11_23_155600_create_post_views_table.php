@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('post_views', function (Blueprint $table) {
             $table->id();
             $table->foreignId('post_id')->constrained();
+            $table->foreignId("country_id")->constrained();
             $table->string("slug");
             $table->string("url");
             $table->string("session_id");

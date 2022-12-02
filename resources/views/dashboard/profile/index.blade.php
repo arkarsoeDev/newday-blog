@@ -12,7 +12,7 @@
                                     <img class="profile__img" src="{{ asset('storage/thumbnails/small_' . $user->profile_image) }}" alt="">
                                 @else
                                     <div class="profile__img-icon">
-                                        <x-dashboard.icons.user></x-dashboard.icons.user>
+                                        <x-icons.user></x-icons.user>
                                     </div>
                                 @endif
                             </div>
