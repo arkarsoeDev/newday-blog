@@ -140,19 +140,19 @@ class PostViewController extends Controller
         $now = Carbon::now()->addDays(1)->toDateString();
         $operator = '<=';
 
-        $views = PostView::select('id', DB::raw('DATE(created_at) AS date'), DB::raw('count(*) as count'))->whereDate('date', '<=', $now)
+        $views = PostView::select('id', DB::raw('DATE(created_at) AS date'), DB::raw('count(*) as count'))->whereDate('created_at', '<=', $now)
             ->when(request('to') && request('from'), function ($q) {
                 $from = request('from');
                 $to = request('to');
-                $q->whereDateBetween('date', $from, $to);
+                $q->whereDateBetween('created_at', $from, $to);
             })
             ->when(request('to') && (request('from') == null), function ($q) {
                 $to = request('to');
-                $q->whereDate('date', '<=', $to);
+                $q->whereDate('created_at', '<=', $to);
             })
             ->when(request('from') && (request('to') == null), function ($q) {
                 $from = request('from');
-                $q->whereDate('date', '>=', $from);
+                $q->whereDate('created_at', '>=', $from);
             })->when(request()->user()->isAuthor(), function ($q) {
                 $q->whereHas('post', function ($q) {
                     $q->where('user_id', request()->user()->id);

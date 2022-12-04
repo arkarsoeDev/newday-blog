@@ -104,7 +104,7 @@
                                         
                                         @if ($comment->user->profile_image)
                                             <img src="{{ asset('storage/thumbnails/small_' . $comment->user->profile_image) }}"
-                                                class="comment__profile-img me-3" alt="">
+                                                class="comment__profile-img" alt="">
                                         @else
                                             <div class="comment__profile-img-icon">
                                                 <x-icons.user></x-icons.user>

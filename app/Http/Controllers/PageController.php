@@ -74,7 +74,7 @@ class PageController extends Controller
                     $q->whereHas('post', function ($q) {
                         $q->where('user_id', request()->user()->id);
                     });
-                })->whereDate('date', '<=', $to);
+                })->whereDate('created_at', '<=', $to);
             })->groupBy('date')->get();
 
         $totalDate = 8;

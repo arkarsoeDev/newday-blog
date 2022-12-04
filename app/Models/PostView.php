@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+// use Stevebauman\Location\Facades\Location;
 
 class PostView extends Model
 {
@@ -37,6 +38,8 @@ class PostView extends Model
 
     public static function createViewLog($post)
     {
+        // $position = Location::get(request()->ip());
+        // $country = Country::where("name",$position->countryName)->first();
         $postViews = new PostView();
         $postViews->post_id = $post->id;
         $postViews->slug = $post->slug;
@@ -44,6 +47,7 @@ class PostView extends Model
         $postViews->session_id = request()->getSession()->getId();
         $postViews->user_id = (auth()->check()) ? auth()->id() : null;
         $postViews->country_id = 1;
+        // $postViews->country_id = $country->id;
         $postViews->ip = request()->ip();
         $postViews->agent = request()->header('User-Agent');
         $postViews->save();

@@ -15,7 +15,6 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('countries')->truncate();
         
         $countries = [
             ['name' => 'Afghanistan', 'code' => 'AF'],

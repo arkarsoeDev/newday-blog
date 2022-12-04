@@ -20,6 +20,7 @@ class PostViewFactory extends Factory
     public function definition()
     {
         $post = Post::inRandomOrder()->first();
+        $date = $this->faker->dateTimeBetween('-7 days');
         return [
             'post_id' => $post->id,
             'country_id' => Country::inRandomOrder()->first()->id,
@@ -28,7 +29,8 @@ class PostViewFactory extends Factory
             'session_id' => '1122',
             'user_id' => User::inRandomOrder()->first()->id,
             'ip' => 'testip',
-            'agent' => 'testagent'
+            'agent' => 'testagent',
+            'created_at' => $date,
         ];
     }
 }

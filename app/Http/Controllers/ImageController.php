@@ -43,7 +43,8 @@ class ImageController extends Controller
 
         $image->temp_model_id = $request->user()->id;
         $image->save();
-
+        // $host = request()->getHttpHost();
+        // $url = str_replace("localhost", $host, $image->getUrl());
         $url = str_replace("localhost", "127.0.0.1:8000", $image->getUrl());
         return  response()->json([
             'url' => $url
