@@ -22,8 +22,8 @@ $fontf-post-title: "Barlow", sans-serif;
         margin-bottom: 0.5rem;
     }
 
-    &__para,
-    &__body {
+    
+    &__body p,&__para {
         text-indent: 30%;
         margin-bottom: 0%;
         white-space: initial;

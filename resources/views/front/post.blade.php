@@ -29,7 +29,7 @@
                             <div
                                 class="post__profile-img-container d-flex align-items-center justify-content-center me-1">
                                 @if ($post->user->profile_image)
-                                    <img src="{{ asset('storage/thumbnails/small_' . $post->featured_image) }}"
+                                    <img src="{{ asset('storage/thumbnails/small_' . $post->user->profile_image) }}"
                                         class="post__profile-img me-3" alt="">
                                 @else
                                     <div class="post__profile-img-icon">

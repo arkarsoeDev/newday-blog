@@ -28,7 +28,7 @@
                 <div class="d-flex align-items-center me-1">
                     <div class="c-card__profile-img-container d-flex align-items-center justify-content-center me-2">
                         @if($post->user->profile_image)
-                        <img src="{{ asset('storage/thumbnails/small_' . $post->featured_image) }}"
+                        <img src="{{ asset('storage/thumbnails/small_' . $post->user->profile_image) }}"
                         class="c-card__profile-img me-3" alt="">
                         @else
                         <div class="c-card__profile-img-icon">

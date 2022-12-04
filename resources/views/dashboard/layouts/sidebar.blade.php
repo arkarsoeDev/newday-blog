@@ -40,7 +40,7 @@
 
     </x-dashboard.sidebar.collapse-link>
 
-    <x-dashboard.sidebar.collapse-link title="Tag" icon="bi bi-list" target="#TagCollapse"
+    <x-dashboard.sidebar.collapse-link title="Tag" icon="bi bi-tag" target="#TagCollapse"
         id="TagCollapse" active="{{ Str::contains(request()->path(), 'dashboard/tag') }}">
         <a class="collapse-item" href="{{ route('dashboard.tag.index') }}">Tags</a>
         @can('create', App\Models\Tag::class)
@@ -55,7 +55,7 @@
             <span>Comments</span></a>
     </li>
 
-    <x-dashboard.sidebar.collapse-link title="Post View" icon="bi bi-list" target="#PostViewCollapse"
+    <x-dashboard.sidebar.collapse-link title="Post View" icon="bi bi-eye" target="#PostViewCollapse"
         id="PostViewCollapse" active="{{ Str::contains(request()->path(), 'dashboard/post-view') }}">
         <a class="collapse-item" href="{{ route('dashboard.post-view.index') }}">Post Views</a>
         <a class="collapse-item" href="{{ route('dashboard.post-view.by-country') }}">By Country</a>
