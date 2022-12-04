@@ -27,6 +27,11 @@
         }
     }
 
+    &__tags-container {
+      max-height: 160px;
+      overflow-y: auto;
+   }
+
     .ck-editor__editable_inline {
         min-height: 400px !important;
     }

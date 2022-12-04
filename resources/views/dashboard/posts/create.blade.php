@@ -1,7 +1,7 @@
 <x-dashboard-layout>
     <x-dashboard.heading>Post Management</x-dashboard.heading>
 
-        <x-dashboard.layouts.form-create-edit title="Post">
+    <x-dashboard.layouts.form-create-edit title="Post">
         <div class="post-create">
             <form id="createPost" action="{{ route('dashboard.post.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -34,12 +34,7 @@
             <div class="col-12 col-md-6 col-lg-12">
                 <div class="card c-card mb-3">
                     <div class="card-body">
-                        <label for="featuredImage" class="form-label h5">Featured Image</label>
-                        <div class="post-create__img-container d-flex align-items-center justify-content-center mb-3">
-                            <div>
-                                No image is uploaded yet.
-                            </div>
-                        </div>
+                        <label for="featuredImage" class="form-label h5 mb-3">Featured Image</label>
                         <x-dashboard.form.input-layout>
                             <x-slot name="name">featured_image</x-slot>
                             <input form="createPost" type="file"
@@ -66,6 +61,30 @@
                                     </option>
                                 @endforeach
                             </select>
+                        </x-dashboard.form.input-layout>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-12">
+                <div class="card c-card mb-3">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="category" class="form-label h5">Tags</label>
+                        </div>
+                        <x-dashboard.form.input-layout>
+                            <x-slot name="nameArr">tags</x-slot>
+                            <div class="post-create__tags-container">
+                                @foreach ($tags as $key => $tag)
+                                    <div class="form-check">
+                                        <input name="tags[]" form="createPost" class="form-check-input" type="checkbox"
+                                            value="{{ $tag->id }}" @checked(is_array(old('tags')) and in_array($tag->id, old('tags')))
+                                            id="{{ $tag->id }}">
+                                        <label class="form-check-label" for="{{ $tag->id }}">
+                                            {{ $tag->title }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
                         </x-dashboard.form.input-layout>
                     </div>
                 </div>

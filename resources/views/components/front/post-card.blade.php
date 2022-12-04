@@ -9,7 +9,6 @@
         <div class="d-flex justify-content-between align-items-center mb-lg-2">
             <a href="{{ route('page.posts', ['category' => $post->category->slug]) }}"><span
                     class="badge bg-primary rounded-4 c-card__category mb-1">{{ $post->category->title }}</span></a>
-
             <span class="fw-bold c-card__date">{{ $post->created_at->format('d M Y') }}</span>
 
         </div>
@@ -25,9 +24,9 @@
 
         <div class="flex-fill"></div>
         <div class="d-flex justify-content-between align-items-center">
-            <a href="{{ route('page.posts', ['user' => $post->user->name]) }}">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="c-card__profile-img-container d-flex align-items-center justify-content-center me-1">
+            <a href="{{ route('page.posts', ['user' => $post->user->name]) }}" class="c-card__profile-container">
+                <div class="d-flex align-items-center me-1">
+                    <div class="c-card__profile-img-container d-flex align-items-center justify-content-center me-2">
                         @if($post->user->profile_image)
                         <img src="{{ asset('storage/thumbnails/small_' . $post->featured_image) }}"
                         class="c-card__profile-img me-3" alt="">

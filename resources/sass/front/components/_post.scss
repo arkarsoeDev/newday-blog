@@ -22,12 +22,13 @@ $fontf-post-title: "Barlow", sans-serif;
         margin-bottom: 0.5rem;
     }
 
-    &__para,&__body {
+    &__para,
+    &__body {
         text-indent: 30%;
         margin-bottom: 0%;
         white-space: initial;
         overflow: hidden;
-        line-height: 1.8rem;    
+        line-height: 1.8rem;
         text-align: justify;
         @include breakpoint(medium) {
             font-size: $c-font-nm;
@@ -41,7 +42,7 @@ $fontf-post-title: "Barlow", sans-serif;
             width: 280px !important;
             height: auto !important;
             max-height: 500px !important;
-            
+
             @include breakpoint(medium) {
                 width: 680px !important;
                 max-width: 100% !important;
@@ -76,6 +77,11 @@ $fontf-post-title: "Barlow", sans-serif;
 
     &__category {
         font-size: $c-font-sm;
+    }
+
+    &__tag-btn {
+        font-size: $c-font-sm;
+        border-radius: 15px;
     }
 
     &__profile-img-container {

@@ -8,6 +8,7 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostViewController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function () {
         Route::resource('/comment', CommentController::class);
         Route::resource('/profile', ProfileController::class)->only(['index', 'update'])->parameter('profile', 'user');
         Route::resource('/image', ImageController::class)->only(['store']);
+        Route::resource('/tag', TagController::class);
 
         Route::resource('/post-view', PostViewController::class)->only(['index', 'destroy', 'show']);
         Route::get('/post-view-by-country',[PostViewController::class,'postViewsByCountry'])->name('post-view.by-country');

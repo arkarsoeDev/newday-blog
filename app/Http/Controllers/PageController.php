@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Comment;
-use App\Models\Country;
 use App\Models\Post;
 use App\Models\PostView;
+use App\Models\Tag;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -25,8 +25,9 @@ class PageController extends Controller
     public function posts()
     {
         $categories = Category::all();
-        $posts = Post::filter(request(['search', 'user', 'category']))->latest('id')->with(['user', 'category'])->paginate(8)->withQueryString();
-        return view('front.posts', compact('posts', 'categories'));
+        $tags = Tag::all();
+        $posts = Post::filter(request(['search', 'user', 'category','tag']))->latest('id')->with(['user', 'category'])->paginate(8)->withQueryString();
+        return view('front.posts', compact('posts', 'categories', 'tags'));
     }
 
     public function post(Post $post)

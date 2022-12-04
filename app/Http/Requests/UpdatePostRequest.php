@@ -28,7 +28,20 @@ class UpdatePostRequest extends FormRequest
             "category" => "required|exists:categories,id",
             "description" => "required|min:10",
             "featured_image" => "nullable|mimes:png,jpeg|file|max:512",
-            "body" => "required"
+            "body" => "required",
+            "tags.*" => "exists:tags,id",
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'tags.*.exists' => 'Selected Tags are not valid',
         ];
     }
 }

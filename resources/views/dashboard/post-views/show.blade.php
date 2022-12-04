@@ -67,7 +67,7 @@
                                     User
                                 </h5>
                                 <div class="value-detail__user">
-                                    @if($view->user) {
+                                    @if($view->user)
                                         <div class="value-detail__partial-item mb-2">
                                         <span class="label">Id</span>
                                         <span>{{ $view->user->id }}</span>
@@ -76,7 +76,6 @@
                                         <span class="label">Name</span>
                                         <span>{{ $view->user->name }}</span>
                                     </div>
-                                    }
                                     @else
                                     <div class="value-detail__partial-item">
                                         <div class="d-flex justify-content-center align-items-center">

@@ -15,12 +15,22 @@
         margin-left: 40px;
     }
 
-    &__avatar {
-        min-width: 30px;
+    &__profile-img-container {
+        width: 30px;
         height: 30px;
-        margin-right: 10px;
-        border-radius: $border-radius-pill;
-        background-color: black;
+        border-radius: 100%;
+        overflow: hidden;
+        background-color: $gray-400;
+    }
+
+    &__profile-img {
+        width: 30px !important;
+        height: 30px;
+    }
+
+    &__profile-img-icon {
+        width: 20px;
+        height: 20px;
     }
 
     &__text {

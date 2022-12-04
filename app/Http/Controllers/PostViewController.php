@@ -22,14 +22,14 @@ class PostViewController extends Controller
      */
     public function index()
     {
-        $views = PostView::with(['user'])->when(request()->user()->isAuthor(), function($q) {
+        $views = PostView::with(['user'])->when(request()->user()->isAuthor(), function ($q) {
             $q->whereHas('post', function ($q) {
                 $q->where('user_id', request()->user()->id);
             });
         })->when(request('keyword'), function ($q) {
             $q->where(function ($query) {
                 $keyword = request('keyword');
-                $query->orwhere('slug', "like", "%$keyword%")->orWhereHas("user", function($query) use ($keyword) {
+                $query->orwhere('slug', "like", "%$keyword%")->orWhereHas("user", function ($query) use ($keyword) {
                     $query->where("name", "like", "%$keyword%");
                 });
             });
@@ -116,13 +116,18 @@ class PostViewController extends Controller
      */
     public function postViewsByCountry()
     {
-        $views = PostView::select(DB::raw('country_id,id'), DB::raw('count(*) as count'))->when(request()->user()->isAuthor(), function($q) {
+        $views = PostView::select(DB::raw('country_id,id'), DB::raw('count(*) as count'))->when(request('keyword'), function ($q) {
+            $keyword = request('keyword');
+            $q->whereHas("country", function ($query) use ($keyword) {
+                $query->where("name", "like", "%$keyword%");
+            });
+        })->when(request()->user()->isAuthor(), function ($q) {
             $q->whereHas('post', function ($q) {
                 $q->where('user_id', request()->user()->id);
             });
         })->with(['country:id,name'])->groupBy('country_id')->orderBy('count', 'DESC')->paginate(8)->withQueryString()->onEachSide(1);
-        
-        return view('dashboard.post-views.by-country',compact('views'));
+
+        return view('dashboard.post-views.by-country', compact('views'));
     }
 
     /**
@@ -135,25 +140,25 @@ class PostViewController extends Controller
         $now = Carbon::now()->addDays(1)->toDateString();
         $operator = '<=';
 
-        $views = PostView::select('id', DB::raw('DATE(created_at) AS date'), DB::raw('count(*) as count'))->whereDate('date','<=',$now)
-        ->when(request('to') && request('from'), function($q) {
-            $from = request('from');
-            $to = request('to');
-            $q->whereDateBetween('date', $from, $to);
-        })
-        ->when(request('to') && (request('from') == null), function ($q) {
-            $to = request('to');
-            $q->whereDate('date', '<=', $to);
-        })
-        ->when(request('from') && (request('to') == null), function ($q) {
-            $from = request('from');
-            $q->whereDate('date', '>=', $from);
-        })->when(request()->user()->isAuthor(), function ($q) {
-            $q->whereHas('post', function ($q) {
-                $q->where('user_id', request()->user()->id);
-            });
-        })
-        ->groupBy('date')->paginate(8)->withQueryString()->onEachSide(1);
+        $views = PostView::select('id', DB::raw('DATE(created_at) AS date'), DB::raw('count(*) as count'))->whereDate('date', '<=', $now)
+            ->when(request('to') && request('from'), function ($q) {
+                $from = request('from');
+                $to = request('to');
+                $q->whereDateBetween('date', $from, $to);
+            })
+            ->when(request('to') && (request('from') == null), function ($q) {
+                $to = request('to');
+                $q->whereDate('date', '<=', $to);
+            })
+            ->when(request('from') && (request('to') == null), function ($q) {
+                $from = request('from');
+                $q->whereDate('date', '>=', $from);
+            })->when(request()->user()->isAuthor(), function ($q) {
+                $q->whereHas('post', function ($q) {
+                    $q->where('user_id', request()->user()->id);
+                });
+            })
+            ->groupBy('date')->paginate(8)->withQueryString()->onEachSide(1);
         return view('dashboard.post-views.by-date', compact('views'));
     }
 }

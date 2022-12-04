@@ -32,6 +32,40 @@
                 </x-dashboard.count-card>
             </div>
         @endif
+
+        @if (isset($viewsByDate))
+        <div class="col-12 col-lg-8 mb-4">
+            <div class="card shadow h-100 py-2 recent-card">
+                <div class="card-body">
+                    <h4 class="card-title text-danger mb-4"><span class="me-2">Post View by Date</span> <i
+                            class="bi bi-eye">
+                        </i></h4>
+                    <canvas id="viewsByDate"></canvas>
+                </div>
+                <div class="text-center mb-3">
+                    <a class="btn btn-primary d-inline-block" href="{{ route('dashboard.post-view.by-date') }}">View
+                        all</a>
+                </div>
+            </div>
+        </div>
+        @endif
+
+        @if(isset($views))
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="card shadow h-100 py-2 recent-card">
+                <div class="card-body">
+                    <h4 class="card-title text-info mb-4"><span class="me-2">Most View Country</span> <i
+                            class="bi bi-eye">
+                        </i></h4>
+                    <canvas id="mostViewCountry"></canvas>
+                </div>
+                <div class="text-center mb-3">
+                    <a class="btn btn-primary d-inline-block" href="{{ route('dashboard.post-view.by-country') }}">View
+                        all</a>
+                </div>
+            </div>
+        </div>
+        @endif
         
         @if (isset($recentPosts))
         <div class="col-xl-6 col-md-12 mb-4">
@@ -113,40 +147,6 @@
                     <div class="text-center">
                         <a class="d-inline-block" href="{{ route('dashboard.comment.index') }}">View all</a>
                     </div>
-                </div>
-            </div>
-        </div>
-        @endif
-
-        @if (isset($viewsByDate))
-        <div class="col-12 col-lg-8 mb-4">
-            <div class="card shadow h-100 py-2 recent-card">
-                <div class="card-body">
-                    <h4 class="card-title text-danger mb-4"><span class="me-2">Post View by Date</span> <i
-                            class="bi bi-eye">
-                        </i></h4>
-                    <canvas id="viewsByDate"></canvas>
-                </div>
-                <div class="text-center mb-3">
-                    <a class="btn btn-primary d-inline-block" href="{{ route('dashboard.post-view.by-date') }}">View
-                        all</a>
-                </div>
-            </div>
-        </div>
-        @endif
-
-        @if(isset($views))
-        <div class="col-12 col-md-6 col-lg-4 mb-4">
-            <div class="card shadow h-100 py-2 recent-card">
-                <div class="card-body">
-                    <h4 class="card-title text-info mb-4"><span class="me-2">Most View Country</span> <i
-                            class="bi bi-eye">
-                        </i></h4>
-                    <canvas id="mostViewCountry"></canvas>
-                </div>
-                <div class="text-center mb-3">
-                    <a class="btn btn-primary d-inline-block" href="{{ route('dashboard.post-view.by-country') }}">View
-                        all</a>
                 </div>
             </div>
         </div>

@@ -36,6 +36,16 @@ class Post extends Model implements HasMedia
         );
 
         $query->when(
+            $filters['tag'] ?? false,
+            fn ($query, $tag) =>
+            $query->whereHas(
+                'tags',
+                fn ($query) =>
+                $query->where('slug', $tag)
+            )
+        );
+
+        $query->when(
             $filters['user'] ?? false,
             fn($query, $user) => 
             $query->whereHas('user', 
@@ -48,6 +58,11 @@ class Post extends Model implements HasMedia
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class,'tag_post');
     }
     
     public function user()

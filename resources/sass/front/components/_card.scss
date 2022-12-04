@@ -117,6 +117,11 @@ $fontf-card-title: "Roboto", sans-serif;
         width: 140px;
     }
 
+    &__profile-container {
+        overflow: hidden;
+        flex-grow: 1;
+    }
+
     &__profile-img-container {
         width: 30px;
         height: 30px;
@@ -126,13 +131,21 @@ $fontf-card-title: "Roboto", sans-serif;
     }
 
     &__profile-img {
-        width: 30px;
+        width: 30px !important;
         height: 30px;
     }
 
     &__profile-img-icon {
         width: 20px;
         height: 20px;
+    }
+
+    &__author {
+        width: 65%;
+
+        @include breakpoint(small) {
+            width: 70%;
+        }
     }
 
     &--small {

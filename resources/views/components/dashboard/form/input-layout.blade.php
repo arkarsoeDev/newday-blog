@@ -3,7 +3,17 @@
         <label for="{{ $id }}" class="form-label">{{ $title }}</label>
     @endif
     {{ $slot }}
-    @error("$name")
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
+
+    {{-- showing errors --}}
+    @if (isset($nameArr))
+        @if ($errors->has("$nameArr.*"))
+            <div class="alert alert-danger p-2 mt-3">{{ $errors->first("$nameArr.*") }}</div>
+        @elseif ($errors->has("$nameArr"))
+            <div class="alert alert-danger p-2 mt-3">{{ $errors->first("$nameArr") }}</div>
+        @endif
+    @else
+        @error("$name")
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    @endif
 </div>

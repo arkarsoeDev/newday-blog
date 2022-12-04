@@ -3,7 +3,8 @@
     <x-dashboard.heading>Post Management</x-dashboard.heading>
     <x-dashboard.layouts.form-create-edit title="Post" control="Edit">
         <div class="post-edit">
-            <form id="editPost" action="{{ route('dashboard.post.update', $post->slug) }}" method="post" enctype="multipart/form-data">
+            <form id="editPost" action="{{ route('dashboard.post.update', $post->slug) }}" method="post"
+                enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <x-dashboard.form.input-layout>
@@ -50,8 +51,9 @@
 
                         <x-dashboard.form.input-layout>
                             <x-slot name="name">featured_image</x-slot>
-                            <input form="editPost" type="file" class="form-control @error('featured_image') is-invalid @enderror"
-                                id="featuredImage" name="featured_image" />
+                            <input form="editPost" type="file"
+                                class="form-control @error('featured_image') is-invalid @enderror" id="featuredImage"
+                                name="featured_image" />
                         </x-dashboard.form.input-layout>
                     </div>
                 </div>
@@ -64,8 +66,8 @@
                         </div>
                         <x-dashboard.form.input-layout>
                             <x-slot name="name">category</x-slot>
-                            <select form="editPost" class="form-select @error('category') is-invalid @enderror" id="category"
-                                name="category" aria-label="Default select example">
+                            <select form="editPost" class="form-select @error('category') is-invalid @enderror"
+                                id="category" name="category" aria-label="Default select example">
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}"
                                         {{ $category->id === old('category_id', $post->category_id) ? 'selected' : '' }}>
@@ -77,6 +79,30 @@
                     </div>
                 </div>
             </div>
+            <div class="col-12 col-md-6 col-lg-12">
+                <div class="card c-card mb-3">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="category" class="form-label h5">Tags</label>
+                        </div>
+                        <x-dashboard.form.input-layout>
+                            <x-slot name="nameArr">tags</x-slot>
+                            <div class="post-edit__tags-container">
+                                @foreach ($tags as $key => $tag)
+                                <div class="form-check">
+                                    <input name="tags[]" form="editPost" class="form-check-input" type="checkbox"
+                                        value="{{ $tag->id }}" @checked((is_array(old('tags')) and in_array($tag->id, old('tags'))) || in_array($tag->id, $postTags))
+                                        id="{{ $tag->id }}">
+                                    <label class="form-check-label" for="{{ $tag->id }}">
+                                        {{ $tag->title }}
+                                    </label>
+                                </div>
+                            @endforeach
+                            </div>
+                        </x-dashboard.form.input-layout>
+                    </div>
+                </div>
+            </div>
         </x-slot>
     </x-dashboard.layouts.form-create-edit>
 
@@ -84,7 +110,7 @@
         <div class="col-12">
             <div class="text-end">
                 <button form="editPost" type="submit" class="btn btn-primary px-5 text-white">
-                        Update
+                    Update
                 </button>
             </div>
         </div>

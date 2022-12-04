@@ -108,7 +108,16 @@
         <li class="nav-item dropdown avatar-nav">
             <a class="nav-link justify-content-center" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="text-sm d-none d-lg-inline-block me-2">{{ Auth::user()->name }}</span>
-                <div class="c-avatar"></div>
+                <div class="mini-profile__img-container d-flex align-items-center justify-content-center">
+                    @if (Auth::user()->profile_image)
+                    <img src="{{ asset('storage/thumbnails/small_' . Auth::user()->profile_image) }}"
+                        class="mini-profile__img" alt="">
+                @else
+                    <div class="mini-profile__img-icon">
+                        <x-icons.user></x-icons.user>
+                    </div>
+                @endif
+                </div>
             </a>
             <div class="dropdown-menu avatar-menu shadow">
                 {{-- <a href="" class="dropdown-item d-flex align-items-center">
@@ -118,12 +127,12 @@
                 <a href="{{ route('dashboard.profile.index') }}" class="dropdown-item d-flex align-items-center">
                     <i class="bi bi-wrench me-3"></i>
                     <span class="">Profile</span>
-                </a> 
+                </a>
                 {{-- <a href="{{ route('') }}" class="dropdown-item d-flex align-items-center">
                     <i class="bi bi-list me-3"></i>
                     <span class="">Acitivity log</span>
                 </a> --}}
-                <div class="dropdown-divider"></div> 
+                <div class="dropdown-divider"></div>
                 <a href="{{ route('page.index') }}" class="dropdown-item d-flex align-items-center">
                     <i class="bi bi-list me-3"></i>
                     <span class="">Front Panel</span>

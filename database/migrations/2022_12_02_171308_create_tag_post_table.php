@@ -13,16 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('post_views', function (Blueprint $table) {
+        Schema::create('tag_post', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tag_id')->constrained()->cascadeOnDelete();
             $table->foreignId('post_id')->constrained()->cascadeOnDelete();
-            $table->foreignId("country_id")->constrained()->nullOnDelete();
-            $table->string("slug");
-            $table->string("url");
-            $table->string("session_id");
-            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->string("ip");
-            $table->string("agent");
             $table->timestamps();
         });
     }
@@ -34,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_views');
+        Schema::dropIfExists('tag_post');
     }
 };

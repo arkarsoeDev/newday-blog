@@ -19,7 +19,7 @@
          border-radius: 5px;
          height: 10rem;
          width: 100%;
-         overflow-y: scroll;
+         overflow-y: auto;
       }
 
       &__body {
@@ -68,16 +68,8 @@
       }
    }
 
-   &__partial-item {
-      .label {
-         display: inline-block;
-         font-weight: bold;
-         width: 100px;
-      }
-
-      display: block;
-      background-color: $gray-200;
-      padding: 0.5rem;
-      border-radius: 5px;
+   &__tags-container {
+      max-height: 160px;
+      overflow-y: auto;
    }
 }

@@ -30,7 +30,7 @@
                             <span class="value-detail__info">{{ $comment->post_id }}</span>
                         </div>
                         <div>
-                            <p class="fw-bold value-detail__label mb-3">Comment</p>
+                            <p class="fw-bold value-detail__label">Comment</p>
                             <div class="p-3 rounded value-detail__info">
                                 <p>{{ $comment->body }}</p>
                             </div>

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\PostView;
+use App\Models\Tag;
 use Faker\Provider\Uuid;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -47,15 +48,15 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
+    {
         // I'll find another way to delete the image
         $medias = Media::where('temp_model_id', request()->user()->id)->get();
-        if(count($medias) >= 1) {
+        if (count($medias) >= 1) {
             Media::destroy($medias);
         }
-
+        $tags = Tag::all();
         $categories = Category::all();
-        return view('dashboard.posts.create', compact('categories'));
+        return view('dashboard.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -75,8 +76,8 @@ class PostController extends Controller
         $toUpdateMediaIdArr = [];
 
         // collect existed url in db
-        foreach($medias as $image) {
-            $existedUrlArr[] = $image->id.'/'.$image->file_name;
+        foreach ($medias as $image) {
+            $existedUrlArr[] = $image->id . '/' . $image->file_name;
         }
 
         //collect body url arr
@@ -86,14 +87,14 @@ class PostController extends Controller
 
         foreach ($imageFile as $item => $image) {
             $data = $image->getAttribute('src');
-            $data = explode('storage/',$data)[1];
+            $data = explode('storage/', $data)[1];
             $bodyUrlArr[] = $data;
         }
 
         //check media should be delete or update
-        foreach($existedUrlArr as $url) {
-            [$id,$name] = explode('/',$url);
-            if(!in_array($url,$bodyUrlArr)) {
+        foreach ($existedUrlArr as $url) {
+            [$id, $name] = explode('/', $url);
+            if (!in_array($url, $bodyUrlArr)) {
                 $toDeleteMediaIdArr[] = $id;
             } else {
                 $toUpdateMediaIdArr[] = $id;
@@ -131,7 +132,9 @@ class PostController extends Controller
         }
 
         $post->save();
-
+        if ($request->has('tags')) {
+            $post->tags()->sync($request->tags);
+        }
         Media::whereIn('id', $toUpdateMediaIdArr)->update(['model_id' => $post->id, 'temp_model_id' => null]);
 
         return redirect()->route('dashboard.post.index')->with([
@@ -148,7 +151,15 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $postViewers = PostView::with(['user'])->where('post_id', $post->id)->paginate(8, ['*'], 'views')->withQueryString();
+        $postViewers = PostView::with(['user'])->where('post_id', $post->id)->when(request('viewKeyword'), function ($q) {
+            $q->where(function ($query) {
+                $keyword = request('viewKeyword');
+                $query->orwhere('id', "like", "%$keyword%")->orWhereHas("user", function ($query) use ($keyword) {
+                    $query->where("name", "like", "%$keyword%");
+                });
+            });
+        })->paginate(8, ['*'], 'views')->withQueryString();
+        
         $comments = Comment::where('post_id', $post->id)
             ->when(
                 request('commentKeyword'),
@@ -174,10 +185,12 @@ class PostController extends Controller
         if (count($medias) >= 1) {
             Media::destroy($medias);
         }
-        
         $categories = Category::all();
-
-        return  view('dashboard.posts.edit', compact("post","categories"));
+        $tags = Tag::all();
+        $postTags = $post->tags->map(function ($tag) {
+            return $tag->id;
+        })->toArray();
+        return  view('dashboard.posts.edit', compact("post", "categories", "tags", "postTags"));
     }
 
     /**
@@ -191,11 +204,11 @@ class PostController extends Controller
     {
         // get old medias
         $medias = $post->getMedia('images');
-        
+
         // get new medias which are connected with temp premade model id
         $newMedias = Media::where('temp_model_id', request()->user()->id)->get();
 
-        $medias = [...$medias,...$newMedias];
+        $medias = [...$medias, ...$newMedias];
 
         $existedUrlArr = [];
         $bodyUrlArr = [];
@@ -242,8 +255,8 @@ class PostController extends Controller
         if ($request->hasFile('featured_image')) {
 
             $photos = [
-                'public/uploads/'.$post->featured_image,
-                'public/thumbnails/medium_'.$post->featured_image,
+                'public/uploads/' . $post->featured_image,
+                'public/thumbnails/medium_' . $post->featured_image,
                 'public/thumbnails/small_' . $post->featured_image,
             ];
             // delete photo from storage
@@ -266,7 +279,9 @@ class PostController extends Controller
             $request->file('featured_image')->storeAs('public/uploads', $newName);
             $post->featured_image = $newName;
         }
-
+        if ($request->has('tags')) {
+            $post->tags()->sync($request->tags);
+        }
         $post->update();
 
         return redirect()->route('dashboard.post.index')->with([
@@ -293,7 +308,7 @@ class PostController extends Controller
             ];
             Storage::delete($photos);
         }
-        
+
         $post->delete();
         return redirect()->route('dashboard.post.index')->with([
             "message" => $title . ' is deleted Successfully',

@@ -27,9 +27,9 @@
                 <div class="card-body">
                     <div class="d-sm-inline-block me-sm-3 mb-3 mb-sm-0 w-100">
                         <form action="{{ route('page.posts') }}">
-                            @if (request('category'))
-                                <input type="hidden" name="category" value="{{ request('category') }}">
-                            @endif
+                            @foreach (request()->query() as $key => $query)
+                                <input type="hidden" name="{{ $key }}" value="{{ $query }}">
+                            @endforeach
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" placeholder="Search" name="search"
                                     value="{{ request('search') }}" aria-label="Search"
@@ -42,13 +42,22 @@
                     </div>
 
                     <p class="fs-5 fw-bold">Categories</p>
-                    <div class="list-group">
-                        <a href="{{ route('page.posts', ['search' => request('search')]) }}"
+                    <div class="list-group mb-3">
+                        <a href="{{ route('page.posts', [...request()->query(),'category' => '']) }}"
                             class="list-group-item list-group-item-action {{ request('category') ? '' : 'active' }}">All</a>
                         @foreach ($categories as $category)
-                            <a href="{{ route('page.posts', ['category' => $category->slug, 'search' => request('search')]) }}"
+                            <a href="{{ route('page.posts', [...request()->query(), 'category' => $category->slug]) }}"
                                 {{ request('category') === $category->slug ? 'aria-current="true"' : '' }}
                                 class="list-group-item list-group-item-action {{ request('category') === $category->slug ? 'active' : '' }}">{{ $category->title }}</a>
+                        @endforeach
+                    </div>
+
+                    {{-- tags --}}
+                    <p class="fs-5 fw-bold">Tags</p>
+                    <div class="d-flex flex-wrap">
+                        @foreach ($tags as $tag)
+                            <a href="{{ route('page.posts', [...request()->query(), 'tag' => $tag->slug]) }}"
+                                class="btn text-decoration-none post__tag-btn me-1 mb-2 {{ request('tag') == $tag->slug ? 'btn-primary order-first' : 'btn-outline-primary' }}">{{ $tag->title }}</a>
                         @endforeach
                     </div>
                 </div>

@@ -40,6 +40,15 @@
 
     </x-dashboard.sidebar.collapse-link>
 
+    <x-dashboard.sidebar.collapse-link title="Tag" icon="bi bi-list" target="#TagCollapse"
+        id="TagCollapse" active="{{ Str::contains(request()->path(), 'dashboard/tag') }}">
+        <a class="collapse-item" href="{{ route('dashboard.tag.index') }}">Tags</a>
+        @can('create', App\Models\Tag::class)
+            <a class="collapse-item" href="{{ route('dashboard.tag.create') }}">Add Tag</a>
+        @endcan
+
+    </x-dashboard.sidebar.collapse-link>
+
     <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('dashboard.comment.index') ? 'active': '' }}" aria-current="page" href="{{ route('dashboard.comment.index') }}"><i
                 class="bi bi-chat"></i>

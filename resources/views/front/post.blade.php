@@ -97,20 +97,21 @@
                                             class="bi bi-x fs-4"></i></button>
                                 </form>
                             @endcan
-                            <div href="">
+                            <div>
                                 <div class="d-inline-flex justify-content-start align-items-center mb-2">
                                     <div
-                                        class="c-card__profile-img-container d-flex align-items-center justify-content-center me-1">
-                                        @if ($post->user->profile_image)
-                                            <img src="{{ asset('storage/thumbnails/small_' . $post->featured_image) }}"
-                                                class="c-card__profile-img me-3" alt="">
+                                        class="comment__profile-img-container d-flex align-items-center justify-content-center me-1">
+                                        
+                                        @if ($comment->user->profile_image)
+                                            <img src="{{ asset('storage/thumbnails/small_' . $comment->user->profile_image) }}"
+                                                class="comment__profile-img me-3" alt="">
                                         @else
-                                            <div class="c-card__profile-img-icon">
+                                            <div class="comment__profile-img-icon">
                                                 <x-icons.user></x-icons.user>
                                             </div>
                                         @endif
                                     </div>
-                                    <span class="fw-bold c-card__author">{{ $comment->user->name }}</span>
+                                    <span class="fw-bold comment__author">{{ $comment->user->name }}</span>
                                 </div>
                                 <div class="comment__content">
                                     <p class="comment__text">
@@ -134,18 +135,18 @@
             <h2 class="my-3 mb-lg-3 mt-lg-0 h3 c-title">
                 Related Post
             </h2>
-            <div class="row">
-                @foreach ($relatedPosts as $post)
+            <div class="row mb-3">
+                @foreach ($relatedPosts as $relatedPost)
                     <div class="col-12">
                         <div class="c-card c-card--small my-3">
                             <div class="c-card__body">
-                                <a href="{{ route('page.post', $post->slug) }}">
+                                <a href="{{ route('page.post', $relatedPost->slug) }}">
                                     <p class="c-card__title">
-                                        {{ $post->title }}
+                                        {{ $relatedPost->title }}
                                     </p>
                                 </a>
                                 <p class="c-card__excert">
-                                    {{ $post->excerpt }}
+                                    {{ $relatedPost->excerpt }}
                                 </p>
                             </div>
                         </div>
@@ -153,7 +154,22 @@
                     </div>
                 @endforeach
             </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="post__tags">
+                        <p class="fs-5 fw-bold">Tags</p>
+                        @forelse ($post->tags as $tag)
+                            <a href="{{ route('page.posts', ['tag' => $tag->slug, ...request()->query()]) }}"
+                                class="btn text-decoration-none post__tag-btn me-1 mb-2 {{ request('tag') == $tag->slug ? 'btn-primary' : 'btn-outline-primary' }}">{{ $tag->title }}</a>
+                        @empty
+                            <div class="flex justify-content-center align-items-center">
+                                <span>No tags is attach</span>
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="spacer d-none d-lg-block"></div>
+    <div class="spacer d-block"></div>
 </x-front-layout>

@@ -22,7 +22,7 @@
                                         <li>
                                             <a class="dropdown-item"
                                                 href="{{ route('dashboard.comment.index', ['list' => 'others']) }}">
-                                                <i class="bi bi-speedometer me-3">
+                                                <i class="bi bi-people me-2">
                                                 </i>
                                                 others
                                             </a>
@@ -30,7 +30,7 @@
                                         <li>
                                             <a class="dropdown-item"
                                                 href="{{ route('dashboard.comment.index', ['list' => 'personal']) }}">
-                                                <i class="bi bi-speedometer me-3">
+                                                <i class="bi bi-person me-2">
                                                 </i>
                                                 personal
                                             </a>

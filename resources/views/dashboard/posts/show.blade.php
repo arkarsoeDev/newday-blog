@@ -15,30 +15,30 @@
                         </div>
                         <hr>
                         <div class="mb-3 ">
-                            <span class="fw-bold post-detail__label">Front panel post link</span> <a
+                            <span class="fw-bold value-detail__label">Front panel post link</span> <a
                                 href="{{ route('page.post', $post->slug) }}"
-                                class="post-detail__info">{{ $post->slug }}</a>
+                                class="value-detail__info">{{ $post->slug }}</a>
                         </div>
                         <div class="mb-3 ">
-                            <span class="fw-bold post-detail__label">Post Id</span> <span
-                                class="post-detail__info">{{ $post->id }}</span>
+                            <span class="fw-bold value-detail__label">Post Id</span> <span
+                                class="value-detail__info">{{ $post->id }}</span>
                         </div>
                         <div class="mb-3 ">
-                            <span class="fw-bold post-detail__label">Title</span> <span
-                                class="post-detail__info">{{ $post->title }}</span>
+                            <span class="fw-bold value-detail__label">Title</span> <span
+                                class="value-detail__info">{{ $post->title }}</span>
                         </div>
                         <div class="mb-3">
-                            <span class="fw-bold post-detail__label">Description</span> <span
+                            <span class="fw-bold value-detail__label">Description</span> <span
                                 class="post-detail__description">{{ $post->description }}</span>
                         </div>
                         <div class="mb-3">
-                            <span class="fw-bold post-detail__label">Body</span> <span
+                            <span class="fw-bold value-detail__label">Body</span> <span
                                 class="post-detail__body">{!! $post->body !!}</span>
                         </div>
                         <div class="mb-3 ">
-                            <span class="fw-bold post-detail__label">Created At</span> <span>
+                            <span class="fw-bold value-detail__label">Created At</span> <span>
 
-                                <span class="post-detail__info"><i class="bi bi-calendar"></i>
+                                <span class="value-detail__info"><i class="bi bi-calendar"></i>
                                     {{ $post->created_at->format('d M Y') }}</span>
                             </span>
                         </div>
@@ -74,12 +74,12 @@
                                 <h5 class="card-title">
                                     Category
                                 </h5>
-                                <div class="post-show__partial">
-                                    <div class="post-show__partial-item mb-2">
+                                <div class="value-detail__partial">
+                                    <div class="value-detail__partial-item mb-2">
                                         <span class="label">Id</span>
                                         <span>{{ $post->category->id }}</span>
                                     </div>
-                                    <div class="post-show__partial-item">
+                                    <div class="value-detail__partial-item">
                                         <span class="label">Title</span>
                                         <span>{{ $post->category->title }}</span>
                                     </div>
@@ -91,16 +91,37 @@
                         <div class="card c-card mb-3">
                             <div class="card-body">
                                 <h5 class="card-title">
+                                    Tags
+                                </h5>
+                                <div class="value-detail__partial">
+                                    <div class="value-detail__tags-container">
+                                        @forelse($post->tags as $tag)
+                                            <div class="value-detail__partial-item text-decoration-none me-1 mb-2 ">
+                                                {{ $tag->title }}</div>
+                                        @empty
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <p>No tag is attached yet.</p>
+                                            </div>
+                                        @endforelse
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-12">
+                        <div class="card c-card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">
                                     User
                                 </h5>
-                                <div class="post-show__user">
-                                    <div class="post-show__partial-item mb-2">
+                                <div class="value-detail__user">
+                                    <div class="value-detail__partial-item mb-2">
                                         <span class="label">Id</span>
                                         <span>{{ $post->user->id }}</span>
                                     </div>
-                                    <div class="post-show__partial-item">
-                                        <span class="label">Title</span>
-                                        <span>{{ $post->category->title }}</span>
+                                    <div class="value-detail__partial-item">
+                                        <span class="label">Name</span>
+                                        <span>{{ $post->user->name }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -212,15 +233,17 @@
                                 <span class="fw-bold px-2 p-1 bg-info rounded">{{ $postViewers->count() }}</span>
                             </div>
                             <div class="flex-fill"></div>
-                            {{-- <form action="{{ route('dashboard.post.show',$post->slug) }}" class="d-sm-inline-block mb-3 mb-sm-0">
+                            <form action="{{ route('dashboard.post.show', $post->slug) }}"
+                                class="d-sm-inline-block mb-3 mb-sm-0">
                                 <div class="input-group w-auto">
-                                    <input type="text" class="form-control" name="commentKeyword" placeholder="Search keyword" value="{{ request('commentKeyword') }}"
-                                        aria-label="search keyword" aria-describedby="commentSearchBtn" />
-                                    <button class="btn btn-primary" type="submit" id="commentSearchBtn">
+                                    <input type="text" class="form-control" name="viewKeyword"
+                                        placeholder="Search keyword" value="{{ request('viewKeyword') }}"
+                                        aria-label="search keyword" aria-describedby="viewSearchBtn" />
+                                    <button class="btn btn-primary" type="submit" id="viewSearchBtn">
                                         <i class="bi bi-search text-gray-300"></i>
                                     </button>
                                 </div>
-                            </form> --}}
+                            </form>
                         </div>
                         <div class="table-responsive mt-3">
                             <table class="table table-bordered table-hover align-middle">

@@ -1,0 +1,19 @@
+.mini-profile {
+    &__img-container {
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        overflow: hidden;
+        background-color: $gray-200;
+    }
+
+    &__img {
+        width: 30px;
+        height: 30px;
+    }
+
+    &__img-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
