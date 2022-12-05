@@ -40,7 +40,9 @@
                     <h4 class="card-title text-danger mb-4"><span class="me-2">Post View by Date</span> <i
                             class="bi bi-eye">
                         </i></h4>
-                    <canvas id="viewsByDate"></canvas>
+                    <div class="chart-card__container">
+                        <canvas id="viewsByDate"></canvas>
+                    </div>
                 </div>
                 <div class="text-center mb-3">
                     <a class="btn btn-primary d-inline-block" href="{{ route('dashboard.post-view.by-date') }}">View
@@ -57,7 +59,9 @@
                     <h4 class="card-title text-info mb-4"><span class="me-2">Most View Country</span> <i
                             class="bi bi-eye">
                         </i></h4>
-                    <canvas id="mostViewCountry"></canvas>
+                    <div class="chart-card__container">
+                        <canvas id="mostViewCountry"></canvas>
+                    </div>
                 </div>
                 <div class="text-center mb-3">
                     <a class="btn btn-primary d-inline-block" href="{{ route('dashboard.post-view.by-country') }}">View

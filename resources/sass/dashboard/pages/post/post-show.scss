@@ -36,6 +36,19 @@
                 max-width: 100% !important;
             }
         }
+
+        table {
+         width: 100%;
+         border: 1px solid $black;
+        }
+
+        table tr td {
+           padding: 10px;
+        }
+        
+        table tr td:not(:last-child) {
+         border-right: 1px solid $black;
+        }
     }
 
    }

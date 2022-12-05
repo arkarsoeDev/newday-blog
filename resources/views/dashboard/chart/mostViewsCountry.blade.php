@@ -21,7 +21,11 @@
                     'rgb(255, 205, 86)'
                 ],
                 hoverOffset: 4
-            }]
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
         }
     });
 </script>

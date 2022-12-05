@@ -7,11 +7,8 @@
             <div class="col-12 col-lg-8">
                 <div class="card c-card mb-3">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
                             <h2 class="h4">Post View Detail</h2>
-                            <a href="{{ url()->previous() }}"
-                                class="btn btn-primary text-white fw-bold text-decoration-none"><i
-                                    class="bi bi-chevron-left me-1"></i> Back</a>
                         </div>
                         <hr>
                         <div class="mb-3 ">

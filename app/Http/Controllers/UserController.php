@@ -22,7 +22,7 @@ class UserController extends Controller
         $users = User::when(request('keyword'), function ($q) {
             $keyword = request('keyword');
             $q->orWhere("name", "like", "%$keyword%")->orWhere("email", "like", "%$keyword%");
-        })->paginate(10)->withQueryString();
+        })->latest('id')->paginate(10)->withQueryString();
 
         return view('dashboard.users.index', compact('users', 'roles'));
     }
@@ -94,6 +94,10 @@ class UserController extends Controller
     {
         $user->name = $request->username;
         $user->role = $request->role;
+        $user->email = $request->email;
+        if(isset($request->password)) {
+            $user->password = Hash::make($request->password);
+        }
         $user->update();
 
         return redirect()->route('dashboard.user.index')->with([

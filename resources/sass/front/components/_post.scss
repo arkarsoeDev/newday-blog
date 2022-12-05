@@ -22,10 +22,12 @@ $fontf-post-title: "Barlow", sans-serif;
         margin-bottom: 0.5rem;
     }
 
+    &__para {
+        text-indent: 30%;
+    }
+
     
     &__body p,&__para {
-        text-indent: 30%;
-        margin-bottom: 0%;
         white-space: initial;
         overflow: hidden;
         line-height: 1.8rem;
@@ -47,6 +49,19 @@ $fontf-post-title: "Barlow", sans-serif;
                 width: 680px !important;
                 max-width: 100% !important;
             }
+        }
+
+        table {
+         width: 100%;
+         border: 1px solid $black;
+        }
+
+        table tr td {
+           padding: 10px;
+        }
+        
+        table tr td:not(:last-child) {
+         border-right: 1px solid $black;
         }
     }
 

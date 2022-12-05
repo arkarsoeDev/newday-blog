@@ -108,7 +108,7 @@ class PostController extends Controller
         $post->slug = Str::slug($request->title);
         $post->description = $request->description;
         $post->excerpt = Str::words($request->description, 50, ' ...');
-        $post->body = clean($request->body);
+        $post->body = clean($request->body, array('Attr.EnableID' => true));
         $post->user_id = Auth::id();
         $post->category_id = $request->category;
 
@@ -248,7 +248,7 @@ class PostController extends Controller
         $post->slug = Str::slug($request->title);
         $post->description = $request->description;
         $post->excerpt = Str::words($request->description, 50, ' ...');
-        $post->body = clean($request->body);
+        $post->body = clean($request->body, array('Attr.EnableID' => true));
         $post->user_id = Auth::id();
         $post->category_id = $request->category;
 

@@ -103,7 +103,7 @@ class PostViewController extends Controller
     {
         $id = $postView->id;
         $postView->delete();
-        return redirect()->route('dashboard.post.index')->with([
+        return redirect()->back()->with([
             "message" => 'Post view id ' . $id . ' is deleted Successfully',
             "status" => "success"
         ]);

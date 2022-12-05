@@ -104,7 +104,6 @@
 
     @push('scripts')
         <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
-
         @include('dashboard.ckeditor')
         <script>
             ClassicEditor

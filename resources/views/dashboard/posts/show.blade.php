@@ -7,11 +7,15 @@
             <div class="col-12 col-lg-8">
                 <div class="card c-card mb-3">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h2 class="h4">Post Detail</h2>
-                            <a href="{{ url()->previous() }}"
-                                class="btn btn-primary text-white fw-bold text-decoration-none"><i
-                                    class="bi bi-chevron-left me-1"></i> Back</a>
+                        <div class="d-flex align-items-center">
+                            <h2 class="h4 mb-0">Post Detail</h2>
+                            <div class="flex-fill"></div>
+                            @can('update', $post)
+                                <a href="{{ route('dashboard.post.edit', $post->slug) }}"
+                                    class="btn btn-sm btn-outline-success">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                            @endcanany
                         </div>
                         <hr>
                         <div class="mb-3 ">
