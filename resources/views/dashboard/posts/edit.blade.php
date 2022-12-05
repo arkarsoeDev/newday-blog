@@ -23,11 +23,15 @@
                         rows="5">{{ old('description', $post->description) }}</textarea>
                 </x-dashboard.form.input-layout>
 
+                <input type="hidden" name="body" value="" id="textBody">
+
                 <x-dashboard.form.input-layout>
                     <x-slot name="name">body</x-slot>
                     <x-slot name="id">editor</x-slot>
                     <x-slot name="title">Body</x-slot>
-                    <textarea class="form-control @error('body') is-invalid @enderror" id="editor" name="body" rows="5">{!! old('body', $post->body) !!}</textarea>
+                    <div id="toolbar-container"></div>
+
+                    <div id="editor">{!! old('body',$post->body) !!}</div>
                 </x-dashboard.form.input-layout>
             </form>
         </div>
@@ -89,15 +93,15 @@
                             <x-slot name="nameArr">tags</x-slot>
                             <div class="post-edit__tags-container">
                                 @foreach ($tags as $key => $tag)
-                                <div class="form-check">
-                                    <input name="tags[]" form="editPost" class="form-check-input" type="checkbox"
-                                        value="{{ $tag->id }}" @checked((is_array(old('tags')) and in_array($tag->id, old('tags'))) || in_array($tag->id, $postTags))
-                                        id="{{ $tag->id }}">
-                                    <label class="form-check-label" for="{{ $tag->id }}">
-                                        {{ $tag->title }}
-                                    </label>
-                                </div>
-                            @endforeach
+                                    <div class="form-check">
+                                        <input name="tags[]" form="editPost" class="form-check-input" type="checkbox"
+                                            value="{{ $tag->id }}" @checked((is_array(old('tags')) and in_array($tag->id, old('tags'))) || in_array($tag->id, $postTags))
+                                            id="{{ $tag->id }}">
+                                        <label class="form-check-label" for="{{ $tag->id }}">
+                                            {{ $tag->title }}
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
                         </x-dashboard.form.input-layout>
                     </div>
@@ -117,19 +121,21 @@
     </div>
 
     @push('scripts')
-        <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
-
-        @include('dashboard.ckeditor')
         <script>
-            ClassicEditor
-                .create(document.querySelector('#editor'), {
-                    extraPlugins: [SimpleUploadAdapterPlugin],
-
-                    // ...
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+            let uploadUrl = "{{ route('dashboard.image.store') }}";
+            let editor;
+        </script>
+        {{-- <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script> --}}
+        @vite('resources/js/ckeditor.js')
+        <script>
+            let createPost = document.querySelector('#editPost');
+            createPost.addEventListener('submit', function(event) {
+                event.preventDefault();
+                let textBody = document.querySelector('#textBody');
+                const editorData = editor.getData();
+                textBody.value = editorData;
+                this.submit();
+            })
         </script>
     @endpush
 </x-dashboard-layout>

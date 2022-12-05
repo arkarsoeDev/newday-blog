@@ -1,6 +1,6 @@
 <x-dashboard-layout>
 
-    <x-dashboard.heading>Dashboard</x-dashboard.heading>
+    <x-dashboard.heading :back="false">Dashboard</x-dashboard.heading>
 
     <div class="row">
         @if (isset($userCount))

@@ -21,11 +21,17 @@
                         rows="5">{{ old('description') }}</textarea>
                 </x-dashboard.form.input-layout>
 
+                <input type="hidden" name="body" value="" id="textBody">
+
                 <x-dashboard.form.input-layout>
+                    <x-slot name="body">true</x-slot>
                     <x-slot name="name">body</x-slot>
                     <x-slot name="id">editor</x-slot>
                     <x-slot name="title">Body</x-slot>
-                    <textarea class="form-control @error('body') is-invalid @enderror" id="editor" name="body" rows="5">{!! old('body') !!}</textarea>
+                    <!-- The toolbar will be rendered in this container. -->
+                    <div id="toolbar-container"></div>
+
+                    <div id="editor">{!! old('body') !!}</div>
                 </x-dashboard.form.input-layout>
             </form>
         </div>
@@ -103,17 +109,21 @@
     </div>
 
     @push('scripts')
-        <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
-        @include('dashboard.ckeditor')
+    <script>
+        let uploadUrl = "{{ route('dashboard.image.store') }}";
+        let editor;
+    </script>
+        {{-- <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script> --}}
+        @vite('resources/js/ckeditor.js')
         <script>
-            ClassicEditor
-                .create(document.querySelector('#editor'), {
-                    extraPlugins: [SimpleUploadAdapterPlugin],
-                    // ...
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+            let createPost = document.querySelector('#createPost');
+            createPost.addEventListener('submit', function(event) {
+                event.preventDefault();
+                let textBody = document.querySelector('#textBody');
+                const editorData = editor.getData();
+                textBody.value = editorData;
+                this.submit();
+            })
         </script>
     @endpush
 </x-dashboard-layout>
