@@ -68,6 +68,7 @@ class PageController extends Controller
 
         $from = Carbon::now()->subDays(8);
         $to = Carbon::now();
+        \DB::statement("SET SQL_MODE=''");//this is the trick use it just before your query
         $viewsByDate =
             PostView::select('id', DB::raw('DATE(created_at) AS date'), DB::raw('count(*) as count'))->where(function ($q) use ($to) {
                 $q->when(request()->user()->isAuthor(), function ($q) {

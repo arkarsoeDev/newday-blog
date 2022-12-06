@@ -116,6 +116,7 @@ class PostViewController extends Controller
      */
     public function postViewsByCountry()
     {
+        \DB::statement("SET SQL_MODE=''");//this is the trick use it just before your query
         $views = PostView::select(DB::raw('country_id,id'), DB::raw('count(*) as count'))->when(request('keyword'), function ($q) {
             $keyword = request('keyword');
             $q->whereHas("country", function ($query) use ($keyword) {
@@ -137,6 +138,7 @@ class PostViewController extends Controller
      */
     public function postViewsByDate()
     {
+        \DB::statement("SET SQL_MODE=''");//this is the trick use it just before your query
         $now = Carbon::now()->addDays(1)->toDateString();
         $operator = '<=';
 

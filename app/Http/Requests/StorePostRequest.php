@@ -24,9 +24,9 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            "title" => "required|min:3|unique:posts",
+            "title" => "required|min:10|unique:posts",
             "category" => "required|exists:categories,id",
-            "description" => "required|min:10",
+            "description" => "required|min:20",
             "featured_image" => "nullable|mimes:jpeg,png|file|max:512",
             "body" => "required",
             "tags.*" => "exists:tags,id",
