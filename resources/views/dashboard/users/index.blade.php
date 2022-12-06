@@ -13,7 +13,8 @@
                         <form action="{{ route('dashboard.user.index') }}" class="d-sm-inline-block me-sm-3 mb-3 mb-sm-0">
                             <div class="input-group w-auto">
                                 <input type="text" class="form-control" name="keyword" placeholder="Search keyword"
-                                    aria-label="search keyword" aria-describedby="userSearchBtn" />
+                                    value="{{ request('keyword') }}" aria-label="search keyword"
+                                    aria-describedby="userSearchBtn" />
                                 <button class="btn btn-primary" type="submit" id="userSearchBtn">
                                     <i class="bi bi-search text-gray-300"></i>
                                 </button>
@@ -59,13 +60,15 @@
                                             <a href="{{ route('dashboard.user.edit', $user->id) }}"
                                                 class="btn btn-sm btn-outline-success"><i
                                                     class="bi bi-pencil-square"></i></a>
-                                            <form id="deleteForm{{ $user->id }}"  action="{{ route('dashboard.user.destroy', $user->id) }}"
+                                            <form id="deleteForm{{ $user->id }}"
+                                                action="{{ route('dashboard.user.destroy', $user->id) }}"
                                                 class="d-inline-block" method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button data-form="deleteForm{{ $user->id }}" type="button"
-                                                        data-user-id="{{ $user->id }}"   
-                                                        data-user-name="{{ $user->name }}"   class="deleteSubmit btn btn-sm btn-outline-danger"><i
+                                                    data-user-id="{{ $user->id }}"
+                                                    data-user-name="{{ $user->name }}"
+                                                    class="deleteSubmit btn btn-sm btn-outline-danger"><i
                                                         class="bi bi-trash"></i></button>
                                             </form>
                                         </td>
@@ -82,7 +85,9 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <p>There is no user yet.</p>
+                                    <tr>
+                                        <td colspan="6" class="text-center">There is no user yet.</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
@@ -93,30 +98,30 @@
         </div>
     </div>
 
-     @push('scripts')
+    @push('scripts')
         <script>
             let deleteSubmits = document.querySelectorAll(".deleteSubmit");
-            if(deleteSubmits) {
+            if (deleteSubmits) {
                 [...deleteSubmits].map(submit => {
-                submit.addEventListener("click", function(event) {
-                    event.preventDefault()
-                    let form = document.querySelector(`#${this.dataset.form}`)
-                    console.log(form)
-                    Swal.fire({
-                        title: `Are you sure to delete ${this.dataset.userName}?`,
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            form.submit();                               
-                        }
-                    })
-                });
-            })
+                    submit.addEventListener("click", function(event) {
+                        event.preventDefault()
+                        let form = document.querySelector(`#${this.dataset.form}`)
+                        console.log(form)
+                        Swal.fire({
+                            title: `Are you sure to delete ${this.dataset.userName}?`,
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        })
+                    });
+                })
             }
         </script>
     @endpush
