@@ -188,15 +188,15 @@
                                                     class="btn btn-sm btn-outline-info"><i
                                                         class="bi bi-info-circle"></i></a>
                                                 @can('delete', $comment)
-                                                    <form id="deleteForm{{ $comment->id }}"
+                                                    <form id="deleteCommentForm{{ $comment->id }}"
                                                         action="{{ route('dashboard.comment.destroy', $comment->id) }}"
                                                         class="d-inline-block" method="post">
                                                         @csrf
                                                         @method('delete')
-                                                        <button id="deleteSubmit{{ $comment->id }}"
-                                                            data-form="deleteForm{{ $comment->id }}" type="button"
+                                                        <button id="deleteComment{{ $comment->id }}"
+                                                            data-form="deleteCommentForm{{ $comment->id }}" type="button"
                                                             data-comment-id="{{ $comment->id }}"
-                                                            class="deleteSubmit btn btn-sm btn-outline-danger"><i
+                                                            class="deleteComment btn btn-sm btn-outline-danger"><i
                                                                 class="bi bi-trash"></i></button>
                                                     </form>
                                                 @endcan
@@ -296,4 +296,31 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            let deleteComments = document.querySelectorAll(".deleteComment");
+            if (deleteComments) {
+                [...deleteComments].map(submit => {
+                    submit.addEventListener("click", function(event) {
+                        event.preventDefault()
+                        let form = document.querySelector(`#${this.dataset.form}`)
+                        Swal.fire({
+                            title: `Are you sure to delete this comment id(${this.dataset.commentId})?`,
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        })
+                    });
+                })
+            }
+        </script>
+    @endpush
 </x-dashboard-layout>

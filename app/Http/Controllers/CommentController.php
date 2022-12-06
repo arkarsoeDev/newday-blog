@@ -27,8 +27,11 @@ class CommentController extends Controller
             return view('dashboard.comments.index', compact('comments'));
         }
         $comments = Comment::when(request()->user()->isAuthor(), function ($q) {
-            $q->whereHas('post', function($q) {
-                $q->where('user_id',request()->user()->id);
+            $q->where(function($q) {
+                $q->where('user_id','!=',request()->user()->id)->
+                whereHas('post', function ($q) {
+                    $q->where('user_id', request()->user()->id);
+                });
             });
         })->when(request('keyword'), function ($q) {
             $keyword = request('keyword');  

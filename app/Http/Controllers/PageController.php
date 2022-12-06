@@ -105,8 +105,11 @@ class PageController extends Controller
 
         if($request->user()->isAuthor()) {
 
-            $commentCount = Comment::whereHas('post', function($q) {
-                $q->where('user_id',request()->user()->id);
+            $commentCount = Comment::where(function($q) {
+                $q->where('user_id','!=',request()->user()->id)
+                ->whereHas('post', function ($q) {
+                    $q->where('user_id', request()->user()->id);
+                });
             })->count();
 
             $personalCommentCount = $request->user()->comments()->count();

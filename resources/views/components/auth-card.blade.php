@@ -1,7 +1,5 @@
 <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
 
-    
-
     <div>
         {{ $logo }}
     </div>
@@ -17,7 +15,9 @@
         {{ $slot }}
     </div>
 
-    <div class="fixed bottom-6 right-6 justify-end shadow">
-        {{ $testModalToggle }}
-    </div>
+    @if (isset($testModalToggle))
+        <div class="fixed bottom-6 right-6 justify-end shadow">
+            {{ $testModalToggle }}
+        </div>
+    @endif
 </div>

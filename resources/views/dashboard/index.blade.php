@@ -21,7 +21,7 @@
         @endif
         @if (isset($personalCommentCount))
             <div class="col-xl-3 col-md-6 mb-4">
-                <x-dashboard.count-card :route="route('dashboard.comment.index')" :payload="$personalCommentCount" title="Totla Personal Comments"
+                <x-dashboard.count-card :route="route('dashboard.comment.index',['list'=>'personal'])" :payload="$personalCommentCount" title="Totla Personal Comments"
                     icon="bi-chat">
                 </x-dashboard.count-card>
             </div>
@@ -52,7 +52,7 @@
         </div>
         @endif
 
-        @if(isset($views))
+        @if(isset($views) && count($views) > 0)
         <div class="col-12 col-md-6 col-lg-4 mb-4">
             <div class="card shadow h-100 py-2 recent-card">
                 <div class="card-body">
@@ -71,7 +71,7 @@
         </div>
         @endif
         
-        @if (isset($recentPosts))
+        @if (isset($recentPosts) && count($views) > 0)
         <div class="col-xl-6 col-md-12 mb-4">
             <div class="card shadow h-100 py-2 recent-list">
                 <div class="card-body">
@@ -109,7 +109,7 @@
         </div>
         @endif
 
-        @if (isset($recentComments))
+        @if (isset($recentComments) && count($views) > 0)
         <div class="col-xl-6 col-md-12 mb-4">
             <div class="card shadow h-100 py-2 recent-card">
                 <div class="card-body">
@@ -158,7 +158,7 @@
     </div>
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        @if(isset($views))
+        @if(isset($views) && count($views) > 0)
         @include('dashboard.chart.mostViewsCountry')
         @endif
         @if(isset($viewsByDate))

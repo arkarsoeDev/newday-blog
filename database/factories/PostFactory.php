@@ -21,7 +21,7 @@ class PostFactory extends Factory
     {
         $title = $this->faker->sentence;
         $description = $this->faker->realText(200);
-        $body = $this->faker->realText(2000);
+        $body = '<p>'.$this->faker->realText(2000);
 
         return [
             "title" => $title,

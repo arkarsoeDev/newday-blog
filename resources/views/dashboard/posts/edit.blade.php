@@ -25,7 +25,8 @@
 
                 <input type="hidden" name="body" value="" id="textBody">
 
-                <x-dashboard.form.input-layout>
+                <div class="overflow-hidden">
+                    <x-dashboard.form.input-layout>
                     <x-slot name="name">body</x-slot>
                     <x-slot name="id">editor</x-slot>
                     <x-slot name="title">Body</x-slot>
@@ -33,6 +34,7 @@
 
                     <div id="editor">{!! old('body',$post->body) !!}</div>
                 </x-dashboard.form.input-layout>
+                </div>
             </form>
         </div>
         <x-slot name="rightSide">

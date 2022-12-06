@@ -40,7 +40,7 @@
                                 <div class="input-group w-auto">
                                     <input type="text" class="form-control" name="keyword"
                                         placeholder="Search keyword" aria-label="search keyword"
-                                        aria-describedby="commentSearchBtn" />
+                                        aria-describedby="commentSearchBtn" value="{{ request('keyword') }}" />
                                     <button class="btn btn-primary" type="submit" id="commentSearchBtn">
                                         <i class="bi bi-search text-gray-300"></i>
                                     </button>

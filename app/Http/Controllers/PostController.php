@@ -300,7 +300,7 @@ class PostController extends Controller
     {
         $title = $post->title;
 
-        if (isset($post->featured_image)) {
+        if (isset($post->featured_image) && $post->featured_image != 'image-not-available.png') {
             $photos = [
                 'public/uploads/' . $post->featured_image,
                 'public/thumbnails/medium_' . $post->featured_image,
