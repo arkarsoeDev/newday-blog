@@ -11,9 +11,9 @@
 
 <body>
     @include('front.layouts.navbar')
-    {{ $head ?? '' }}
     {{ $breadcrumb ?? '' }}
     <div class="container">
+        {{ $head ?? '' }}
         {{ $slot }}
         <footer>
             <div class="row py-5 text-center">

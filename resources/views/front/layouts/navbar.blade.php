@@ -1,5 +1,5 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-lg-5">
-        <div class="container-fluid">
+        <div class="container">
             <a class="navbar-brand h3 mb-0" href="{{ route('page.index') }}">New Day</a>
             <div class="flex-fill d-lg-none"></div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"

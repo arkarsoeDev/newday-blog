@@ -1,6 +1,6 @@
 <x-front-layout>
     <x-slot name="head">
-        <div class="row m-3 mb-4 m-lg-5">
+        <div class="row m-3 mb-4">
             <div class="c-heading p-4 p-lg-5">
                 <h1 class="text-center h2">
                     As a general rule, the most successful man in life is the
